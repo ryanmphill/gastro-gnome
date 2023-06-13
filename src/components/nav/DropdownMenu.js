@@ -47,7 +47,8 @@ export const DropdownMenu = () => {
         </button>
         {isOpen && <>
             <section className="dropdown-content">
-              <Link className="dropdown--link" to="">Clickable link</Link>
+            <Link className="dropdown--link" to="/">Home</Link>
+              <Link className="dropdown--link" to="">Profile</Link>
               { // Logout button
                 localStorage.getItem("gastro_user")
                   ? <div className="navbar__menuItem navbar__logout">

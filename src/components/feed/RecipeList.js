@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 
 export const RecipeList = () => {
@@ -17,12 +17,15 @@ export const RecipeList = () => {
         },
         [] // When this array is empty, you are observing initial component state
     )
-
+    
+    // Assign a variable to useNavigate()
+    const navigate = useNavigate()
+    
     return <>
         <h2>Recipe List</h2>
 
         
-
+        <button onClick={ () => navigate("/postrecipe") }>Post a Recipe</button>
         <article className="recipeFeed">
             {
                 recipes.map(

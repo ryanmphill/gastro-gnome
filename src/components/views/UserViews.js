@@ -1,5 +1,6 @@
 import { Outlet, Route, Routes } from "react-router-dom"
 import { RecipeList } from "../feed/RecipeList"
+import { PostRecipe } from "../feed/PostRecipe"
 
 
 export const UserViews = () => {
@@ -15,6 +16,7 @@ export const UserViews = () => {
             }>
 
                 <Route index element={ <RecipeList /> } />
+                <Route path="postrecipe" element={ <PostRecipe /> } />
                 
 
             </Route>
