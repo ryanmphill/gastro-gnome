@@ -1,4 +1,5 @@
 import { Outlet, Route, Routes } from "react-router-dom"
+import { RecipeList } from "../feed/RecipeList"
 
 
 export const AdminViews = () => {
@@ -13,7 +14,7 @@ export const AdminViews = () => {
                 </>
             }>
 
-                <Route path="feed" element={ <></> } />
+                <Route index element={ <RecipeList /> } />
                 
 
             </Route>
