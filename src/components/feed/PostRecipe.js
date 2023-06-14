@@ -34,7 +34,7 @@ export const PostRecipe = () => {
         }
     )
 
-    const [categories, updateCategories] = useState([])
+    const [includedCategories, updateIncludedCategories] = useState([])
 
     const [categoryToAdd, updateCategoryToAdd] = useState(
         {
@@ -314,10 +314,77 @@ export const PostRecipe = () => {
                         } />
                 </div>
             </fieldset>
+
+            <fieldset>
+                <div className="form-group recipeServings--div">
+                    <label htmlFor="recipeServings_input">Serving Size:</label>
+                    <input
+                        required autoFocus
+                        type="number"
+                        className="recipeForm--control"
+                        placeholder="How many people will this meal feed?"
+                        id="recipeServings_input"
+                        value={newRecipe.servingSize !== 0 ? newRecipe.servingSize : ""} // If value is is zero, change to empty string to display placeholder text by default instead of zero
+                        onChange={
+                            (changeEvent) => {
+                                const copy = { ...newRecipe }
+                                copy.servingSize = changeEvent.target.value !== "" ? Math.round(parseInt(changeEvent.target.value) * 100) / 100 : 0
+                                updateNewRecipe(copy) // Updating serving size with value of copy
+                            }
+                        } />
+                </div>
+            </fieldset>
+
+            <fieldset className="addCategories">
+            <div className="addedCategories">
+                    {
+                        includedCategories.length > 0
+                        && includedCategories.map(includedCategory => {
+                            const matchedCategory = allCategories.find(
+                                category => category.id === includedCategory.categoryId
+                            )
+                            return <div className="addedCategory" key={`addededCat--${includedCategory.categoryId}`}>
+                                {matchedCategory.name}
+                            </div>
+                        })
+                    }
+                </div>
+                <section className="selectCategoryContainer">
+                    <div className="form-group selectCategories">
+                        <label htmlFor="categoryChoices">Add a category tag:</label>
+                        <select
+                            className="ingredient--control"
+                            id="categoryChoices"
+                            value={categoryToAdd.categoryId}
+                            onChange={(changeEvent) => {
+                                const copy = { ...categoryToAdd };
+                                copy.categoryId = parseInt(changeEvent.target.value);
+                                updateCategoryToAdd(copy); // Updating category with value of copy
+                            }}
+                        >   {/*Add options for choosing a genre*/}
+                            <option value="0">Search for a category</option>
+                            {
+                                allCategories.map(category => <option value={category.id} key={`category--${category.id}`}>{category.name}</option> )
+                            }
+                        </select>
+                    </div>
+                </section>
+                <button
+                onClick={
+                    (event) => {
+                        event.preventDefault()
+                        const copy = [...includedCategories]
+                        copy.push(categoryToAdd)
+                        updateIncludedCategories(copy)
+                        console.log("included categories", includedCategories)
+                    }
+                }
+                >Add Category Tag</button>
+            </fieldset>
             
             <button 
                 onClick={ (clickEvent) => {handlePostRecipeClick(clickEvent)} }
-                className="btn btn-primary">
+                className="btn btn-primary submitRecipe">
                 Submit New Recipe
             </button>
         </form>
