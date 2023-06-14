@@ -97,7 +97,7 @@ export const PostRecipe = () => {
                     <input
                         required autoFocus
                         type="text"
-                        className="form-control"
+                        className="recipeForm--control"
                         placeholder="Add a title"
                         id = "recipeTitle__input"
                         value={newRecipe.title}
@@ -115,7 +115,7 @@ export const PostRecipe = () => {
                 <div className="form-group">
                     <label htmlFor="genre_dropdown">What course is this recipe?:</label>
                     <select
-                        className="form-control"
+                        className="recipeForm--control"
                         id="genre_dropdown"
                         value={newRecipe.genreId}
                         onChange={(changeEvent) => {
@@ -135,10 +135,10 @@ export const PostRecipe = () => {
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="recipeDescription_input">Description:</label>
-                    <input
+                    <textarea
                         required autoFocus
                         type="text"
-                        className="form-control"
+                        className="recipeForm--control recipe--textarea"
                         placeholder="Add a description for your recipe"
                         id = "recipeDescription_input"
                         value={newRecipe.description}
@@ -161,9 +161,9 @@ export const PostRecipe = () => {
                                 ingredient => ingredient.id === includedIngredient.ingredientId
                             )
                             return <div className="addedIngredientRow" key={`addedIngDetails--${includedIngredient.ingredientId}`}>
-                            <span key={`matchedIng--${includedIngredient.ingredientId}`}>{matchedIngredient.name}</span>
-                            <span key={`addedQuant--${includedIngredient.ingredientId}`}>{includedIngredient.quantity}</span>
-                            <span key={`addedUnit--${includedIngredient.ingredientId}`}>{includedIngredient.quantityUnit}</span>
+                            <span className="flex-column1" key={`matchedIng--${includedIngredient.ingredientId}`}>{matchedIngredient.name}</span>
+                            <span className="flex-column2" key={`addedQuant--${includedIngredient.ingredientId}`}>{includedIngredient.quantity}</span>
+                            <span className="flex-column3" key={`addedUnit--${includedIngredient.ingredientId}`}>{includedIngredient.quantityUnit}</span>
                             </div>
                         })
                     }
@@ -234,6 +234,85 @@ export const PostRecipe = () => {
                     }
                 }
                 >Add Ingredient</button>
+            </fieldset>
+
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="recipePrep_input">Preparation:</label>
+                    <textarea
+                        required autoFocus
+                        type="text"
+                        className="recipeForm--control recipe--textarea"
+                        placeholder="Add preparation instructions for your recipe"
+                        id = "recipePrep_input"
+                        value={newRecipe.prepInstructions}
+                        onChange={
+                            (changeEvent) => {
+                                const copy = {...newRecipe}
+                                copy.prepInstructions = changeEvent.target.value
+                                updateNewRecipe(copy) // Updating recipe with value of copy
+                            }
+                        } />
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="recipeCook_input">Cooking Instructions:</label>
+                    <textarea
+                        required autoFocus
+                        type="text"
+                        className="recipeForm--control recipe--textarea"
+                        placeholder="Add cooking instructions for your recipe"
+                        id = "recipeCook_input"
+                        value={newRecipe.cookInstructions}
+                        onChange={
+                            (changeEvent) => {
+                                const copy = {...newRecipe}
+                                copy.cookInstructions = changeEvent.target.value
+                                updateNewRecipe(copy) // Updating recipe with value of copy
+                            }
+                        } />
+                </div>
+            </fieldset>
+
+            <fieldset className="recipeTimes">
+                <div className="form-group recipeTime--div">
+                    <label htmlFor="prepTime_input">Prep Time:</label>
+                    <input
+                        required autoFocus
+                        type="number"
+                        className="recipeForm--control recipeTime--input"
+                        placeholder="Enter a time"
+                        id="prepTime_input"
+                        value={newRecipe.prepTime !== 0 ? newRecipe.prepTime : ""} // If value is is zero, change to empty string to display placeholder text by default instead of zero
+                        step="0.01" // Set the step attribute to control decimal precision
+                        onChange={
+                            (changeEvent) => {
+                                const copy = { ...newRecipe }
+                                copy.prepTime = changeEvent.target.value !== "" ? Math.round(parseFloat(changeEvent.target.value) * 100) / 100 : 0
+                                updateNewRecipe(copy) // Updating time with value of copy
+                            }
+                        } />
+                </div>
+                <div className="form-group recipeTime--div">
+                    <label htmlFor="cookTime_input">Cooking Time:</label>
+                    <input
+                        required autoFocus
+                        type="number"
+                        className="recipeForm--control recipeTime--input"
+                        placeholder="Enter a time"
+                        id="cookTime_input"
+                        value={newRecipe.cookTime !== 0 ? newRecipe.cookTime : ""} // If value is is zero, change to empty string to display placeholder text by default instead of zero
+                        step="0.01" // Set the step attribute to control decimal precision
+                        onChange={
+                            (changeEvent) => {
+                                const copy = { ...newRecipe }
+                                copy.cookTime = changeEvent.target.value !== "" ? Math.round(parseFloat(changeEvent.target.value) * 100) / 100 : 0
+                                updateNewRecipe(copy) // Updating time with value of copy
+                            }
+                        } />
+                </div>
             </fieldset>
             
             <button 

@@ -1,16 +1,54 @@
+.recipeForm--control {
+    display: block;
+    width: 94%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    -webkit-transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
 .addIngredients {
+    width: 94%;
     border: 1px inset darkslategrey;
     padding: 1rem 1.25rem;
+    margin-bottom: 1rem;
 }
 
 .addedIngredients {
     border: 1px solid darkslategray;
     padding: 0.5rem;
+    height: 20vh;
+    overflow: auto;
+    margin-bottom: 1rem;
 }
 
 .addedIngredientRow {
     display: flex;
     justify-content: space-between;
+}
+
+.addedIngredientRow span {
+    flex-basis: 25%;
+}
+
+.flex-column1 {
+    text-align: left;
+}
+
+.flex-column2 {
+    text-align: center;
+}
+
+.flex-column3 {
+    text-align: right;
 }
 
 .ingredientInputContainer {
@@ -19,10 +57,11 @@
     margin-bottom: 1rem;
     justify-content: space-between;
     border: 1px dotted black;
+    flex-wrap: wrap;
 }
 
 .ingredientInputs {
-    flex-basis: 25%;
+    min-width: 0;
 }
 
 .ingredient--control {
@@ -41,6 +80,20 @@
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
-#ingredientChoices {
-    height: calc(2.35em + .75rem + 2px);
+.recipe--textarea {
+    height: 4rem;
+}
+
+.recipeTimes {
+    display: flex;
+    justify-content: space-between;
+    width: 94%;
+}
+
+.recipeTime--div {
+    flex-basis: 45%;
+}
+
+.recipeTime--input {
+    width: 100%;
 }
