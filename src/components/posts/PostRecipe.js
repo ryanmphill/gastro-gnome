@@ -54,6 +54,11 @@ export const PostRecipe = () => {
     const [allCategories, setAllCategories] = useState([])
     const [genres, setGenres] = useState([])
 
+    /*Set a state variable to track the response when a recipe is posted. The id from the
+      newly created recipe object will be used as a foreign key on the ingredient and 
+      category objects */
+    const [newRecipeResponseId, setNewRecipeResponseId] = useState(0)
+
     // On initial render, fetch the genres, categories, and ingredients
     useEffect(
         () => {
@@ -87,6 +92,52 @@ export const PostRecipe = () => {
         },
         []
     )
+
+    // Observe when a new recipeCard id is generated and post the category and ingredient relationships
+    useEffect(
+        () => {
+            if (newRecipeResponseId !== 0) {
+                // Make a copy of ingredient and category arrays
+                const copyIngr = [...includedIngredients]
+                const copyCat = [...includedCategories]
+                
+                //Define function to POST the objects
+                const postRelationships = (arrayOfObjects, endpoint) => {
+                    const promises = arrayOfObjects.map((dataObject) =>
+                      fetch(`http://localhost:8088/${endpoint}`, {
+                        method: 'POST',
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(dataObject)
+                      })
+                        .then((response) => response.json())
+                    );
+                  
+                    Promise.all(promises)
+                      .then((results) => {
+                        console.log(results)
+                      })
+                      .catch((error) => {
+                        console.error(error)
+                      })
+                  }
+                // Post ingredients
+                if (copyIngr.length > 0) {
+                    // Add new recipeCard id foreign key to each object in ingredient array
+                    const updatedIng = copyIngr.map(obj => ({ ...obj, recipeCardId: newRecipeResponseId }))
+                    postRelationships(updatedIng, "ingredientsInRecipes")
+                }
+
+                if (copyCat.length > 0) {
+                    // Add new recipeCard id foreign key to each object in category array
+                    const updatedCat = copyCat.map(obj => ({ ...obj, recipeCardId: newRecipeResponseId }))
+                    postRelationships(updatedCat, "categoriesOfRecipes")
+                }
+            }
+        },
+        [newRecipeResponseId]
+    )
     
     // Handle the post recipe click
     const handlePostRecipeClick = (event) => {
@@ -97,7 +148,37 @@ export const PostRecipe = () => {
         const requiredNum = ['genreId', 'prepTime', 'cookTime', 'servingSize']
         const formFilled = requiredStr.every(field => newRecipe[field].length > 0) && requiredNum.every(field => newRecipe[field] > 0)
         if (formFilled) {
-            console.log("Recipe to post", newRecipe)
+            // POST employee to API ////////////////////////////////////////////
+            fetch("http://localhost:8088/recipeCards", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(newRecipe)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json(); // Await the response.json() Promise
+                    } else {
+                        throw new Error("Unable to create new recipe");
+                    }
+                })
+                .then(postedRecipeObject => {
+                    console.log("New recipe successfully created", postedRecipeObject);
+                    // update state with new recipe Id
+                    const newId = postedRecipeObject.id
+                    setNewRecipeResponseId(newId)
+                    
+                    ////////////////////////////////////////////////////////////////////////////////
+                    /* Once newRecipeResponseId state has changed, useEffect() will trigger a 
+                       POST for newly updated ingredient and category objects to be sent to 
+                       the API with a foreign key recipeCardId that matches the newly posted recipe
+                    *////////////////////////////////////////////////////////////////////////////////
+                })
+                .catch(error => {
+                    console.error("An error occurred:", error);
+                    window.alert("Something went wrong");
+                });
         } else {window.alert("Please fill all required fields")}
         
     }
