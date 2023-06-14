@@ -1,6 +1,14 @@
 
 
 export const AddIngredients = ({includedIngredients, allIngredients, ingredientToAdd, updateIngredientToAdd, updateIncludedIngredients}) => {
+    
+    const handleRemoveIngredient = (event, objectToRemove) => {
+        event.preventDefault()
+        console.log("Item will be removed", objectToRemove)
+        const updatedIngredients = includedIngredients.filter(ingredient => ingredient.ingredientId !== objectToRemove.ingredientId)
+        updateIncludedIngredients(updatedIngredients)
+    }
+    
     return <>
         <div className="addedIngredients">
             {
@@ -11,8 +19,12 @@ export const AddIngredients = ({includedIngredients, allIngredients, ingredientT
                     )
                     return <div className="addedIngredientRow" key={`addedIngDetails--${includedIngredient.ingredientId}`}>
                         <span className="flex-column1" key={`matchedIng--${includedIngredient.ingredientId}`}>{matchedIngredient.name}</span>
-                        <span className="flex-column2" key={`addedQuant--${includedIngredient.ingredientId}`}>{includedIngredient.quantity}</span>
-                        <span className="flex-column3" key={`addedUnit--${includedIngredient.ingredientId}`}>{includedIngredient.quantityUnit}</span>
+                        <span className="flex-column2" key={`addedQuant--${includedIngredient.ingredientId}`}>{includedIngredient.quantity} {includedIngredient.quantityUnit}</span>
+                        <span className="flex-column3" key={`removeIngredient--${includedIngredient.ingredientId}`}>
+                            <button data-id={includedIngredient.ingredientId}
+                            onClick={(click) => handleRemoveIngredient(click, includedIngredient)}
+                            className="btn--removeItem">X</button>
+                        </span>
                     </div>
                 })
             }
