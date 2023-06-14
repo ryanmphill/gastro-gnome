@@ -2,6 +2,21 @@
 
 export const AddCategories = ({includedCategories, allCategories, categoryToAdd, updateCategoryToAdd, updateIncludedCategories}) => {
     
+    const handleAddCategory = (event) => {
+        event.preventDefault()
+        // Get a copy of the current array of categories that are staged to be added
+        const copy = [...includedCategories]
+        // Check if the category has already been added
+        const alreadyAdded = copy.some(category => category.categoryId === categoryToAdd.categoryId)
+        if (!alreadyAdded) {
+            copy.push(categoryToAdd)
+            updateIncludedCategories(copy)
+            console.log("included categories", includedCategories)
+        } else {
+            window.alert("That tag has already been added")
+        }
+    }
+    
     const handleRemoveCategory = (event, objectToRemove) => {
         event.preventDefault()
         console.log("objectToRemove", objectToRemove)
@@ -50,13 +65,7 @@ export const AddCategories = ({includedCategories, allCategories, categoryToAdd,
         </section>
         <button
             onClick={
-                (event) => {
-                    event.preventDefault()
-                    const copy = [...includedCategories]
-                    copy.push(categoryToAdd)
-                    updateIncludedCategories(copy)
-                    console.log("included categories", includedCategories)
-                }
+                (event) => {handleAddCategory(event)}
             }
         >Add Category Tag</button>
     </>
