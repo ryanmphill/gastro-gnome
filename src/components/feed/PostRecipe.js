@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import "./PostRecipe.css"
 import { AddIngredients } from "./AddIngredients"
+import { AddCategories } from "./AddCategories"
 
 
 export const PostRecipe = () => {
@@ -87,6 +88,9 @@ export const PostRecipe = () => {
     const handlePostRecipeClick = (event) => {
         event.preventDefault()
         console.log("Not active yet...")
+        console.log("Recipe to post", newRecipe)
+        console.log("ingredients", includedIngredients)
+        console.log("categories", includedCategories)
     }
 
     return <>
@@ -261,50 +265,11 @@ export const PostRecipe = () => {
             </fieldset>
 
             <fieldset className="addCategories">
-            <div className="addedCategories">
-                    {
-                        includedCategories.length > 0
-                        && includedCategories.map(includedCategory => {
-                            const matchedCategory = allCategories.find(
-                                category => category.id === includedCategory.categoryId
-                            )
-                            return <div className="addedCategory" key={`addededCat--${includedCategory.categoryId}`}>
-                                {matchedCategory.name}
-                            </div>
-                        })
-                    }
-                </div>
-                <section className="selectCategoryContainer">
-                    <div className="form-group selectCategories">
-                        <label htmlFor="categoryChoices">Add a category tag:</label>
-                        <select
-                            className="ingredient--control"
-                            id="categoryChoices"
-                            value={categoryToAdd.categoryId}
-                            onChange={(changeEvent) => {
-                                const copy = { ...categoryToAdd };
-                                copy.categoryId = parseInt(changeEvent.target.value);
-                                updateCategoryToAdd(copy); // Updating category with value of copy
-                            }}
-                        >   {/*Add options for choosing a genre*/}
-                            <option value="0">Search for a category</option>
-                            {
-                                allCategories.map(category => <option value={category.id} key={`category--${category.id}`}>{category.name}</option> )
-                            }
-                        </select>
-                    </div>
-                </section>
-                <button
-                onClick={
-                    (event) => {
-                        event.preventDefault()
-                        const copy = [...includedCategories]
-                        copy.push(categoryToAdd)
-                        updateIncludedCategories(copy)
-                        console.log("included categories", includedCategories)
-                    }
-                }
-                >Add Category Tag</button>
+                <AddCategories includedCategories={includedCategories}
+                    allCategories={allCategories}
+                    categoryToAdd={categoryToAdd}
+                    updateCategoryToAdd={updateCategoryToAdd}
+                    updateIncludedCategories={updateIncludedCategories} />
             </fieldset>
             
             <button 
