@@ -2,6 +2,21 @@
 
 export const AddIngredients = ({includedIngredients, allIngredients, ingredientToAdd, updateIngredientToAdd, updateIncludedIngredients}) => {
     
+    const handleAddIngredient = (event) => {
+        event.preventDefault()
+        // Get a copy of the current array of ingredients that are staged to be added
+        const copy = [...includedIngredients]
+        // Check if the ingredient has already been added
+        const alreadyAdded = copy.some(ingredient => ingredient.ingredientId === ingredientToAdd.ingredientId)
+        if (!alreadyAdded) {
+            copy.push(ingredientToAdd)
+            updateIncludedIngredients(copy)
+            console.log("included ingredients", includedIngredients)
+        } else {
+            window.alert("That ingredient has already been added")
+        }
+    }
+
     const handleRemoveIngredient = (event, objectToRemove) => {
         event.preventDefault()
         const updatedIngredients = includedIngredients.filter(ingredient => ingredient.ingredientId !== objectToRemove.ingredientId)
@@ -85,13 +100,7 @@ export const AddIngredients = ({includedIngredients, allIngredients, ingredientT
         </section>
         <button
             onClick={
-                (event) => {
-                    event.preventDefault()
-                    const copy = [...includedIngredients]
-                    copy.push(ingredientToAdd)
-                    updateIncludedIngredients(copy)
-                    console.log("included ingredients", includedIngredients)
-                }
+                (event) => {handleAddIngredient(event)}
             }
         >Add Ingredient</button>
     </>
