@@ -1,6 +1,6 @@
 import { Outlet, Route, Routes } from "react-router-dom"
 import { RecipeList } from "../feed/RecipeList"
-import { PostRecipe } from "../feed/PostRecipe"
+import { PostRecipe } from "../posts/PostRecipe"
 
 
 export const AdminViews = () => {
