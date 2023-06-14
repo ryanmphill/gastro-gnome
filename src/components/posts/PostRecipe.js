@@ -5,6 +5,10 @@ import { AddCategories } from "./AddCategories"
 
 
 export const PostRecipe = () => {
+    // Get the current user information
+    const localGastroUser = localStorage.getItem("gastro_user")
+    const gastroUserObject = JSON.parse(localGastroUser)
+
     /* Define and set state variable for the recipe object to be posted,
        the ingredient relationships to be posted, and the category relationships
        to be posted */
@@ -18,7 +22,7 @@ export const PostRecipe = () => {
             "prepTime": 0,
             "cookTime": 0,
             "servingSize": 0,
-            "userId": 0,
+            "userId": gastroUserObject.id,
             "note": "",
             "timestamp": 0,
             "image": ""
@@ -87,10 +91,15 @@ export const PostRecipe = () => {
     // Handle the post recipe click
     const handlePostRecipeClick = (event) => {
         event.preventDefault()
-        console.log("Not active yet...")
-        console.log("Recipe to post", newRecipe)
-        console.log("ingredients", includedIngredients)
-        console.log("categories", includedCategories)
+        
+        // Check if all required fields have been entered
+        const requiredStr = ['title', 'description', 'prepInstructions', 'cookInstructions']
+        const requiredNum = ['genreId', 'prepTime', 'cookTime', 'servingSize']
+        const formFilled = requiredStr.every(field => newRecipe[field].length > 0) && requiredNum.every(field => newRecipe[field] > 0)
+        if (formFilled) {
+            console.log("Recipe to post", newRecipe)
+        } else {window.alert("Please fill all required fields")}
+        
     }
 
     return <>
