@@ -271,6 +271,46 @@ export const PostRecipe = () => {
                     updateCategoryToAdd={updateCategoryToAdd}
                     updateIncludedCategories={updateIncludedCategories} />
             </fieldset>
+
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="recipeNotes_input">Additional Notes and Tips:</label>
+                    <textarea
+                        required autoFocus
+                        type="text"
+                        className="recipeForm--control recipe--textarea"
+                        placeholder="Optional"
+                        id = "recipeNotes_input"
+                        value={newRecipe.note}
+                        onChange={
+                            (changeEvent) => {
+                                const copy = {...newRecipe}
+                                copy.note = changeEvent.target.value
+                                updateNewRecipe(copy) // Updating recipe with value of copy
+                            }
+                        } />
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="recipeImage__input">Image url:</label>
+                    <input
+                        required autoFocus
+                        type="text"
+                        className="recipeForm--control"
+                        placeholder="Paste image url here"
+                        id = "recipeImage__input"
+                        value={newRecipe.image}
+                        onChange={
+                            (changeEvent) => {
+                                const copy = {...newRecipe}
+                                copy.image = changeEvent.target.value
+                                updateNewRecipe(copy) // Updating recipe with value of copy
+                            }
+                        } />
+                </div>
+            </fieldset>
             
             <button 
                 onClick={ (clickEvent) => {handlePostRecipeClick(clickEvent)} }
