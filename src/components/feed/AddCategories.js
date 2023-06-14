@@ -1,6 +1,15 @@
 
 
 export const AddCategories = ({includedCategories, allCategories, categoryToAdd, updateCategoryToAdd, updateIncludedCategories}) => {
+    
+    const handleRemoveCategory = (event, objectToRemove) => {
+        event.preventDefault()
+        console.log("objectToRemove", objectToRemove)
+        const updatedCategories = includedCategories.filter(category => category.categoryId !== objectToRemove.categoryId)
+        updateIncludedCategories(updatedCategories)
+
+    }
+    
     return <>
         <div className="addedCategories">
             {
@@ -11,6 +20,10 @@ export const AddCategories = ({includedCategories, allCategories, categoryToAdd,
                     )
                     return <div className="addedCategory" key={`addededCat--${includedCategory.categoryId}`}>
                         {matchedCategory.name}
+                        <button 
+                            onClick={(click) => handleRemoveCategory(click, includedCategory)}
+                            className="btn--removeItem btn--removeCat"
+                        >X</button>
                     </div>
                 })
             }

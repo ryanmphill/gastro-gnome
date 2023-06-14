@@ -113,3 +113,15 @@
 .submitRecipe {
     margin-bottom: 1.5rem;
 }
+
+.btn--removeCat {
+    border: none;
+    background-color: inherit;
+    color: rgba(31, 31, 31, .25);
+    margin-left: .25rem;
+}
+
+.btn--removeCat:hover {
+    color: firebrick;
+    cursor: pointer;
+}

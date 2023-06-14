@@ -4,7 +4,6 @@ export const AddIngredients = ({includedIngredients, allIngredients, ingredientT
     
     const handleRemoveIngredient = (event, objectToRemove) => {
         event.preventDefault()
-        console.log("Item will be removed", objectToRemove)
         const updatedIngredients = includedIngredients.filter(ingredient => ingredient.ingredientId !== objectToRemove.ingredientId)
         updateIncludedIngredients(updatedIngredients)
     }
