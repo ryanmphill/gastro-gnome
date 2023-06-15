@@ -225,7 +225,7 @@ export const EditRecipe = () => {
 
     return <>
         <form className="postRecipeForm">
-            <h2 className="postRecipeForm__title">Add Your Recipe</h2>
+            <h2 className="postRecipeForm__title">Edit Your Recipe</h2>
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="recipeTitle__input">Recipe Title:</label>
@@ -451,7 +451,7 @@ export const EditRecipe = () => {
             <button 
                 onClick={ (clickEvent) => {handlePostRecipeClick(clickEvent)} }
                 className="btn btn-primary submitRecipe">
-                Submit New Recipe
+                Submit Changes
             </button>
         </form>
     </>

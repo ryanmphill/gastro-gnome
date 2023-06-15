@@ -26,8 +26,35 @@ export const EditCategories = ({categoriesToPost, allCategories, categoryToAdd, 
 
     }
 
-    const handleDeleteCategory = (event, objectToDelete) => {
+    const handleDeleteExistingCategory = (event, objectToDelete) => {
         console.log("category to delete", objectToDelete)
+        event.preventDefault()
+
+        // Get a copy of the current array of categories that are staged to be deleted
+        const copy = [...categoriesToDelete]
+
+        // Check if the category has already been added
+        const alreadyStaged = copy.some(category => category.id === objectToDelete.id)
+        
+        if (!alreadyStaged) {
+            copy.push(objectToDelete)
+            updateCategoriesToDelete(copy)
+            console.log("categories to delete", categoriesToDelete)
+        } else {
+            window.alert("Category tag already marked for deletion")
+        }
+    }
+
+    const handleUndoDeleteCat = (event, objectToUndo) => {
+        event.preventDefault()
+        const updatedCategories = categoriesToDelete.filter(category => category.id !== objectToUndo.id)
+        updateCategoriesToDelete(updatedCategories)
+    }
+
+    // Define function to check if an ingredient has been marked for deletion
+    const markedForDeletion = (categoryObject) => {
+        const alreadyStaged = categoriesToDelete.some(category => category.id === categoryObject.id)
+        return alreadyStaged
     }
     
     return <>
@@ -38,12 +65,29 @@ export const EditCategories = ({categoriesToPost, allCategories, categoryToAdd, 
                     const matchedCategory = allCategories.find(
                         category => category.id === initialCategory.categoryId
                     )
-                    return <div className="addedCategory" key={`addededCat--${initialCategory.categoryId}`}>
-                        {matchedCategory?.name}
-                        <button 
-                            onClick={(click) => handleDeleteCategory(click, initialCategory)}
-                            className="btn--removeItem btn--removeCat"
-                        >X</button>
+                    return <div key={`displayInitCat--${initialCategory.id}`}>
+                        {   /*If marked for deletion, display undo button*/
+                            markedForDeletion(initialCategory)
+                                ? <div className="addedCategory categoryToDelete" key={`addededCat--${initialCategory.categoryId}`}>
+                                    <section>
+                                        <div>{matchedCategory?.name}</div>
+                                        <div className="deleteStamp">Marked for deletion</div>
+                                    </section>
+                                    <button
+                                        onClick={(click) => handleUndoDeleteCat(click, initialCategory)}
+                                        key={`undoDeletCat--${initialCategory.id}`}
+                                        className="btn--undoRemoveCat"
+                                    >Undo</button>
+                                </div>
+                                : <div className="addedCategory" key={`addededCat--${initialCategory.categoryId}`}>
+                                    {matchedCategory?.name}
+                                    <button
+                                        onClick={(click) => handleDeleteExistingCategory(click, initialCategory)}
+                                        key={`deletCat2--${initialCategory.id}`}
+                                        className="btn--removeCat"
+                                    >X</button>
+                                </div>
+                        }
                     </div>
                 })
             }
@@ -54,7 +98,7 @@ export const EditCategories = ({categoriesToPost, allCategories, categoryToAdd, 
                     const matchedCategory = allCategories.find(
                         category => category.id === includedCategory.categoryId
                     )
-                    return <div className="addedCategory" key={`addededCat--${includedCategory.categoryId}`}>
+                    return <div className="addedCategory addedCategory--editForm" key={`addededCat2--${includedCategory.categoryId}`}>
                         {matchedCategory?.name}
                         <button 
                             onClick={(click) => handleRemoveCategory(click, includedCategory)}

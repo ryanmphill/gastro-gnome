@@ -126,10 +126,36 @@
     cursor: pointer;
 }
 
+.btn--undoRemoveCat {
+    border: none;
+    background-color: inherit;
+    color: rgba(31, 31, 31, .45);
+    margin-left: .25rem;
+}
+
+.btn--undoRemoveCat:hover {
+    color: darkblue;
+    cursor: pointer;
+}
+
 .ingredientToDelete {
     background-color: rgb(232, 220, 220);
 }
 
 .addedIngredientRow--editForm {
+    background-color: rgb(218, 237, 218);
+}
+
+.categoryToDelete {
+    background-color: rgb(232, 220, 220);
+    display: flex;
+}
+
+.deleteStamp {
+    font-style: oblique;
+    font-size: x-small;
+}
+
+.addedCategory--editForm {
     background-color: rgb(218, 237, 218);
 }
