@@ -34,7 +34,7 @@ export const EditCategories = ({includedCategories, allCategories, categoryToAdd
                         category => category.id === includedCategory.categoryId
                     )
                     return <div className="addedCategory" key={`addededCat--${includedCategory.categoryId}`}>
-                        {matchedCategory.name}
+                        {matchedCategory?.name}
                         <button 
                             onClick={(click) => handleRemoveCategory(click, includedCategory)}
                             className="btn--removeItem btn--removeCat"
@@ -58,7 +58,7 @@ export const EditCategories = ({includedCategories, allCategories, categoryToAdd
                 >   {/*Add options for choosing a genre*/}
                     <option value="0">Search for a category</option>
                     {
-                        allCategories.map(category => <option value={category.id} key={`category--${category.id}`}>{category.name}</option>)
+                        allCategories.map(category => <option value={category.id} key={`category--${category.id}`}>{category?.name}</option>)
                     }
                 </select>
             </div>

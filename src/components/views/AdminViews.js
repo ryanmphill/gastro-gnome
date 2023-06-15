@@ -2,6 +2,7 @@ import { Outlet, Route, Routes } from "react-router-dom"
 import { RecipeList } from "../feed/RecipeList"
 import { PostRecipe } from "../forms/posts/PostRecipe"
 import { VerifiedToEdit } from "../forms/edits/VerifiedToEdit"
+import { EditRecipe } from "../forms/edits/EditRecipe"
 
 
 export const AdminViews = () => {
@@ -23,6 +24,7 @@ export const AdminViews = () => {
                     <VerifiedToEdit>
                         <>
                             <>This is the edit recipe page</>
+                            <EditRecipe />
                         </>
                     </VerifiedToEdit>
                 } />

@@ -76,7 +76,22 @@ export const EditRecipe = () => {
         []
     )
 
-    // On initial render, fetch the genres, categories, and ingredients
+    // On initial render, fetch the ingredient and Category relationships associated with current recipeCard and update state
+    useEffect(
+        () => {
+            fetch(`http://localhost:8088/recipeCards/${recipeId}?_embed=ingredientsInRecipes&_embed=categoriesOfRecipes`)
+                .then(response => response.json())
+                .then((recipeObject) => {
+                    const attachedIngredients = recipeObject.ingredientsInRecipes
+                    const attachedCategories = recipeObject.categoriesOfRecipes
+                    updateIncludedIngredients(attachedIngredients)
+                    updateIncludedCategories(attachedCategories)
+                })
+        },
+        []
+    )
+
+    // On initial render, fetch the genres, categories, and ingredients lists
     useEffect(
         () => {
             fetch(`http://localhost:8088/categories`)

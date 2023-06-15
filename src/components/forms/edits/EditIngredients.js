@@ -32,7 +32,7 @@ export const EditIngredients = ({includedIngredients, allIngredients, ingredient
                         ingredient => ingredient.id === includedIngredient.ingredientId
                     )
                     return <div className="addedIngredientRow" key={`addedIngDetails--${includedIngredient.ingredientId}`}>
-                        <span className="flex-column1" key={`matchedIng--${includedIngredient.ingredientId}`}>{matchedIngredient.name}</span>
+                        <span className="flex-column1" key={`matchedIng--${includedIngredient.ingredientId}`}>{matchedIngredient?.name}</span>
                         <span className="flex-column2" key={`addedQuant--${includedIngredient.ingredientId}`}>{includedIngredient.quantity} {includedIngredient.quantityUnit}</span>
                         <span className="flex-column3" key={`removeIngredient--${includedIngredient.ingredientId}`}>
                             <button data-id={includedIngredient.ingredientId}
@@ -58,7 +58,7 @@ export const EditIngredients = ({includedIngredients, allIngredients, ingredient
                 >   {/*Add options for choosing a genre*/}
                     <option value="0">Select an Ingredient</option>
                     {
-                        allIngredients.map(ingredient => <option value={ingredient.id} key={`ingredient--${ingredient.id}`}>{ingredient.name}</option>)
+                        allIngredients.map(ingredient => <option value={ingredient.id} key={`ingredient--${ingredient.id}`}>{ingredient?.name}</option>)
                     }
                 </select>
             </div>
