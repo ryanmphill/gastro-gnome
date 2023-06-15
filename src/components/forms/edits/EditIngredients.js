@@ -12,7 +12,6 @@ export const EditIngredients = ({ingredientsToPost, allIngredients, ingredientTo
         if (!alreadyAdded && !inInitialRecipe) {
             copy.push(ingredientToAdd)
             updateIngredientsToPost(copy)
-            console.log("ingredients to post", ingredientsToPost)
         } else {
             window.alert("That ingredient has already been added")
         }
@@ -26,7 +25,6 @@ export const EditIngredients = ({ingredientsToPost, allIngredients, ingredientTo
 
     const handleDeleteExistingIngredient = (event, objectToDelete) => {
         event.preventDefault()
-        console.log("Ingredient to delete", objectToDelete)
 
         // Get a copy of the current array of ingredients that are staged to be deleted
         const copy = [...ingredientsToDelete]
@@ -37,7 +35,6 @@ export const EditIngredients = ({ingredientsToPost, allIngredients, ingredientTo
         if (!alreadyStaged) {
             copy.push(objectToDelete)
             updateIngredientsToDelete(copy)
-            console.log("ingredients to delete", ingredientsToDelete)
         } else {
             window.alert("Ingredient already marked for deletion")
         }

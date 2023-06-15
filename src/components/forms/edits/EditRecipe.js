@@ -453,6 +453,19 @@ export const EditRecipe = () => {
                 className="btn btn-primary submitRecipe">
                 Submit Changes
             </button>
+
+            <button
+            onClick={(event) => {
+                event.preventDefault()
+                console.log("edited recipe", recipe)
+                console.log("Ingredients to post", ingredientsToPost)
+                console.log("Ingredients to delete", ingredientsToDelete)
+                console.log("Categories to post", categoriesToPost)
+                console.log("categories to delete", categoriesToDelete)
+            }}
+            >
+                View State Changes to submit
+            </button>
         </form>
     </>
 }

@@ -12,7 +12,6 @@ export const EditCategories = ({categoriesToPost, allCategories, categoryToAdd, 
         if (!alreadyAdded && !inInitialRecipe) {
             copy.push(categoryToAdd)
             updateCategoriesToPost(copy)
-            console.log("included categories", categoriesToPost)
         } else {
             window.alert("That tag has already been added")
         }
@@ -20,14 +19,12 @@ export const EditCategories = ({categoriesToPost, allCategories, categoryToAdd, 
     
     const handleRemoveCategory = (event, objectToRemove) => {
         event.preventDefault()
-        console.log("objectToRemove", objectToRemove)
         const updatedCategories = categoriesToPost.filter(category => category.categoryId !== objectToRemove.categoryId)
         updateCategoriesToPost(updatedCategories)
 
     }
 
     const handleDeleteExistingCategory = (event, objectToDelete) => {
-        console.log("category to delete", objectToDelete)
         event.preventDefault()
 
         // Get a copy of the current array of categories that are staged to be deleted

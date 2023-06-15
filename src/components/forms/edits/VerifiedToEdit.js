@@ -12,9 +12,7 @@ export const VerifiedToEdit = ({ children }) => {
     /* useLocation() is used to retrieve the current location object, which is then used to construct 
     the redirect URL in case the user is not authorized. */
     const location = useLocation()
-    console.log("authorId", authorId)
-    console.log("currentUserId", gastroUserObject)
-    console.log(parseInt(authorId) === currentUserId)
+    
     if (parseInt(authorId) === currentUserId) {
         return children
     }
