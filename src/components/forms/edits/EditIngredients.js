@@ -64,33 +64,35 @@ export const EditIngredients = ({ingredientsToPost, allIngredients, ingredientTo
                     const matchedIngredient = allIngredients.find(
                         ingredient => ingredient.id === initialIngredient.ingredientId
                     )
-                    return <>
+                    return <div key={`displayInitIng--${initialIngredient.id}`}>
                         { // If user has marked for delete, show 'undo' button
                             markedForDeletion(initialIngredient)
-                                ? <>
-                                    <div className="addedIngredientRow ingredientToDelete" key={`initialIngDetails--${initialIngredient.ingredientId}`}>
+                                ? 
+                                    <div className="addedIngredientRow ingredientToDelete" key={`initialIngDetails1--${initialIngredient.ingredientId}`}>
                                         <span className="flex-column1" key={`matchedIng--${initialIngredient.ingredientId}`}>{matchedIngredient?.name}</span>
                                         <span className="flex-column2" key={`addedQuant--${initialIngredient.ingredientId}`}>{initialIngredient.quantity} {initialIngredient.quantityUnit}</span>
                                         <span className="flex-column3" key={`removeIngredient--${initialIngredient.ingredientId}`}>
                                             Marked for Deletion <button
                                                 onClick={(click) => handleUndoDelete(click, initialIngredient)}
+                                                key={`btn--dltIng1${initialIngredient.ingredientId}`}
                                                 className="btn--undoDelete">Undo</button>
                                         </span>
                                     </div>
-                                </>
-                                : <>
-                                    <div className="addedIngredientRow" key={`initialIngDetails--${initialIngredient.ingredientId}`}>
+                                
+                                : 
+                                    <div className="addedIngredientRow" key={`initialIngDetails2--${initialIngredient.ingredientId}`}>
                                         <span className="flex-column1" key={`matchedIng--${initialIngredient.ingredientId}`}>{matchedIngredient?.name}</span>
                                         <span className="flex-column2" key={`addedQuant--${initialIngredient.ingredientId}`}>{initialIngredient.quantity} {initialIngredient.quantityUnit}</span>
                                         <span className="flex-column3" key={`removeIngredient--${initialIngredient.ingredientId}`}>
                                             <button data-id={initialIngredient.id}
                                                 onClick={(click) => handleDeleteExistingIngredient(click, initialIngredient)}
+                                                key={`btn--dltIng2${initialIngredient.ingredientId}`}
                                                 className="btn--removeItem">X</button>
                                         </span>
                                     </div>
-                                </>
+                                
                         }
-                    </>
+                    </div>
                 })
             }
 
@@ -106,6 +108,7 @@ export const EditIngredients = ({ingredientsToPost, allIngredients, ingredientTo
                         <span className="flex-column3" key={`removeIngredient--${includedIngredient.ingredientId}`}>
                             <button data-id={includedIngredient.ingredientId}
                                 onClick={(click) => handleRemoveIngredient(click, includedIngredient)}
+                                key={`btnremIng--${includedIngredient.ingredientId}`}
                                 className="btn--removeItem">X</button>
                         </span>
                     </div>
@@ -127,7 +130,7 @@ export const EditIngredients = ({ingredientsToPost, allIngredients, ingredientTo
                 >   {/*Add options for choosing a genre*/}
                     <option value="0">Select an Ingredient</option>
                     {
-                        allIngredients.map(ingredient => <option value={ingredient.id} key={`ingredient--${ingredient.id}`}>{ingredient?.name}</option>)
+                        allIngredients.map(ingredient => <option value={ingredient.id} key={`editIngredient--${ingredient.id}`}>{ingredient?.name}</option>)
                     }
                 </select>
             </div>

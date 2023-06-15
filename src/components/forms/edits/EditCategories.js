@@ -1,6 +1,6 @@
 
 
-export const EditCategories = ({categoriesToPost, allCategories, categoryToAdd, updateCategoryToAdd, updateCategoriesToPost}) => {
+export const EditCategories = ({categoriesToPost, allCategories, categoryToAdd, updateCategoryToAdd, updateCategoriesToPost, initialCategories, categoriesToDelete, updateCategoriesToDelete}) => {
     
     const handleAddCategory = (event) => {
         event.preventDefault()
@@ -24,9 +24,29 @@ export const EditCategories = ({categoriesToPost, allCategories, categoryToAdd, 
         updateCategoriesToPost(updatedCategories)
 
     }
+
+    const handleDeleteCategory = (event, objectToDelete) => {
+        console.log("category to delete", objectToDelete)
+    }
     
     return <>
         <div className="addedCategories">
+            {
+                initialCategories.length > 0
+                && initialCategories.map(initialCategory => {
+                    const matchedCategory = allCategories.find(
+                        category => category.id === initialCategory.categoryId
+                    )
+                    return <div className="addedCategory" key={`addededCat--${initialCategory.categoryId}`}>
+                        {matchedCategory?.name}
+                        <button 
+                            onClick={(click) => handleDeleteCategory(click, initialCategory)}
+                            className="btn--removeItem btn--removeCat"
+                        >X</button>
+                    </div>
+                })
+            }
+            
             {
                 categoriesToPost.length > 0
                 && categoriesToPost.map(includedCategory => {

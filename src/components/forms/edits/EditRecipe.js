@@ -402,7 +402,10 @@ export const EditRecipe = () => {
                     allCategories={allCategories}
                     categoryToAdd={categoryToAdd}
                     updateCategoryToAdd={updateCategoryToAdd}
-                    updateCategoryToPost={updateCategoryToPost} />
+                    updateCategoryToPost={updateCategoryToPost}
+                    initialCategories={initialCategories}
+                    categoriesToDelete={categoriesToDelete}
+                    updateCategoriesToDelete={updateCategoriesToDelete} />
             </fieldset>
 
             <fieldset>
