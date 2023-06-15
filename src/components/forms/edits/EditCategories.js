@@ -1,17 +1,17 @@
 
 
-export const EditCategories = ({includedCategories, allCategories, categoryToAdd, updateCategoryToAdd, updateIncludedCategories}) => {
+export const EditCategories = ({categoriesToPost, allCategories, categoryToAdd, updateCategoryToAdd, updateCategoriesToPost}) => {
     
     const handleAddCategory = (event) => {
         event.preventDefault()
         // Get a copy of the current array of categories that are staged to be added
-        const copy = [...includedCategories]
+        const copy = [...categoriesToPost]
         // Check if the category has already been added
         const alreadyAdded = copy.some(category => category.categoryId === categoryToAdd.categoryId)
         if (!alreadyAdded) {
             copy.push(categoryToAdd)
-            updateIncludedCategories(copy)
-            console.log("included categories", includedCategories)
+            updateCategoriesToPost(copy)
+            console.log("included categories", categoriesToPost)
         } else {
             window.alert("That tag has already been added")
         }
@@ -20,16 +20,16 @@ export const EditCategories = ({includedCategories, allCategories, categoryToAdd
     const handleRemoveCategory = (event, objectToRemove) => {
         event.preventDefault()
         console.log("objectToRemove", objectToRemove)
-        const updatedCategories = includedCategories.filter(category => category.categoryId !== objectToRemove.categoryId)
-        updateIncludedCategories(updatedCategories)
+        const updatedCategories = categoriesToPost.filter(category => category.categoryId !== objectToRemove.categoryId)
+        updateCategoriesToPost(updatedCategories)
 
     }
     
     return <>
         <div className="addedCategories">
             {
-                includedCategories.length > 0
-                && includedCategories.map(includedCategory => {
+                categoriesToPost.length > 0
+                && categoriesToPost.map(includedCategory => {
                     const matchedCategory = allCategories.find(
                         category => category.id === includedCategory.categoryId
                     )

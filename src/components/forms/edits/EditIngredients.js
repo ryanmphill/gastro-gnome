@@ -1,17 +1,18 @@
 
 
-export const EditIngredients = ({includedIngredients, allIngredients, ingredientToAdd, updateIngredientToAdd, updateIncludedIngredients}) => {
+export const EditIngredients = ({ingredientsToPost, allIngredients, ingredientToAdd, updateIngredientToAdd, updateIngredientsToPost, initialIngredients, ingredientsToDelete, updateIngredientsToDelete}) => {
     
     const handleAddIngredient = (event) => {
         event.preventDefault()
         // Get a copy of the current array of ingredients that are staged to be added
-        const copy = [...includedIngredients]
+        const copy = [...ingredientsToPost]
         // Check if the ingredient has already been added
         const alreadyAdded = copy.some(ingredient => ingredient.ingredientId === ingredientToAdd.ingredientId)
-        if (!alreadyAdded) {
+        const inInitialRecipe = initialIngredients.some(ingredient => ingredient.ingredientId === ingredientToAdd.ingredientId)
+        if (!alreadyAdded && !inInitialRecipe) {
             copy.push(ingredientToAdd)
-            updateIncludedIngredients(copy)
-            console.log("included ingredients", includedIngredients)
+            updateIngredientsToPost(copy)
+            console.log("ingredients to post", ingredientsToPost)
         } else {
             window.alert("That ingredient has already been added")
         }
@@ -19,15 +20,72 @@ export const EditIngredients = ({includedIngredients, allIngredients, ingredient
 
     const handleRemoveIngredient = (event, objectToRemove) => {
         event.preventDefault()
-        const updatedIngredients = includedIngredients.filter(ingredient => ingredient.ingredientId !== objectToRemove.ingredientId)
-        updateIncludedIngredients(updatedIngredients)
+        const updatedIngredients = ingredientsToPost.filter(ingredient => ingredient.ingredientId !== objectToRemove.ingredientId)
+        updateIngredientsToPost(updatedIngredients)
+    }
+
+    const handleDeleteExistingIngredient = (event, objectToDelete) => {
+        event.preventDefault()
+        console.log("Ingredient to delete", objectToDelete)
+
+        // Get a copy of the current array of ingredients that are staged to be deleted
+        const copy = [...ingredientsToDelete]
+
+        // Check if the ingredient has already been added
+        const alreadyStaged = copy.some(ingredient => ingredient.id === objectToDelete.id)
+        
+        if (!alreadyStaged) {
+            copy.push(objectToDelete)
+            updateIngredientsToDelete(copy)
+            console.log("ingredients to delete", ingredientsToDelete)
+        } else {
+            window.alert("Ingredient already marked for deletion")
+        }
+        
+    }
+
+    const handleUndoDelete = (event, objectToUndo) => {
+        event.preventDefault()
+        const updatedIngredients = ingredientsToDelete.filter(ingredient => ingredient.id !== objectToUndo.id)
+        updateIngredientsToDelete(updatedIngredients)
+    }
+
+    // Define function to check if an ingredient has been marked for deletion
+    const markedForDeletion = (ingredientObject) => {
+        const alreadyStaged = ingredientsToDelete.some(ingredient => ingredient.id === ingredientObject.id)
+        return alreadyStaged
     }
     
     return <>
         <div className="addedIngredients">
-            {
-                includedIngredients.length > 0
-                && includedIngredients.map(includedIngredient => {
+            { /*Initial ingredients already attached to the recipe card*/
+                initialIngredients.length > 0
+                && initialIngredients.map(initialIngredient => {
+                    const matchedIngredient = allIngredients.find(
+                        ingredient => ingredient.id === initialIngredient.ingredientId
+                    )
+                    return <div className="addedIngredientRow" key={`initialIngDetails--${initialIngredient.ingredientId}`}>
+                        <span className="flex-column1" key={`matchedIng--${initialIngredient.ingredientId}`}>{matchedIngredient?.name}</span>
+                        <span className="flex-column2" key={`addedQuant--${initialIngredient.ingredientId}`}>{initialIngredient.quantity} {initialIngredient.quantityUnit}</span>
+                        <span className="flex-column3" key={`removeIngredient--${initialIngredient.ingredientId}`}>
+                            { // If user has marked for delete, show 'undo' button
+                                markedForDeletion(initialIngredient)
+                                ? <>Marked for Deletion <button
+                                onClick={(click) => handleUndoDelete(click, initialIngredient)}
+                                className="btn--undoDelete">Undo</button></>
+                                : <button data-id={initialIngredient.id}
+                                onClick={(click) => handleDeleteExistingIngredient(click, initialIngredient)}
+                                className="btn--removeItem">X</button>
+                            }
+                            
+                        </span>
+                    </div>
+                })
+            }
+
+            {   /*New ingredients being added to recipe card by user*/
+                ingredientsToPost.length > 0
+                && ingredientsToPost.map(includedIngredient => {
                     const matchedIngredient = allIngredients.find(
                         ingredient => ingredient.id === includedIngredient.ingredientId
                     )
@@ -36,8 +94,8 @@ export const EditIngredients = ({includedIngredients, allIngredients, ingredient
                         <span className="flex-column2" key={`addedQuant--${includedIngredient.ingredientId}`}>{includedIngredient.quantity} {includedIngredient.quantityUnit}</span>
                         <span className="flex-column3" key={`removeIngredient--${includedIngredient.ingredientId}`}>
                             <button data-id={includedIngredient.ingredientId}
-                            onClick={(click) => handleRemoveIngredient(click, includedIngredient)}
-                            className="btn--removeItem">X</button>
+                                onClick={(click) => handleRemoveIngredient(click, includedIngredient)}
+                                className="btn--removeItem">X</button>
                         </span>
                     </div>
                 })

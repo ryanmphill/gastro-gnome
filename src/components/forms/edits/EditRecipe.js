@@ -13,9 +13,9 @@ export const EditRecipe = () => {
     // Get the selected recipe id
     const {recipeId} = useParams()
 
-    /* Define and set state variable for the recipe object to be posted,
-       the ingredient relationships to be posted, and the category relationships
-       to be posted */
+    /* Define and set state variable for the recipe object to be edited,
+       the initial ingredient and category relationships, ingredient and category relationships 
+       to be posted, and the ingredient and category relationships to be deleted */
     const [recipe, updateRecipe] = useState(
         {
             "id": 0,
@@ -34,7 +34,11 @@ export const EditRecipe = () => {
         }
     )
 
-    const [includedIngredients, updateIncludedIngredients] = useState([])
+    const [initialIngredients, setInitialIngredients] = useState([])
+
+    const [ingredientsToDelete, updateIngredientsToDelete] = useState([])
+
+    const [ingredientsToPost, updateIngredientsToPost] = useState([])
 
     const [ingredientToAdd, updateIngredientToAdd] = useState(
         {
@@ -45,7 +49,11 @@ export const EditRecipe = () => {
         }
     )
 
-    const [includedCategories, updateIncludedCategories] = useState([])
+    const [initialCategories, setInitialCategories] = useState([])
+
+    const [categoriesToDelete, updateCategoriesToDelete] = useState([])
+
+    const [categoriesToPost, updateCategoryToPost] = useState([])
 
     const [categoryToAdd, updateCategoryToAdd] = useState(
         {
@@ -84,8 +92,8 @@ export const EditRecipe = () => {
                 .then((recipeObject) => {
                     const attachedIngredients = recipeObject.ingredientsInRecipes
                     const attachedCategories = recipeObject.categoriesOfRecipes
-                    updateIncludedIngredients(attachedIngredients)
-                    updateIncludedCategories(attachedCategories)
+                    setInitialIngredients(attachedIngredients)
+                    setInitialCategories(attachedCategories)
                 })
         },
         []
@@ -130,8 +138,8 @@ export const EditRecipe = () => {
         () => {
             if (recipeResponseId !== 0) {
                 // Make a copy of ingredient and category arrays
-                const copyIngr = [...includedIngredients]
-                const copyCat = [...includedCategories]
+                const copyIngr = [...ingredientsToPost]
+                const copyCat = [...categoriesToPost]
                 
                 //Define function to POST the objects
                 const postRelationships = (arrayOfObjects, endpoint) => {
@@ -280,11 +288,14 @@ export const EditRecipe = () => {
             </fieldset>
 
             <fieldset className="addIngredients">
-                <EditIngredients includedIngredients={includedIngredients}
+                <EditIngredients ingredientsToPost={ingredientsToPost}
                     allIngredients={allIngredients}
                     ingredientToAdd={ingredientToAdd}
                     updateIngredientToAdd={updateIngredientToAdd}
-                    updateIncludedIngredients={updateIncludedIngredients} />
+                    updateIngredientsToPost={updateIngredientsToPost}
+                    initialIngredients={initialIngredients}
+                    ingredientsToDelete={ingredientsToDelete}
+                    updateIngredientsToDelete={updateIngredientsToDelete} />
             </fieldset>
 
             <fieldset>
@@ -387,11 +398,11 @@ export const EditRecipe = () => {
             </fieldset>
 
             <fieldset className="addCategories">
-                <EditCategories includedCategories={includedCategories}
+                <EditCategories categoriesToPost={categoriesToPost}
                     allCategories={allCategories}
                     categoryToAdd={categoryToAdd}
                     updateCategoryToAdd={updateCategoryToAdd}
-                    updateIncludedCategories={updateIncludedCategories} />
+                    updateCategoryToPost={updateCategoryToPost} />
             </fieldset>
 
             <fieldset>
