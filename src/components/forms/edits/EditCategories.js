@@ -8,7 +8,8 @@ export const EditCategories = ({categoriesToPost, allCategories, categoryToAdd, 
         const copy = [...categoriesToPost]
         // Check if the category has already been added
         const alreadyAdded = copy.some(category => category.categoryId === categoryToAdd.categoryId)
-        if (!alreadyAdded) {
+        const inInitialRecipe = initialCategories.some(category => category.categoryId === categoryToAdd.categoryId)
+        if (!alreadyAdded && !inInitialRecipe) {
             copy.push(categoryToAdd)
             updateCategoriesToPost(copy)
             console.log("included categories", categoriesToPost)

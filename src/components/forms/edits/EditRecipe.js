@@ -53,7 +53,7 @@ export const EditRecipe = () => {
 
     const [categoriesToDelete, updateCategoriesToDelete] = useState([])
 
-    const [categoriesToPost, updateCategoryToPost] = useState([])
+    const [categoriesToPost, updateCategoriesToPost] = useState([])
 
     const [categoryToAdd, updateCategoryToAdd] = useState(
         {
@@ -402,7 +402,7 @@ export const EditRecipe = () => {
                     allCategories={allCategories}
                     categoryToAdd={categoryToAdd}
                     updateCategoryToAdd={updateCategoryToAdd}
-                    updateCategoryToPost={updateCategoryToPost}
+                    updateCategoriesToPost={updateCategoriesToPost}
                     initialCategories={initialCategories}
                     categoriesToDelete={categoriesToDelete}
                     updateCategoriesToDelete={updateCategoriesToDelete} />
