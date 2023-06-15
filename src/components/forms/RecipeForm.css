@@ -125,3 +125,11 @@
     color: firebrick;
     cursor: pointer;
 }
+
+.ingredientToDelete {
+    background-color: rgb(232, 220, 220);
+}
+
+.addedIngredientRow--editForm {
+    background-color: rgb(218, 237, 218);
+}

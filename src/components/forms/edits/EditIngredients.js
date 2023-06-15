@@ -64,23 +64,33 @@ export const EditIngredients = ({ingredientsToPost, allIngredients, ingredientTo
                     const matchedIngredient = allIngredients.find(
                         ingredient => ingredient.id === initialIngredient.ingredientId
                     )
-                    return <div className="addedIngredientRow" key={`initialIngDetails--${initialIngredient.ingredientId}`}>
-                        <span className="flex-column1" key={`matchedIng--${initialIngredient.ingredientId}`}>{matchedIngredient?.name}</span>
-                        <span className="flex-column2" key={`addedQuant--${initialIngredient.ingredientId}`}>{initialIngredient.quantity} {initialIngredient.quantityUnit}</span>
+                    return <>
                         { // If user has marked for delete, show 'undo' button
                             markedForDeletion(initialIngredient)
-                                ? <><span className="flex-column3" key={`removeIngredient--${initialIngredient.ingredientId}`}>
-                                    Marked for Deletion <button
-                                        onClick={(click) => handleUndoDelete(click, initialIngredient)}
-                                        className="btn--undoDelete">Undo</button>
-                                </span></>
-                                : <><span className="flex-column3" key={`removeIngredient--${initialIngredient.ingredientId}`}>
-                                    <button data-id={initialIngredient.id}
-                                        onClick={(click) => handleDeleteExistingIngredient(click, initialIngredient)}
-                                        className="btn--removeItem">X</button>
-                                </span></>
+                                ? <>
+                                    <div className="addedIngredientRow ingredientToDelete" key={`initialIngDetails--${initialIngredient.ingredientId}`}>
+                                        <span className="flex-column1" key={`matchedIng--${initialIngredient.ingredientId}`}>{matchedIngredient?.name}</span>
+                                        <span className="flex-column2" key={`addedQuant--${initialIngredient.ingredientId}`}>{initialIngredient.quantity} {initialIngredient.quantityUnit}</span>
+                                        <span className="flex-column3" key={`removeIngredient--${initialIngredient.ingredientId}`}>
+                                            Marked for Deletion <button
+                                                onClick={(click) => handleUndoDelete(click, initialIngredient)}
+                                                className="btn--undoDelete">Undo</button>
+                                        </span>
+                                    </div>
+                                </>
+                                : <>
+                                    <div className="addedIngredientRow" key={`initialIngDetails--${initialIngredient.ingredientId}`}>
+                                        <span className="flex-column1" key={`matchedIng--${initialIngredient.ingredientId}`}>{matchedIngredient?.name}</span>
+                                        <span className="flex-column2" key={`addedQuant--${initialIngredient.ingredientId}`}>{initialIngredient.quantity} {initialIngredient.quantityUnit}</span>
+                                        <span className="flex-column3" key={`removeIngredient--${initialIngredient.ingredientId}`}>
+                                            <button data-id={initialIngredient.id}
+                                                onClick={(click) => handleDeleteExistingIngredient(click, initialIngredient)}
+                                                className="btn--removeItem">X</button>
+                                        </span>
+                                    </div>
+                                </>
                         }
-                    </div>
+                    </>
                 })
             }
 
@@ -90,7 +100,7 @@ export const EditIngredients = ({ingredientsToPost, allIngredients, ingredientTo
                     const matchedIngredient = allIngredients.find(
                         ingredient => ingredient.id === includedIngredient.ingredientId
                     )
-                    return <div className="addedIngredientRow" key={`addedIngDetails--${includedIngredient.ingredientId}`}>
+                    return <div className="addedIngredientRow addedIngredientRow--editForm" key={`addedIngDetails--${includedIngredient.ingredientId}`}>
                         <span className="flex-column1" key={`matchedIng--${includedIngredient.ingredientId}`}>{matchedIngredient?.name}</span>
                         <span className="flex-column2" key={`addedQuant--${includedIngredient.ingredientId}`}>{includedIngredient.quantity} {includedIngredient.quantityUnit}</span>
                         <span className="flex-column3" key={`removeIngredient--${includedIngredient.ingredientId}`}>
