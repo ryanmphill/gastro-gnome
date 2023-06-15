@@ -6,6 +6,10 @@ export const RecipeList = () => {
     const [recipes, setRecipes] = useState([]) // Observing initial state []
     const [filteredRecipes, setFilteredRecipes] = useState([])
 
+    // Get the current user
+    const localGastroUser = localStorage.getItem("gastro_user")
+    const gastroUserObject = JSON.parse(localGastroUser)
+
     // Fetch the list of recipes
     useEffect(
         () => {
@@ -33,7 +37,13 @@ export const RecipeList = () => {
                         return <section className="recipe" key={`recipe--${recipe.id}`}>
                             <h3>{recipe.title}</h3>
                             <div>{recipe.description}</div>
-                            <footer>Posted by: <Link to={`/userprofile/${recipe?.user?.id}`}>{recipe?.user?.name}</Link></footer>
+                            <div>Posted by: <Link to={`/userprofile/${recipe?.user?.id}`}>{recipe?.user?.name}</Link></div>
+                            <footer>
+                                {
+                                    gastroUserObject.id === recipe.userId
+                                    && <Link to={`/recipe/${recipe.id}/edit/${recipe.userId}`}>Edit</Link>
+                                }
+                            </footer>
                         </section>
                     }
                 )
