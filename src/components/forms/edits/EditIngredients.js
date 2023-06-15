@@ -67,18 +67,19 @@ export const EditIngredients = ({ingredientsToPost, allIngredients, ingredientTo
                     return <div className="addedIngredientRow" key={`initialIngDetails--${initialIngredient.ingredientId}`}>
                         <span className="flex-column1" key={`matchedIng--${initialIngredient.ingredientId}`}>{matchedIngredient?.name}</span>
                         <span className="flex-column2" key={`addedQuant--${initialIngredient.ingredientId}`}>{initialIngredient.quantity} {initialIngredient.quantityUnit}</span>
-                        <span className="flex-column3" key={`removeIngredient--${initialIngredient.ingredientId}`}>
-                            { // If user has marked for delete, show 'undo' button
-                                markedForDeletion(initialIngredient)
-                                ? <>Marked for Deletion <button
-                                onClick={(click) => handleUndoDelete(click, initialIngredient)}
-                                className="btn--undoDelete">Undo</button></>
-                                : <button data-id={initialIngredient.id}
-                                onClick={(click) => handleDeleteExistingIngredient(click, initialIngredient)}
-                                className="btn--removeItem">X</button>
-                            }
-                            
-                        </span>
+                        { // If user has marked for delete, show 'undo' button
+                            markedForDeletion(initialIngredient)
+                                ? <><span className="flex-column3" key={`removeIngredient--${initialIngredient.ingredientId}`}>
+                                    Marked for Deletion <button
+                                        onClick={(click) => handleUndoDelete(click, initialIngredient)}
+                                        className="btn--undoDelete">Undo</button>
+                                </span></>
+                                : <><span className="flex-column3" key={`removeIngredient--${initialIngredient.ingredientId}`}>
+                                    <button data-id={initialIngredient.id}
+                                        onClick={(click) => handleDeleteExistingIngredient(click, initialIngredient)}
+                                        className="btn--removeItem">X</button>
+                                </span></>
+                        }
                     </div>
                 })
             }
