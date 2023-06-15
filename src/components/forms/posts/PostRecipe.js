@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import "./PostRecipe.css"
+import "../RecipeForm.css"
 import { AddIngredients } from "./AddIngredients"
 import { AddCategories } from "./AddCategories"
 

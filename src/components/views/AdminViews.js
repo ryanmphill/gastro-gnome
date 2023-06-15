@@ -1,7 +1,7 @@
 import { Outlet, Route, Routes } from "react-router-dom"
 import { RecipeList } from "../feed/RecipeList"
-import { PostRecipe } from "../posts/PostRecipe"
-import { VerifiedToEdit } from "../edits/VerifiedToEdit"
+import { PostRecipe } from "../forms/posts/PostRecipe"
+import { VerifiedToEdit } from "../forms/edits/VerifiedToEdit"
 
 
 export const AdminViews = () => {
