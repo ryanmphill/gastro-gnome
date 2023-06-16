@@ -6,10 +6,6 @@ import { EditCategories } from "./EditCategories"
 
 
 export const EditRecipe = () => {
-    // Get the current user information
-    const localGastroUser = localStorage.getItem("gastro_user")
-    const gastroUserObject = JSON.parse(localGastroUser)
-
     // Get the selected recipe id
     const {recipeId} = useParams()
 
@@ -198,11 +194,11 @@ export const EditRecipe = () => {
                     if (response.ok) {
                         return response.json(); // Await the response.json() Promise
                     } else {
-                        throw new Error("Unable to edit recipe");
+                        throw new Error("Unable to edit recipe")
                     }
                 })
                 .then(editedRecipeObject => {
-                    console.log("Recipe successfully edited", editedRecipeObject);
+                    console.log("Recipe successfully edited", editedRecipeObject)
                     // Delete Ingredients
                     if (ingredientsToDelete.length > 0) {
                         return deleteRelationships(ingredientsToDelete, "ingredientsInRecipes")
@@ -211,7 +207,7 @@ export const EditRecipe = () => {
                     }
                 })
                 .then(deletedIng => {
-                    deletedIng && console.log("Ingredients deleted", deletedIng);
+                    deletedIng && console.log("Ingredients deleted", deletedIng)
                     // Delete Categories
                     if (categoriesToDelete.length > 0) {
                         return deleteRelationships(categoriesToDelete, "categoriesOfRecipes")
@@ -220,7 +216,7 @@ export const EditRecipe = () => {
                     }
                 })
                 .then(deletedCat => {
-                    deletedCat && console.log("Categories deleted", deletedCat);
+                    deletedCat && console.log("Categories deleted", deletedCat)
                     // Post ingredient relationships
                     if (ingredientsToPost.length > 0) {
                         return postRelationships(ingredientsToPost, "ingredientsInRecipes")
@@ -229,7 +225,7 @@ export const EditRecipe = () => {
                     }
                 })
                 .then(ingredientArr => {
-                    ingredientArr && console.log("Ingredients added", ingredientArr);
+                    ingredientArr && console.log("Ingredients added", ingredientArr)
                     // Post categories
                     if (categoriesToPost.length > 0) {
                         return postRelationships(categoriesToPost, "categoriesOfRecipes")
@@ -238,12 +234,13 @@ export const EditRecipe = () => {
                     }
                 })
                 .then(categoryArr => {
-                    categoryArr && console.log("Categories added", categoryArr);
+                    categoryArr && console.log("Categories added", categoryArr)
+                    console.log("All fetch calls completed")
                 })
                 .catch(error => {
-                    console.error("An error occurred:", error);
-                    window.alert("Something went wrong");
-                });
+                    console.error("An error occurred:", error)
+                    window.alert("Something went wrong")
+                })
         } else {window.alert("Please fill all required fields")}
         
     }

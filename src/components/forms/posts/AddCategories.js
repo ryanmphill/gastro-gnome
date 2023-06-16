@@ -11,7 +11,6 @@ export const AddCategories = ({includedCategories, allCategories, categoryToAdd,
         if (!alreadyAdded) {
             copy.push(categoryToAdd)
             updateIncludedCategories(copy)
-            console.log("included categories", includedCategories)
         } else {
             window.alert("That tag has already been added")
         }
@@ -19,7 +18,6 @@ export const AddCategories = ({includedCategories, allCategories, categoryToAdd,
     
     const handleRemoveCategory = (event, objectToRemove) => {
         event.preventDefault()
-        console.log("objectToRemove", objectToRemove)
         const updatedCategories = includedCategories.filter(category => category.categoryId !== objectToRemove.categoryId)
         updateIncludedCategories(updatedCategories)
 

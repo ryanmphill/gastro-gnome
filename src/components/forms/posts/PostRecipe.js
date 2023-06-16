@@ -94,50 +94,60 @@ export const PostRecipe = () => {
     )
 
     // Observe when a new recipeCard id is generated and post the category and ingredient relationships
-    useEffect(
-        () => {
-            if (newRecipeResponseId !== 0) {
-                // Make a copy of ingredient and category arrays
-                const copyIngr = [...includedIngredients]
-                const copyCat = [...includedCategories]
-                
-                //Define function to POST the objects
-                const postRelationships = (arrayOfObjects, endpoint) => {
-                    const promises = arrayOfObjects.map((dataObject) =>
-                      fetch(`http://localhost:8088/${endpoint}`, {
-                        method: 'POST',
-                        headers: {
-                          'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(dataObject)
-                      })
-                        .then((response) => response.json())
-                    );
-                  
-                    Promise.all(promises)
-                      .then((results) => {
-                        console.log(results)
-                      })
-                      .catch((error) => {
-                        console.error(error)
-                      })
-                  }
-                // Post ingredients
-                if (copyIngr.length > 0) {
-                    // Add new recipeCard id foreign key to each object in ingredient array
-                    const updatedIng = copyIngr.map(obj => ({ ...obj, recipeCardId: newRecipeResponseId }))
-                    postRelationships(updatedIng, "ingredientsInRecipes")
-                }
+    useEffect(() => {
+        if (newRecipeResponseId !== 0) {
+            // Make a copy of ingredient and category arrays
+            const copyIngr = [...includedIngredients]
+            const copyCat = [...includedCategories]
 
-                if (copyCat.length > 0) {
-                    // Add new recipeCard id foreign key to each object in category array
-                    const updatedCat = copyCat.map(obj => ({ ...obj, recipeCardId: newRecipeResponseId }))
-                    postRelationships(updatedCat, "categoriesOfRecipes")
+            // Define function to POST the objects
+            const postRelationships = (arrayOfObjects, endpoint) => {
+                if (arrayOfObjects.length > 0) {
+                    return Promise.all(
+                        arrayOfObjects.map((dataObject) =>
+                            fetch(`http://localhost:8088/${endpoint}`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify(dataObject)
+                            })
+                                .then((response) => response.json())
+                        )
+                    );
+                } else {
+                    return Promise.resolve([])
                 }
-            }
-        },
-        [newRecipeResponseId]
-    )
+            };
+
+            // Add newly created recipeId to ingredients
+            const updatedIng = copyIngr.map((obj) => ({
+                ...obj,
+                recipeCardId: newRecipeResponseId,
+            }))
+
+            // Add newly created recipeId to categories
+            const updatedCat = copyCat.map((obj) => ({
+                ...obj,
+                recipeCardId: newRecipeResponseId,
+            }))
+
+            // POST ingredient and category relationships to the API
+            postRelationships(updatedIng, 'ingredientsInRecipes')
+                .then((postedIngr) => {
+                    postedIngr.length > 0 && console.log("posted ingredients", postedIngr)
+                    return postRelationships(updatedCat, 'categoriesOfRecipes')
+                })
+                .then((postedCat) => {
+                    postedCat.length > 0 && console.log("posted categories", postedCat)
+                    console.log("All fetch calls are completed")
+                    // Navigate the user to a different page here
+                })
+                .catch((error) => {
+                    console.error(error)
+                })
+        }
+    }, [newRecipeResponseId])
     
     // Handle the post recipe click
     const handlePostRecipeClick = (event) => {
