@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
+import { DeleteRecipe } from "./DeleteRecipe"
 
 
 export const RecipeList = () => {
@@ -10,10 +11,10 @@ export const RecipeList = () => {
     const localGastroUser = localStorage.getItem("gastro_user")
     const gastroUserObject = JSON.parse(localGastroUser)
 
-    // Fetch the list of recipes
+    // Fetch the list of recipes with user info expanded and ingredients and categories embedded
     useEffect(
         () => {
-            fetch(`http://localhost:8088/recipeCards?_expand=user`)
+            fetch(`http://localhost:8088/recipeCards?_expand=user&_embed=ingredientsInRecipes&_embed=categoriesOfRecipes`)
                 .then(response => response.json())
                 .then((recipeArray) => {
                     setRecipes(recipeArray)
@@ -41,7 +42,12 @@ export const RecipeList = () => {
                             <footer>
                                 {
                                     gastroUserObject.id === recipe.userId
-                                    && <Link to={`/recipe/${recipe.id}/edit/${recipe.userId}`}>Edit</Link>
+                                    && <>
+                                    <Link to={`/recipe/${recipe.id}/edit/${recipe.userId}`}>Edit</Link>
+                                    <DeleteRecipe recipeId={recipe.id}
+                                        recipeIngredients={recipe.ingredientsInRecipes}
+                                        recipeCategories={recipe.categoriesOfRecipes} />
+                                    </>
                                 }
                             </footer>
                         </section>
