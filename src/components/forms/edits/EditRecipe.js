@@ -43,7 +43,7 @@ export const EditRecipe = () => {
     const [ingredientToAdd, updateIngredientToAdd] = useState(
         {
             "ingredientId": 0,
-            "recipeCardId": 0,
+            "recipeCardId": parseInt(recipeId),
             "quantity": 0,
             "quantityUnit": ""
         }
@@ -57,7 +57,7 @@ export const EditRecipe = () => {
 
     const [categoryToAdd, updateCategoryToAdd] = useState(
         {
-            "recipeCardId": 0,
+            "recipeCardId": parseInt(recipeId),
             "categoryId": 0
         }
     )
@@ -66,11 +66,6 @@ export const EditRecipe = () => {
     const [allIngredients, setAllIngredients] = useState([])
     const [allCategories, setAllCategories] = useState([])
     const [genres, setGenres] = useState([])
-
-    /*Set a state variable to track the response when a recipe is posted. The id from the
-      newly created recipe object will be used as a foreign key on the ingredient and 
-      category objects */
-    const [recipeResponseId, setRecipeResponseId] = useState(0)
 
     // On initial render, fetch the recipeCard that is being edited and update state
     useEffect(
@@ -133,64 +128,67 @@ export const EditRecipe = () => {
         []
     )
 
-    // Observe when a new recipeCard id is generated and post the category and ingredient relationships
-    useEffect(
-        () => {
-            if (recipeResponseId !== 0) {
-                // Make a copy of ingredient and category arrays
-                const copyIngr = [...ingredientsToPost]
-                const copyCat = [...categoriesToPost]
-                
-                //Define function to POST the objects
-                const postRelationships = (arrayOfObjects, endpoint) => {
-                    const promises = arrayOfObjects.map((dataObject) =>
-                      fetch(`http://localhost:8088/${endpoint}`, {
-                        method: 'POST',
-                        headers: {
-                          'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(dataObject)
-                      })
-                        .then((response) => response.json())
-                    );
-                  
-                    Promise.all(promises)
-                      .then((results) => {
-                        console.log(results)
-                      })
-                      .catch((error) => {
-                        console.error(error)
-                      })
-                  }
-                // Post ingredients
-                if (copyIngr.length > 0) {
-                    // Add new recipeCard id foreign key to each object in ingredient array
-                    const updatedIng = copyIngr.map(obj => ({ ...obj, recipeCardId: recipeResponseId }))
-                    postRelationships(updatedIng, "ingredientsInRecipes")
-                }
-
-                if (copyCat.length > 0) {
-                    // Add new recipeCard id foreign key to each object in category array
-                    const updatedCat = copyCat.map(obj => ({ ...obj, recipeCardId: recipeResponseId }))
-                    postRelationships(updatedCat, "categoriesOfRecipes")
-                }
-            }
-        },
-        [recipeResponseId]
-    )
-    
-    // Handle the post recipe click
-    const handlePostRecipeClick = (event) => {
+    ////////////////////////////////////////////////////////////////////////////////////
+    // Handle the post recipe click ////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////
+    const handleEditRecipeClick = (event) => {
         event.preventDefault()
+
+        //Define function to POST the relationship objects
+        const postRelationships = (arrayOfObjects, endpoint) => {
+            const promises = arrayOfObjects.map((dataObject) => {
+              return fetch(`http://localhost:8088/${endpoint}`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dataObject)
+              })
+              .then((response) => response.json())
+            });
+          
+            return Promise.all(promises)
+              .then((results) => {
+                console.log(results)
+                return results
+              })
+              .catch((error) => {
+                console.error(error)
+                throw error
+              })
+        }
+
+        //Define function to DELETE the relationship objects
+        const deleteRelationships = (arrayOfObjects, endpoint) => {
+            const promises = arrayOfObjects.map((dataObject) => {
+              return fetch(`http://localhost:8088/${endpoint}/${dataObject.id}`, {
+                method: 'DELETE',
+                headers: {
+                  'Content-Type': 'application/json',
+                }
+              })
+              .then((response) => response.json())
+            });
+          
+            return Promise.all(promises)
+              .then((results) => {
+                console.log(results)
+                return results
+              })
+              .catch((error) => {
+                console.error(error)
+                throw error
+              })
+        }
         
         // Check if all required fields have been entered
         const requiredStr = ['title', 'description', 'prepInstructions', 'cookInstructions']
         const requiredNum = ['genreId', 'prepTime', 'cookTime', 'servingSize']
         const formFilled = requiredStr.every(field => recipe[field].length > 0) && requiredNum.every(field => recipe[field] > 0)
         if (formFilled) {
-            // POST employee to API ////////////////////////////////////////////
-            fetch("http://localhost:8088/recipeCards", {
-                method: "POST",
+            // PUT recipeCard to API ////////////////////////////////////////////
+            fetch(`http://localhost:8088/recipeCards/${recipeId}`, {
+                method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
                 },
@@ -200,20 +198,47 @@ export const EditRecipe = () => {
                     if (response.ok) {
                         return response.json(); // Await the response.json() Promise
                     } else {
-                        throw new Error("Unable to create new recipe");
+                        throw new Error("Unable to edit recipe");
                     }
                 })
-                .then(postedRecipeObject => {
-                    console.log("New recipe successfully created", postedRecipeObject);
-                    // update state with new recipe Id
-                    const newId = postedRecipeObject.id
-                    setRecipeResponseId(newId)
-                    
-                    ////////////////////////////////////////////////////////////////////////////////
-                    /* Once recipeResponseId state has changed, useEffect() will trigger a 
-                       POST for newly updated ingredient and category objects to be sent to 
-                       the API with a foreign key recipeCardId that matches the newly posted recipe
-                    *////////////////////////////////////////////////////////////////////////////////
+                .then(editedRecipeObject => {
+                    console.log("Recipe successfully edited", editedRecipeObject);
+                    // Post ingredient relationships
+                    if (ingredientsToPost.length > 0) {
+                        return postRelationships(ingredientsToPost, "ingredientsInRecipes")
+                    } else {
+                        return null
+                    }
+                })
+                .then(ingredientArr => {
+                    ingredientArr && console.log("Ingredients added", ingredientArr);
+                    // Post categories
+                    if (categoriesToPost.length > 0) {
+                        return postRelationships(categoriesToPost, "categoriesOfRecipes")
+                    } else {
+                        return null
+                    }
+                })
+                .then(categoryArr => {
+                    categoryArr && console.log("Categories added", categoryArr);
+                    // Delete Ingredients
+                    if (ingredientsToDelete.length > 0) {
+                        return deleteRelationships(ingredientsToDelete, "ingredientsInRecipes")
+                    } else {
+                        return null
+                    }
+                })
+                .then(deletedIng => {
+                    deletedIng && console.log("Ingredients deleted", deletedIng);
+                    // Delete Categories
+                    if (categoriesToDelete.length > 0) {
+                        return deleteRelationships(categoriesToDelete, "categoriesOfRecipes")
+                    } else {
+                        return null
+                    }
+                })
+                .then(deletedCat => {
+                    deletedCat && console.log("Categories deleted", deletedCat);
                 })
                 .catch(error => {
                     console.error("An error occurred:", error);
@@ -238,7 +263,7 @@ export const EditRecipe = () => {
                         value={recipe.title}
                         onChange={
                             (changeEvent) => {
-                                const copy = {...recipe}
+                                const copy = { ...recipe }
                                 copy.title = changeEvent.target.value
                                 updateRecipe(copy) // Updating recipe title with value of copy
                             }
@@ -279,7 +304,7 @@ export const EditRecipe = () => {
                         value={recipe.description}
                         onChange={
                             (changeEvent) => {
-                                const copy = {...recipe}
+                                const copy = { ...recipe }
                                 copy.description = changeEvent.target.value
                                 updateRecipe(copy) // Updating recipe with value of copy
                             }
@@ -310,7 +335,7 @@ export const EditRecipe = () => {
                         value={recipe.prepInstructions}
                         onChange={
                             (changeEvent) => {
-                                const copy = {...recipe}
+                                const copy = { ...recipe }
                                 copy.prepInstructions = changeEvent.target.value
                                 updateRecipe(copy) // Updating recipe with value of copy
                             }
@@ -330,7 +355,7 @@ export const EditRecipe = () => {
                         value={recipe.cookInstructions}
                         onChange={
                             (changeEvent) => {
-                                const copy = {...recipe}
+                                const copy = { ...recipe }
                                 copy.cookInstructions = changeEvent.target.value
                                 updateRecipe(copy) // Updating recipe with value of copy
                             }
@@ -420,7 +445,7 @@ export const EditRecipe = () => {
                         value={recipe.note}
                         onChange={
                             (changeEvent) => {
-                                const copy = {...recipe}
+                                const copy = { ...recipe }
                                 copy.note = changeEvent.target.value
                                 updateRecipe(copy) // Updating recipe with value of copy
                             }
@@ -440,7 +465,7 @@ export const EditRecipe = () => {
                         value={recipe.image}
                         onChange={
                             (changeEvent) => {
-                                const copy = {...recipe}
+                                const copy = { ...recipe }
                                 copy.image = changeEvent.target.value
                                 updateRecipe(copy) // Updating recipe with value of copy
                             }
@@ -449,7 +474,7 @@ export const EditRecipe = () => {
             </fieldset>
             
             <button 
-                onClick={ (clickEvent) => {handlePostRecipeClick(clickEvent)} }
+                onClick={ (clickEvent) => {handleEditRecipeClick(clickEvent)} }
                 className="btn btn-primary submitRecipe">
                 Submit Changes
             </button>
