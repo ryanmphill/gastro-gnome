@@ -148,7 +148,7 @@ export const PostRecipe = () => {
         const requiredNum = ['genreId', 'prepTime', 'cookTime', 'servingSize']
         const formFilled = requiredStr.every(field => newRecipe[field].length > 0) && requiredNum.every(field => newRecipe[field] > 0)
         if (formFilled) {
-            // POST employee to API ////////////////////////////////////////////
+            // POST recipe to API ////////////////////////////////////////////
             fetch("http://localhost:8088/recipeCards", {
                 method: "POST",
                 headers: {

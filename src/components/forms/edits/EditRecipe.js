@@ -203,24 +203,6 @@ export const EditRecipe = () => {
                 })
                 .then(editedRecipeObject => {
                     console.log("Recipe successfully edited", editedRecipeObject);
-                    // Post ingredient relationships
-                    if (ingredientsToPost.length > 0) {
-                        return postRelationships(ingredientsToPost, "ingredientsInRecipes")
-                    } else {
-                        return null
-                    }
-                })
-                .then(ingredientArr => {
-                    ingredientArr && console.log("Ingredients added", ingredientArr);
-                    // Post categories
-                    if (categoriesToPost.length > 0) {
-                        return postRelationships(categoriesToPost, "categoriesOfRecipes")
-                    } else {
-                        return null
-                    }
-                })
-                .then(categoryArr => {
-                    categoryArr && console.log("Categories added", categoryArr);
                     // Delete Ingredients
                     if (ingredientsToDelete.length > 0) {
                         return deleteRelationships(ingredientsToDelete, "ingredientsInRecipes")
@@ -239,6 +221,24 @@ export const EditRecipe = () => {
                 })
                 .then(deletedCat => {
                     deletedCat && console.log("Categories deleted", deletedCat);
+                    // Post ingredient relationships
+                    if (ingredientsToPost.length > 0) {
+                        return postRelationships(ingredientsToPost, "ingredientsInRecipes")
+                    } else {
+                        return null
+                    }
+                })
+                .then(ingredientArr => {
+                    ingredientArr && console.log("Ingredients added", ingredientArr);
+                    // Post categories
+                    if (categoriesToPost.length > 0) {
+                        return postRelationships(categoriesToPost, "categoriesOfRecipes")
+                    } else {
+                        return null
+                    }
+                })
+                .then(categoryArr => {
+                    categoryArr && console.log("Categories added", categoryArr);
                 })
                 .catch(error => {
                     console.error("An error occurred:", error);
