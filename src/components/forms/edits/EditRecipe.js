@@ -487,6 +487,7 @@ export const EditRecipe = () => {
                 console.log("Ingredients to delete", ingredientsToDelete)
                 console.log("Categories to post", categoriesToPost)
                 console.log("categories to delete", categoriesToDelete)
+                console.log("singleIngredientToAdd", ingredientToAdd)
             }}
             >
                 View State Changes to submit

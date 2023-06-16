@@ -8,8 +8,12 @@ export const EditIngredients = ({ingredientsToPost, allIngredients, ingredientTo
         const copy = [...ingredientsToPost]
         // Check if the ingredient has already been added
         const alreadyAdded = copy.some(ingredient => ingredient.ingredientId === ingredientToAdd.ingredientId)
+        const stagedFordeletion = ingredientsToDelete.some(ingredient => ingredient.ingredientId === ingredientToAdd.ingredientId)
         const inInitialRecipe = initialIngredients.some(ingredient => ingredient.ingredientId === ingredientToAdd.ingredientId)
-        if (!alreadyAdded && !inInitialRecipe) {
+        if (!alreadyAdded && !inInitialRecipe) { // If not already staged to post and not in initial recipe, add to array to post
+            copy.push(ingredientToAdd)
+            updateIngredientsToPost(copy)
+        } else if (inInitialRecipe && stagedFordeletion) { // If in initial recipe but staged for deletion, allow user to add new ingredient to edit quantity/measure
             copy.push(ingredientToAdd)
             updateIngredientsToPost(copy)
         } else {
@@ -43,8 +47,23 @@ export const EditIngredients = ({ingredientsToPost, allIngredients, ingredientTo
 
     const handleUndoDelete = (event, objectToUndo) => {
         event.preventDefault()
-        const updatedIngredients = ingredientsToDelete.filter(ingredient => ingredient.id !== objectToUndo.id)
-        updateIngredientsToDelete(updatedIngredients)
+        // Get a copy of the current array of ingredients that are staged to be added
+        const copy = [...ingredientsToPost]
+        // Check if the same ingredient has been added since being staged for deletion
+        const changesMadeToIngredient = copy.some(ingredient => ingredient.ingredientId === objectToUndo.ingredientId)
+
+        if (changesMadeToIngredient) { // If changes for this ingredient have been added
+            // Remove the new ingredient object with the changes
+            const updatedIngredientsToPost = ingredientsToPost.filter(ingredient => ingredient.ingredientId !== objectToUndo.ingredientId)
+            updateIngredientsToPost(updatedIngredientsToPost)
+            // Then, remove the ingredient object from the ingredients array staged for deletion
+            const updatedIngredientsToRemove = ingredientsToDelete.filter(ingredient => ingredient.id !== objectToUndo.id)
+            updateIngredientsToDelete(updatedIngredientsToRemove)
+        } else { // else, only remove the ingredient object from the ingredients array staged for deletion
+            const updatedIngredientsToRemove = ingredientsToDelete.filter(ingredient => ingredient.id !== objectToUndo.id)
+            updateIngredientsToDelete(updatedIngredientsToRemove)
+        }
+        
     }
 
     // Define function to check if an ingredient has been marked for deletion
