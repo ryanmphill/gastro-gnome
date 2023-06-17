@@ -17,79 +17,68 @@ export const DeleteRecipe = ({ recipeId, recipeIngredients, recipeCategories }) 
         event.preventDefault()
         setShowPrompt(false)
     }
+    // Make copy of arrays to delete
+    const ingredientsToDelete = [ ...recipeIngredients ]
+    const categoriesToDelete = [ ...recipeCategories ]
 
     const handleDeleteRecipe = (event) => {
-        event.preventDefault()
-
+        event.preventDefault();
+      
         //Define function to DELETE the relationship objects
         const deleteRelationships = (arrayOfObjects, endpoint) => {
-            const promises = arrayOfObjects.map((dataObject) => {
-                console.log("object to be deleted", dataObject)
-                console.log("endpoint", endpoint)
-                console.log("object's id", dataObject.id)
-                console.log("end of url", `${endpoint}/${dataObject.id}`)
-              return fetch(`http://localhost:8088/${endpoint}/${dataObject?.id}`, {
-                method: 'DELETE',
-                headers: {
-                  'Content-Type': 'application/json',
-                }
-              })
-              .then((response) => response.json())
-            });
-          
-            return Promise.all(promises)
-              .then((results) => {
-                console.log(results)
-                return results
-              })
-              .catch((error) => {
-                console.error(error)
-                throw error
-              })
-        } //////////////////////////////////////////////////////////
-
-        // DELETE the recipeCard Object ////////////////////////////
-        fetch(`http://localhost:8088/recipeCards/${recipeId}`, {
-                method: "DELETE",
-                headers: {
-                    "Content-Type": "application/json"
-                }
+          const promises = arrayOfObjects.map((dataObject) => {
+            return fetch(`http://localhost:8088/${endpoint}/${dataObject.id}`, {
+              method: 'DELETE',
+              headers: {
+                'Content-Type': 'application/json',
+              }
             })
-                .then(response => {
-                    if (response.ok) {
-                        return response.json() // Await the response.json() Promise
-                    } else {
-                        throw new Error("Unable to delete recipe")
-                    }
-                })
-                .then(emptyObject => {
-                    console.log("Recipe successfully deleted", emptyObject)
-                    // Delete Ingredient objects if there are any
-                    if (recipeIngredients.length > 0) {
-                        return deleteRelationships(recipeIngredients, "ingredientsInRecipes")
-                    } else {
-                        return null
-                    }
-                })
-                .then(deletedIng => {
-                    deletedIng && console.log("Ingredients deleted", deletedIng)
-                    // Delete Category objects if there are any
-                    if (recipeCategories.length > 0) {
-                        return deleteRelationships(recipeCategories, "categoriesOfRecipes")
-                    } else {
-                        return null
-                    }
-                })
-                .then(deletedCat => {
-                    deletedCat && console.log("Categories deleted", deletedCat)
-                    console.log("Recipe has been deleted, along with all related ingredients and categories")
-                })
-                .catch(error => {
-                    console.error("An error occurred:", error)
-                    window.alert("Something went wrong")
-                })
+            .then((response) => response.json())
+          });
+        
+          return Promise.all(promises)
+            .then((results) => {
+              console.log(results)
+              return results
+            })
+            .catch((error) => {
+              console.error(error)
+              throw error
+            })
+      }
 
-    }
+        // DELETE Ingredients 
+        if (ingredientsToDelete.length > 0) {
+          deleteRelationships(ingredientsToDelete, "ingredientsInRecipes")
+        }
+
+        // DELETE Categories
+        if (categoriesToDelete.length > 0) {
+          deleteRelationships(categoriesToDelete, "categoriesOfRecipes")
+        }
+
+        // DELETE recipeCard ////////////////////////////////////////////
+        fetch(`http://localhost:8088/recipeCards/${recipeId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+          .then((response) => {
+            if (response.ok) {
+              return response.json(); // Await the response.json() Promise
+            } else {
+              throw new Error('Unable to delete recipe');
+            }
+          })
+          .then(() => {
+            console.log('Recipe successfully deleted');
+          })
+          .catch((error) => {
+            console.error('An error occurred:', error);
+            window.alert('Something went wrong');
+          });
+      };
     
     return <>
     
