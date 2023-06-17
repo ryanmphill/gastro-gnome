@@ -22,63 +22,76 @@ export const DeleteRecipe = ({ recipeId, recipeIngredients, recipeCategories }) 
     const categoriesToDelete = [ ...recipeCategories ]
 
     const handleDeleteRecipe = (event) => {
-        event.preventDefault();
-      
-        //Define function to DELETE the relationship objects
-        const deleteRelationships = (arrayOfObjects, endpoint) => {
-          const promises = arrayOfObjects.map((dataObject) => {
-            return fetch(`http://localhost:8088/${endpoint}/${dataObject.id}`, {
-              method: 'DELETE',
-              headers: {
-                'Content-Type': 'application/json',
-              }
-            })
-            .then((response) => response.json())
-          });
-        
-          return Promise.all(promises)
-            .then((results) => {
-              console.log(results)
-              return results
-            })
-            .catch((error) => {
-              console.error(error)
-              throw error
-            })
-      }
-
-        // DELETE Ingredients 
-        if (ingredientsToDelete.length > 0) {
-          deleteRelationships(ingredientsToDelete, "ingredientsInRecipes")
-        }
-
-        // DELETE Categories
-        if (categoriesToDelete.length > 0) {
-          deleteRelationships(categoriesToDelete, "categoriesOfRecipes")
-        }
-
-        // DELETE recipeCard ////////////////////////////////////////////
-        fetch(`http://localhost:8088/recipeCards/${recipeId}`, {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
-          .then((response) => {
-            if (response.ok) {
-              return response.json(); // Await the response.json() Promise
-            } else {
-              throw new Error('Unable to delete recipe');
-            }
-          })
-          .then(() => {
-            console.log('Recipe successfully deleted');
+      event.preventDefault();
+    
+      // Define function to DELETE the relationship objects
+      const deleteRelationships = (arrayOfObjects, endpoint) => {
+        const promises = arrayOfObjects.map((dataObject) => {
+          return fetch(`http://localhost:8088/${endpoint}/${dataObject.id}`, {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }).then((response) => response.json());
+        });
+    
+        return Promise.all(promises)
+          .then((results) => {
+            console.log(results);
+            return results;
           })
           .catch((error) => {
-            console.error('An error occurred:', error);
-            window.alert('Something went wrong');
+            console.error(error);
+            throw error;
           });
       };
+    
+      // If there are ingredients to delete, make the fetch call, else, set variable equal to immediately resolved promise
+      let deleteIngredientsPromise;
+      if (ingredientsToDelete.length > 0) {
+        deleteIngredientsPromise = deleteRelationships(ingredientsToDelete, "ingredientsInRecipes");
+      } else {
+        deleteIngredientsPromise = Promise.resolve();
+      }
+    
+      // If there are categories to delete, make the fetch call, else, set variable equal to immediately resolved promise
+      let deleteCategoriesPromise;
+      if (categoriesToDelete.length > 0) {
+        deleteCategoriesPromise = deleteRelationships(categoriesToDelete, "categoriesOfRecipes");
+      } else {
+        deleteCategoriesPromise = Promise.resolve();
+      }
+    
+      // Wait for the ingredient and category deletions to complete
+      Promise.all([deleteIngredientsPromise, deleteCategoriesPromise])
+        .then(() => {
+          // DELETE recipeCard
+          fetch(`http://localhost:8088/recipeCards/${recipeId}`, {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          })
+            .then((response) => {
+              if (response.ok) {
+                return response.json();
+              } else {
+                throw new Error('Unable to delete recipe');
+              }
+            })
+            .then(() => {
+              console.log('Recipe successfully deleted');
+            })
+            .catch((error) => {
+              console.error('An error occurred:', error);
+              window.alert('Something went wrong');
+            });
+        })
+        .catch((error) => {
+          console.error('An error occurred during ingredient or category deletion:', error);
+          window.alert('Something went wrong');
+        });
+    };
     
     return <>
     
