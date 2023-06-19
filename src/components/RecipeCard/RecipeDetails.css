@@ -1,0 +1,13 @@
+.recipeDetails--topContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.recipeDetails_fav {
+    margin-left: auto;
+}
+
+.recipeDetails_times {
+    display: flex;
+    justify-content: space-between;
+}

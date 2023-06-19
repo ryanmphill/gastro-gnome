@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
+import { FavoriteButton } from "../PostInteraction/Favorite"
+import "./RecipeDetails.css"
 
 
 export const RecipeCard = () => {
@@ -48,7 +50,49 @@ export const RecipeCard = () => {
     )
     
 
-    return <>
-    <h1>Title</h1>
-    </>
+    return <article className="recipeDetails">
+        <section className="recipeDetails--topContainer">
+            <h1 className="recipeDetails--title">{recipeCard.title}</h1>
+            <div className="recipeDetails_fav"><FavoriteButton recipe={recipeCard} /></div>
+        </section>
+
+        <section>
+            <div>{recipeCard?.genre?.name}</div>
+            <div>Posted by: <Link to={`/userprofile/${recipeCard?.user?.id}`}>{recipeCard?.user?.name}</Link></div>
+        </section>
+
+        <section>
+            {
+                recipeCard?.image?.length > 0 
+                && <img src={recipeCard.image} alt="Image of recipe" />
+            }
+        </section>
+
+        <section className="recipeDetails_times">
+            <div>Prep Time:{recipeCard.prepTime} minutes</div>
+            <div>Cooking Time: {recipeCard.cookTime} minutes</div>
+            <div>Total Time: {recipeCard.prepTime + recipeCard.cookTime} minutes</div>
+        </section>
+
+        <section>
+            <div>{recipeCard.description}</div>
+            <div>
+                <h4>Ingredients</h4>
+                <ul>
+                    {
+                       attachedIngredients.length > 0
+                       && attachedIngredients.map(attachedIngredient => {
+                        const matchedIngredient = allIngredients.find(
+                            ingredient => ingredient.id === attachedIngredient.ingredientId
+                        )
+                        return <li key={`ingredientdetails--${matchedIngredient?.id}`}>{matchedIngredient?.name}</li>
+                           
+                       })  
+                    }
+                </ul>
+            </div>
+        </section>
+
+
+    </article>
 }
