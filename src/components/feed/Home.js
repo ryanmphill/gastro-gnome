@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { DeleteRecipe } from "./DeleteRecipe"
 
 
-export const RecipeList = () => {
+export const Home = () => {
     const [recipes, setRecipes] = useState([]) // Observing initial state []
     const [filteredRecipes, setFilteredRecipes] = useState([])
 
