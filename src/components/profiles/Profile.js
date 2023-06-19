@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { RecipeFeed } from "../feed/RecipeFeed"
+import { ProfileFeed } from "./ProfileFeed"
 
 
 export const Profile = () => {
@@ -44,17 +44,20 @@ export const Profile = () => {
             }
             
         },
-        [recipes, postsToDisplay] // 
+        [recipes, postsToDisplay, ownerOfProfile] // 
     )
 
     // Get the data for the selected profile user with their favorites embedded
-    useEffect(
-        () => {
-            fetch(`http://localhost:8088/users/${selectedUserId}?_embed=favorites`)
+    const fetchUserWithFavs = () => {
+        fetch(`http://localhost:8088/users/${selectedUserId}?_embed=favorites`)
                 .then(response => response.json())
                 .then((userObject) => {
                     setOwnerOfProfile(userObject)
                 })
+    }
+    useEffect(
+        () => {
+            fetchUserWithFavs()
         },
         [] // When this array is empty, you are observing initial component state
     )
@@ -97,7 +100,7 @@ export const Profile = () => {
 
         <h2>Recipe List</h2>
 
-        <RecipeFeed recipes={filteredRecipes} gastroUserObject={gastroUserObject} />
+        <ProfileFeed recipes={filteredRecipes} gastroUserObject={gastroUserObject} updateProfileFavs={fetchUserWithFavs} />
     </>
 
 }
