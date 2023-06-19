@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
-import { DeleteRecipe } from "./DeleteRecipe"
+import { useNavigate } from "react-router-dom"
+import { RecipeFeed } from "./RecipeFeed"
 
 
 export const Home = () => {
@@ -31,29 +31,6 @@ export const Home = () => {
 
         
         <button onClick={ () => navigate("/postrecipe") }>Post a Recipe</button>
-        <article className="recipeFeed">
-            {
-                recipes.map(
-                    (recipe) => {
-                        return <section className="recipe" key={`recipe--${recipe.id}`}>
-                            <h3>{recipe.title}</h3>
-                            <div>{recipe.description}</div>
-                            <div>Posted by: <Link to={`/userprofile/${recipe?.user?.id}`}>{recipe?.user?.name}</Link></div>
-                            <footer>
-                                {
-                                    gastroUserObject.id === recipe.userId
-                                    && <>
-                                    <Link to={`/recipe/${recipe.id}/edit/${recipe.userId}`}>Edit</Link>
-                                    <DeleteRecipe recipeId={recipe.id}
-                                        recipeIngredients={recipe.ingredientsInRecipes}
-                                        recipeCategories={recipe.categoriesOfRecipes} />
-                                    </>
-                                }
-                            </footer>
-                        </section>
-                    }
-                )
-            }
-        </article>
+        <RecipeFeed recipes={recipes} gastroUserObject={gastroUserObject} />
     </>
 }
