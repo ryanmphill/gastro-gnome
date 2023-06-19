@@ -1,8 +1,9 @@
 import { Outlet, Route, Routes } from "react-router-dom"
-import { Home } from "../feed/Home"
+import { Home } from "../home/Home"
 import { PostRecipe } from "../forms/posts/PostRecipe"
 import { VerifiedToEdit } from "../forms/edits/VerifiedToEdit"
 import { EditRecipe } from "../forms/edits/EditRecipe"
+import { Profile } from "../profiles/Profile"
 
 
 export const AdminViews = () => {
@@ -28,7 +29,7 @@ export const AdminViews = () => {
                         </>
                     </VerifiedToEdit>
                 } />
-                <Route path="userprofile/:userId" element={ <></> } />
+                <Route path="userprofile/:selectedUserId" element={ <Profile /> } />
             </Route>
         </Routes>
     )

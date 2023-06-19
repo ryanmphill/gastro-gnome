@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { RecipeFeed } from "./RecipeFeed"
+import { RecipeFeed } from "../feed/RecipeFeed"
 
 
 export const Home = () => {
     const [recipes, setRecipes] = useState([]) // Observing initial state []
-    const [filteredRecipes, setFilteredRecipes] = useState([])
+    // const [filteredRecipes, setFilteredRecipes] = useState([])
 
     // Get the current user
     const localGastroUser = localStorage.getItem("gastro_user")
