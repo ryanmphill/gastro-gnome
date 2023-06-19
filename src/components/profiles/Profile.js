@@ -71,7 +71,14 @@ export const Profile = () => {
             value="selectedUsersPosts"
             checked={postsToDisplay === "selectedUsersPosts"}
             onChange={() => setPostsToDisplay("selectedUsersPosts")}
-        />{ownerOfProfile.name}'s Posts
+        />
+        <span>
+            {
+                parseInt(selectedUserId) === gastroUserObject.id
+                    ? <>My Posts</>
+                    : <>{ownerOfProfile.name}'s Posts</>
+            }
+        </span>
 
         <input
             type="radio"
@@ -79,7 +86,14 @@ export const Profile = () => {
             value="thisUsersFavorites"
             checked={postsToDisplay === "thisUsersFavorites"}
             onChange={() => setPostsToDisplay("thisUsersFavorites")}
-        />{ownerOfProfile.name}'s Favorites
+        />
+        <span>
+            {
+                parseInt(selectedUserId) === gastroUserObject.id
+                    ? <>My Favorites</>
+                    : <>{ownerOfProfile.name}'s Favorites</>
+            }
+        </span>
 
         <h2>Recipe List</h2>
 
