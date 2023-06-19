@@ -4,6 +4,7 @@ import { PostRecipe } from "../forms/posts/PostRecipe"
 import { VerifiedToEdit } from "../forms/edits/VerifiedToEdit"
 import { EditRecipe } from "../forms/edits/EditRecipe"
 import { Profile } from "../profiles/Profile"
+import { RecipeCard } from "../RecipeCard/RecipeCard"
 
 
 export const UserViews = () => {
@@ -20,7 +21,7 @@ export const UserViews = () => {
 
                 <Route index element={ <Home /> } />
                 <Route path="postrecipe" element={ <PostRecipe /> } />
-                <Route path="recipe/:recipeId" element={ <></> } />
+                <Route path="recipe/:recipeId" element={ <RecipeCard /> } />
                 <Route path="recipe/:recipeId/edit/:authorId" element={
                     <VerifiedToEdit>
                         <>

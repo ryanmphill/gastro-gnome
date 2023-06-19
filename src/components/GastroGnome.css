@@ -30,3 +30,8 @@ p {
 .title--main {
   margin-block-end: 0;
 }
+
+.recipe--header {
+  text-decoration: none;
+  color: inherit;
+}

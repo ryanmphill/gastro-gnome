@@ -8,7 +8,7 @@ export const RecipeFeed = ({recipes, gastroUserObject}) => {
         recipes.map(
             (recipe) => {
                 return <section className="recipe" key={`recipe--${recipe.id}`}>
-                    <h3>{recipe.title}</h3>
+                    <h3><Link className="recipe--header" to={`/recipe/${recipe.id}`}>{recipe.title}</Link></h3>
                     <div>{recipe.description}</div>
                     <div>Posted by: <Link to={`/userprofile/${recipe?.user?.id}`}>{recipe?.user?.name}</Link></div>
                     <footer>
