@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { RecipeFeed } from "../feed/RecipeFeed"
+import { RecipeFeed } from "./RecipeFeed"
 
 
 export const Home = () => {

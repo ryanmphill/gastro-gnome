@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
-import { DeleteRecipe } from "./DeleteRecipe"
-import { FavoriteButton } from "./Favorite"
+import { DeleteRecipe } from "../PostInteraction/DeleteRecipe"
+import { FavoriteButton } from "../PostInteraction/Favorite"
 
 export const RecipeFeed = ({recipes, gastroUserObject}) => {
     return <article className="recipeFeed">
