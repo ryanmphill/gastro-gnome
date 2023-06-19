@@ -10,9 +10,9 @@ export const NavBar = () => {
 
     if (gastroUserObject.staff) {
         // Return Employee Views
-        return < AdminNav/>
+        return < AdminNav currentUser={gastroUserObject} />
     } else {
         // Return Customer Views
-        return <UserNav />
+        return <UserNav currentUser={gastroUserObject} />
     }
 }

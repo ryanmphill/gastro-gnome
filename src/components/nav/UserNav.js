@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import "./NavBar.css"
 import { DropdownMenu } from "./DropdownMenu"
 
-export const UserNav = () => {
+export const UserNav = ( {currentUser} ) => {
     
 
     return (
@@ -14,7 +14,7 @@ export const UserNav = () => {
                 
             </li>
             <li className="navbar__item navbar__menu">
-                <DropdownMenu />
+                <DropdownMenu currentUser={currentUser} />
             </li>
         </ul>
     )

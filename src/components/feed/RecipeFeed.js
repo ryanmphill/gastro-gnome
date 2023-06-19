@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 import { DeleteRecipe } from "./DeleteRecipe"
+import { FavoriteButton } from "./Favorite"
 
 export const RecipeFeed = ({recipes, gastroUserObject}) => {
     return <article className="recipeFeed">
@@ -13,12 +14,13 @@ export const RecipeFeed = ({recipes, gastroUserObject}) => {
                     <footer>
                         {
                             gastroUserObject.id === recipe.userId
-                            && <>
+                            ? <>
                             <Link to={`/recipe/${recipe.id}/edit/${recipe.userId}`}>Edit</Link>
                             <DeleteRecipe recipeId={recipe.id}
                                 recipeIngredients={recipe.ingredientsInRecipes}
                                 recipeCategories={recipe.categoriesOfRecipes} />
                             </>
+                            : <FavoriteButton recipe={recipe} />
                         }
                     </footer>
                 </section>

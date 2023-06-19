@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './DropdownMenu.css' // Import CSS styles for the dropdown menu
 import { Link, useNavigate } from 'react-router-dom';
 
-export const DropdownMenu = () => {
+export const DropdownMenu = ( {currentUser} ) => {
     const [isOpen, setIsOpen] = useState(false) // State to track if the dropdown is open or closed
   
     const toggleDropdown = () => {
@@ -48,7 +48,7 @@ export const DropdownMenu = () => {
         {isOpen && <>
             <section className="dropdown-content">
             <Link className="dropdown--link" to="/">Home</Link>
-              <Link className="dropdown--link" to="">Profile</Link>
+              <Link className="dropdown--link" to={`/userprofile/${currentUser.id}`}>Profile</Link>
               { // Logout button
                 localStorage.getItem("gastro_user")
                   ? <div className="navbar__menuItem navbar__logout">
