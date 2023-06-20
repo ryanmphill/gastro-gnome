@@ -12,13 +12,16 @@ export const Home = () => {
     const gastroUserObject = JSON.parse(localGastroUser)
 
     // Fetch the list of recipes with user info expanded and ingredients and categories embedded
+    const fetchRecipes = () => {
+        fetch(`http://localhost:8088/recipeCards?_expand=user&_embed=ingredientsInRecipes&_embed=categoriesOfRecipes`)
+            .then(response => response.json())
+            .then((recipeArray) => {
+                setRecipes(recipeArray)
+            })
+    }
     useEffect(
         () => {
-            fetch(`http://localhost:8088/recipeCards?_expand=user&_embed=ingredientsInRecipes&_embed=categoriesOfRecipes`)
-                .then(response => response.json())
-                .then((recipeArray) => {
-                    setRecipes(recipeArray)
-                })
+            fetchRecipes()
         },
         [] // When this array is empty, you are observing initial component state
     )
@@ -31,6 +34,6 @@ export const Home = () => {
 
         
         <button onClick={ () => navigate("/postrecipe") }>Post a Recipe</button>
-        <RecipeFeed recipes={recipes} gastroUserObject={gastroUserObject} />
+        <RecipeFeed recipes={recipes} gastroUserObject={gastroUserObject} updateMainFeed={fetchRecipes} />
     </>
 }

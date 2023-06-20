@@ -1,7 +1,8 @@
 import { useState } from "react"
 import "./DeleteRecipe.css"
+import { useLocation } from "react-router-dom"
 
-export const DeleteRecipe = ({ recipeId, recipeIngredients, recipeCategories }) => {
+export const DeleteRecipe = ({ recipeId, recipeIngredients, recipeCategories, updateMainFeed, updateProfileFeed }) => {
     // Define state variable for if delete button was clicked
     const [showPrompt, setShowPrompt] = useState(false)
 
@@ -20,6 +21,12 @@ export const DeleteRecipe = ({ recipeId, recipeIngredients, recipeCategories }) 
     // Make copy of arrays to delete
     const ingredientsToDelete = [ ...recipeIngredients ]
     const categoriesToDelete = [ ...recipeCategories ]
+
+    // Get the user's current location
+    const location = useLocation()
+
+    // Check if the user is viewing their profile to dynamically update the correct feed after deletion
+    const viewingProfile = location.pathname.startsWith("/userprofile")
 
     const handleDeleteRecipe = (event) => {
       event.preventDefault();
@@ -81,6 +88,12 @@ export const DeleteRecipe = ({ recipeId, recipeIngredients, recipeCategories }) 
             })
             .then(() => {
               console.log('Recipe successfully deleted');
+              // Update the user's recipe state for the feed they are currently viewing
+              if (viewingProfile) { // If the user is on a profile, update profile feed
+                updateProfileFeed()
+              } else { // else, update main feed
+                updateMainFeed()
+              }
             })
             .catch((error) => {
               console.error('An error occurred:', error);

@@ -3,7 +3,7 @@ import { DeleteRecipe } from "../PostInteraction/DeleteRecipe"
 import { FavoriteButton } from "../PostInteraction/Favorite"
 
 
-export const ProfileFeed = ({recipes, gastroUserObject, updateProfileFavs}) => {
+export const ProfileFeed = ({recipes, gastroUserObject, updateProfileFavs, updateProfileFeed}) => {
     const navigate = useNavigate()
     return <article className="recipeFeed">
     {
@@ -26,7 +26,8 @@ export const ProfileFeed = ({recipes, gastroUserObject, updateProfileFavs}) => {
                             
                             <DeleteRecipe recipeId={recipe.id}
                                 recipeIngredients={recipe.ingredientsInRecipes}
-                                recipeCategories={recipe.categoriesOfRecipes} />
+                                recipeCategories={recipe.categoriesOfRecipes}
+                                updateProfileFeed={updateProfileFeed} />
                             </>
                             : <FavoriteButton recipe={recipe} updateProfileFavs={updateProfileFavs} />
                         }

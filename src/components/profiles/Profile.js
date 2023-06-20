@@ -17,13 +17,16 @@ export const Profile = () => {
     const gastroUserObject = JSON.parse(localGastroUser)
 
     // Fetch the list of recipes with user info expanded and ingredients and categories embedded
+    const fetchRecipes = () => {
+        fetch(`http://localhost:8088/recipeCards?_expand=user&_embed=ingredientsInRecipes&_embed=categoriesOfRecipes`)
+            .then(response => response.json())
+            .then((recipeArray) => {
+                setRecipes(recipeArray)
+            })
+    }
     useEffect(
         () => {
-            fetch(`http://localhost:8088/recipeCards?_expand=user&_embed=ingredientsInRecipes&_embed=categoriesOfRecipes`)
-                .then(response => response.json())
-                .then((recipeArray) => {
-                    setRecipes(recipeArray)
-                })
+            fetchRecipes()
         },
         [] // When this array is empty, you are observing initial component state
     )
@@ -100,7 +103,10 @@ export const Profile = () => {
 
         <h2>Recipe List</h2>
 
-        <ProfileFeed recipes={filteredRecipes} gastroUserObject={gastroUserObject} updateProfileFavs={fetchUserWithFavs} />
+        <ProfileFeed recipes={filteredRecipes} 
+        gastroUserObject={gastroUserObject} 
+        updateProfileFavs={fetchUserWithFavs}
+        updateProfileFeed={fetchRecipes} />
     </>
 
 }

@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { DeleteRecipe } from "../PostInteraction/DeleteRecipe"
 import { FavoriteButton } from "../PostInteraction/Favorite"
 
-export const RecipeFeed = ({recipes, gastroUserObject}) => {
+export const RecipeFeed = ({recipes, gastroUserObject, updateMainFeed}) => {
     const navigate = useNavigate()
     return <article className="recipeFeed">
     {
@@ -25,7 +25,8 @@ export const RecipeFeed = ({recipes, gastroUserObject}) => {
             
                             <DeleteRecipe recipeId={recipe.id}
                                 recipeIngredients={recipe.ingredientsInRecipes}
-                                recipeCategories={recipe.categoriesOfRecipes} />
+                                recipeCategories={recipe.categoriesOfRecipes}
+                                updateMainFeed={updateMainFeed} />
                             </>
                             : <FavoriteButton recipe={recipe} />
                         }
