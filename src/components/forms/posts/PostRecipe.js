@@ -312,9 +312,9 @@ export const PostRecipe = () => {
                         required 
                         type="number"
                         className="recipeForm--control recipeTime--input"
-                        placeholder="Enter a time"
+                        placeholder="Enter a time (minutes)"
                         id="prepTime_input"
-                        value={newRecipe.prepTime !== 0 ? newRecipe.prepTime : ""} // If value is is zero, change to empty string to display placeholder text by default instead of zero
+                        value={newRecipe.prepTime > 0 ? newRecipe.prepTime : ""} // If value is is zero, change to empty string to display placeholder text by default instead of zero
                         step="0.01" // Set the step attribute to control decimal precision
                         onChange={
                             (changeEvent) => {
@@ -330,9 +330,9 @@ export const PostRecipe = () => {
                         required 
                         type="number"
                         className="recipeForm--control recipeTime--input"
-                        placeholder="Enter a time"
+                        placeholder="Enter a time (minutes)"
                         id="cookTime_input"
-                        value={newRecipe.cookTime !== 0 ? newRecipe.cookTime : ""} // If value is is zero, change to empty string to display placeholder text by default instead of zero
+                        value={newRecipe.cookTime > 0 ? newRecipe.cookTime : ""} // If value is is zero, change to empty string to display placeholder text by default instead of zero
                         step="0.01" // Set the step attribute to control decimal precision
                         onChange={
                             (changeEvent) => {
@@ -353,7 +353,7 @@ export const PostRecipe = () => {
                         className="recipeForm--control"
                         placeholder="How many people will this meal feed?"
                         id="recipeServings_input"
-                        value={newRecipe.servingSize !== 0 ? newRecipe.servingSize : ""} // If value is is zero, change to empty string to display placeholder text by default instead of zero
+                        value={newRecipe.servingSize > 0 ? newRecipe.servingSize : ""} // If value is is zero, change to empty string to display placeholder text by default instead of zero
                         onChange={
                             (changeEvent) => {
                                 const copy = { ...newRecipe }

@@ -369,7 +369,7 @@ export const EditRecipe = () => {
                         className="recipeForm--control recipeTime--input"
                         placeholder="Enter a time"
                         id="prepTime_input"
-                        value={recipe.prepTime !== 0 ? recipe.prepTime : ""} // If value is is zero, change to empty string to display placeholder text by default instead of zero
+                        value={recipe.prepTime > 0 ? recipe.prepTime : ""} // If value is is zero, change to empty string to display placeholder text by default instead of zero
                         step="0.01" // Set the step attribute to control decimal precision
                         onChange={
                             (changeEvent) => {
@@ -387,7 +387,7 @@ export const EditRecipe = () => {
                         className="recipeForm--control recipeTime--input"
                         placeholder="Enter a time"
                         id="cookTime_input"
-                        value={recipe.cookTime !== 0 ? recipe.cookTime : ""} // If value is is zero, change to empty string to display placeholder text by default instead of zero
+                        value={recipe.cookTime > 0 ? recipe.cookTime : ""} // If value is is zero, change to empty string to display placeholder text by default instead of zero
                         step="0.01" // Set the step attribute to control decimal precision
                         onChange={
                             (changeEvent) => {
@@ -408,7 +408,7 @@ export const EditRecipe = () => {
                         className="recipeForm--control"
                         placeholder="How many people will this meal feed?"
                         id="recipeServings_input"
-                        value={recipe.servingSize !== 0 ? recipe.servingSize : ""} // If value is is zero, change to empty string to display placeholder text by default instead of zero
+                        value={recipe.servingSize > 0 ? recipe.servingSize : ""} // If value is is zero, change to empty string to display placeholder text by default instead of zero
                         onChange={
                             (changeEvent) => {
                                 const copy = { ...recipe }
