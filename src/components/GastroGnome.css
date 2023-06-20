@@ -31,7 +31,24 @@ p {
   margin-block-end: 0;
 }
 
+.recipe {
+  border: 1px dashed rgba(143, 159, 174, 0.5);
+  margin: 1rem 0;
+  padding: 0.75rem;
+}
+
 .recipe--header {
   text-decoration: none;
   color: inherit;
+}
+
+.pageHeader {
+  border-bottom: 1px solid rgba(143, 159, 174, 0.5);
+  margin-bottom: 0.5rem;
+}
+
+.pageFooter {
+  height: 10vh;
+  border-top: 1px solid rgba(143, 159, 174, 0.5);
+  margin-top: 1rem;
 }

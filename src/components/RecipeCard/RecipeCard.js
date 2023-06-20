@@ -93,28 +93,36 @@ export const RecipeCard = () => {
         </section>
 
         <section>
+            <div>Serves {recipeCard.servingSize}</div>
+        </section>
+
+        <section>
             <div>
                 <h4>Description</h4>
                 <div>{recipeCard.description}</div>
             </div>
             <div>
                 <h4>Ingredients</h4>
-                <ul>
-                    { // Check if ingredient arrays have been populated and then find matching ingredient objects
-                       attachedIngredients.length > 0 &&
-                       allIngredients.length > 0 && 
-                       attachedIngredients.map(attachedIngredient => {
-                        const matchedIngredient = allIngredients.find(
-                            ingredient => ingredient.id === attachedIngredient.ingredientId
-                        ) 
-                        if (matchedIngredient) { // Check if the matched ingredient value is truthy before rendering
-                            return <li key={`ingredientdetails--${matchedIngredient.id}`}>{attachedIngredient.quantity} {attachedIngredient.quantityUnit} {matchedIngredient.name}</li>
-                        } else {
-                            return null
-                        }
-                       })  
-                    }
-                </ul>
+                {
+                    !ingredientsLoading && !recipeLoading
+                        ? <ul>
+                            { // Check if ingredient arrays have been populated and then find matching ingredient objects
+                                attachedIngredients.length > 0 &&
+                                allIngredients.length > 0 &&
+                                attachedIngredients.map(attachedIngredient => {
+                                    const matchedIngredient = allIngredients.find(
+                                        ingredient => ingredient.id === attachedIngredient.ingredientId
+                                    )
+                                    if (matchedIngredient) { // Check if the matched ingredient value is truthy before rendering
+                                        return <li key={`ingredientdetails--${matchedIngredient.id}`}>{attachedIngredient.quantity} {attachedIngredient.quantityUnit} {matchedIngredient.name}</li>
+                                    } else {
+                                        return null
+                                    }
+                                })
+                            }
+                        </ul>
+                        : <div>Loading...</div>
+                }
             </div>
         </section>
 
@@ -136,7 +144,7 @@ export const RecipeCard = () => {
             </section>
         }
 
-        <section>
+        <section className="recipeDetails__categories">
             { /* Check if category arrays have been populated and then find matching category objects */
                 !recipeLoading && !categoriesLoading
                     ? attachedCategories.length > 0 &&
@@ -147,7 +155,7 @@ export const RecipeCard = () => {
                         if (matchedCategory) { // Check if the matched ingredient value is truthy before rendering
                             console.log("matchedCat", matchedCategory)
                             console.log("category relationship", attachedCategory)
-                            return <div key={`categorydetails--${matchedCategory.id}`}># {matchedCategory.name}</div>
+                            return <div className="recipeDetails__category" key={`categorydetails--${matchedCategory.id}`}># {matchedCategory.name}</div>
                         } else {
                             return null
                         }

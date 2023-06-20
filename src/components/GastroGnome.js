@@ -17,8 +17,10 @@ export const GastroGnome = () => {
 				<>
 					<NavBar />
 					<ApplicationViews />
+					<footer className="pageFooter"></footer>
 				</>
 			</Authorized>
+			
 
 		} />
 	</Routes>

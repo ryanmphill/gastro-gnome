@@ -12,8 +12,10 @@ export const AdminViews = () => {
         <Routes>
             <Route path="/" element={
                 <>
-                    <h1>Gastro Gnome</h1>
-                    <div>Your all-in-one recipe book</div>
+                    <header className="pageHeader">
+                        <h1>Gastro Gnome</h1>
+                        <div>Your all-in-one recipe book</div>
+                    </header>
 
                     <Outlet />
                 </>
