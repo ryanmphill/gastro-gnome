@@ -64,7 +64,7 @@ export const RecipeCard = () => {
         <section>
             {
                 recipeCard?.image?.length > 0 
-                && <img src={recipeCard.image} alt="Image of recipe" />
+                && <img src={recipeCard.image} alt="recipe" />
             }
         </section>
 
@@ -79,14 +79,20 @@ export const RecipeCard = () => {
             <div>
                 <h4>Ingredients</h4>
                 <ul>
-                    {
-                       attachedIngredients.length > 0
-                       && attachedIngredients.map(attachedIngredient => {
+                    { // Check if ingredient arrays have been populated and then find matching ingredient objects
+                       attachedIngredients.length > 0 &&
+                       allIngredients.length > 0 && 
+                       attachedIngredients.map(attachedIngredient => {
                         const matchedIngredient = allIngredients.find(
                             ingredient => ingredient.id === attachedIngredient.ingredientId
-                        )
-                        return <li key={`ingredientdetails--${matchedIngredient?.id}`}>{matchedIngredient?.name}</li>
-                           
+                        ) 
+                        if (matchedIngredient) { // Check if the matched ingredient value is truthy before rendering
+                            console.log("matched", matchedIngredient)
+                            console.log("ingredient relationship", attachedIngredient)
+                            return <li key={`ingredientdetails--${matchedIngredient.id}`}>{attachedIngredient.quantity} {attachedIngredient.quantityUnit} {matchedIngredient.name}</li>
+                        } else {
+                            return null
+                        }
                        })  
                     }
                 </ul>
