@@ -65,7 +65,7 @@ export const AddIngredients = ({includedIngredients, allIngredients, ingredientT
             <div className="form-group ingredientInputs">
                 <label htmlFor="ingredientQuantity_input">Quantity:</label>
                 <input
-                    required autoFocus
+                    required 
                     type="number"
                     className="ingredient--control"
                     placeholder="Enter a quantity"
@@ -83,7 +83,7 @@ export const AddIngredients = ({includedIngredients, allIngredients, ingredientT
             <div className="form-group ingredientInputs">
                 <label htmlFor="quantityType_input">Unit:</label>
                 <input
-                    required autoFocus
+                    required 
                     type="text"
                     className="ingredient--control"
                     placeholder="Enter a unit of measurement"

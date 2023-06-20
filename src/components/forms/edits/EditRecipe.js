@@ -293,7 +293,7 @@ export const EditRecipe = () => {
                 <div className="form-group">
                     <label htmlFor="recipeDescription_input">Description:</label>
                     <textarea
-                        required autoFocus
+                        required 
                         type="text"
                         className="recipeForm--control recipe--textarea"
                         placeholder="Add a description for your recipe"
@@ -324,7 +324,7 @@ export const EditRecipe = () => {
                 <div className="form-group">
                     <label htmlFor="recipePrep_input">Preparation:</label>
                     <textarea
-                        required autoFocus
+                        required 
                         type="text"
                         className="recipeForm--control recipe--textarea"
                         placeholder="Add preparation instructions for your recipe"
@@ -344,7 +344,7 @@ export const EditRecipe = () => {
                 <div className="form-group">
                     <label htmlFor="recipeCook_input">Cooking Instructions:</label>
                     <textarea
-                        required autoFocus
+                        required 
                         type="text"
                         className="recipeForm--control recipe--textarea"
                         placeholder="Add cooking instructions for your recipe"
@@ -364,7 +364,7 @@ export const EditRecipe = () => {
                 <div className="form-group recipeTime--div">
                     <label htmlFor="prepTime_input">Prep Time:</label>
                     <input
-                        required autoFocus
+                        required 
                         type="number"
                         className="recipeForm--control recipeTime--input"
                         placeholder="Enter a time"
@@ -382,7 +382,7 @@ export const EditRecipe = () => {
                 <div className="form-group recipeTime--div">
                     <label htmlFor="cookTime_input">Cooking Time:</label>
                     <input
-                        required autoFocus
+                        required 
                         type="number"
                         className="recipeForm--control recipeTime--input"
                         placeholder="Enter a time"
@@ -403,7 +403,7 @@ export const EditRecipe = () => {
                 <div className="form-group recipeServings--div">
                     <label htmlFor="recipeServings_input">Serving Size:</label>
                     <input
-                        required autoFocus
+                        required 
                         type="number"
                         className="recipeForm--control"
                         placeholder="How many people will this meal feed?"
@@ -434,7 +434,6 @@ export const EditRecipe = () => {
                 <div className="form-group">
                     <label htmlFor="recipeNotes_input">Additional Notes and Tips:</label>
                     <textarea
-                        required autoFocus
                         type="text"
                         className="recipeForm--control recipe--textarea"
                         placeholder="Optional"
@@ -454,7 +453,6 @@ export const EditRecipe = () => {
                 <div className="form-group">
                     <label htmlFor="recipeImage__input">Image url:</label>
                     <input
-                        required autoFocus
                         type="text"
                         className="recipeForm--control"
                         placeholder="Paste image url here"
@@ -474,20 +472,6 @@ export const EditRecipe = () => {
                 onClick={ (clickEvent) => {handleEditRecipeClick(clickEvent)} }
                 className="btn btn-primary submitRecipe">
                 Submit Changes
-            </button>
-
-            <button
-            onClick={(event) => {
-                event.preventDefault()
-                console.log("edited recipe", recipe)
-                console.log("Ingredients to post", ingredientsToPost)
-                console.log("Ingredients to delete", ingredientsToDelete)
-                console.log("Categories to post", categoriesToPost)
-                console.log("categories to delete", categoriesToDelete)
-                console.log("singleIngredientToAdd", ingredientToAdd)
-            }}
-            >
-                View State Changes to submit
             </button>
         </form>
     </>
