@@ -2,12 +2,17 @@ import { useEffect, useState } from "react"
 import "../RecipeForm.css"
 import { AddIngredients } from "./AddIngredients"
 import { AddCategories } from "./AddCategories"
+import { useNavigate } from "react-router-dom"
+
 
 
 export const PostRecipe = () => {
     // Get the current user information
     const localGastroUser = localStorage.getItem("gastro_user")
     const gastroUserObject = JSON.parse(localGastroUser)
+
+    // Get the useNavigate function so the user can be navigated back after posting
+    const navigate = useNavigate()
 
     /* Define and set state variable for the recipe object to be posted,
        the ingredient relationships to be posted, and the category relationships
@@ -141,7 +146,10 @@ export const PostRecipe = () => {
                 .then((postedCat) => {
                     postedCat.length > 0 && console.log("posted categories", postedCat)
                     console.log("All fetch calls are completed")
+                })
+                .then(() => {
                     // Navigate the user to a different page here
+                    navigate(-1)
                 })
                 .catch((error) => {
                     console.error(error)

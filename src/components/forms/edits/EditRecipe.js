@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react"
 import "../RecipeForm.css"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { EditIngredients } from "./EditIngredients"
 import { EditCategories } from "./EditCategories"
 
 
 export const EditRecipe = () => {
+    // Get useNavigate function to return user to previous view
+    const navigate = useNavigate()
+
     // Get the selected recipe id
     const {recipeId} = useParams()
 
@@ -236,6 +239,10 @@ export const EditRecipe = () => {
                 .then(categoryArr => {
                     categoryArr && console.log("Categories added", categoryArr)
                     console.log("All fetch calls completed")
+                })
+                .then(() => {
+                    // Navigate user to previous page
+                    navigate(-1)
                 })
                 .catch(error => {
                     console.error("An error occurred:", error)
