@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react"
-import { Link, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import { FavoriteButton } from "../PostInteraction/Favorite"
 import "./RecipeDetails.css"
 
 
 export const RecipeCard = () => {
+    const navigate = useNavigate()
+
     // Get the recipe card id
     const { recipeId } = useParams()
 
@@ -66,11 +68,22 @@ export const RecipeCard = () => {
     
 
     return <article className="recipeDetails">
-        <section className="recipeDetails--topContainer">
+        <header>
             <h1 className="recipeDetails--title">{recipeCard.title}</h1>
+        </header>
+
+        <section className="recipeDetails--topContainer">
             {
                 recipeCard.userId !== gastroUserObject.id
-                && <div className="recipeDetails_fav"><FavoriteButton recipe={recipeCard} /></div>
+                ? <div className="recipeDetails_fav"><FavoriteButton recipe={recipeCard} /></div>
+                    : <div className="recipeDetails_fav">
+                        <button
+                            onClick={(evt) => {
+                                evt.preventDefault()
+                                navigate(`/recipe/${recipeCard.id}/edit/${recipeCard.userId}`)
+                            }}
+                        >Edit</button>
+                    </div>
             }
         </section>
 

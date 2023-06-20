@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { DeleteRecipe } from "../PostInteraction/DeleteRecipe"
 import { FavoriteButton } from "../PostInteraction/Favorite"
 
 export const RecipeFeed = ({recipes, gastroUserObject}) => {
+    const navigate = useNavigate()
     return <article className="recipeFeed">
     {
         recipes.map(
@@ -15,7 +16,13 @@ export const RecipeFeed = ({recipes, gastroUserObject}) => {
                         {
                             gastroUserObject.id === recipe.userId
                             ? <>
-                            <Link to={`/recipe/${recipe.id}/edit/${recipe.userId}`}>Edit</Link>
+                            <button
+                                onClick={(evt) => {
+                                    evt.preventDefault()
+                                    navigate(`/recipe/${recipe.id}/edit/${recipe.userId}`)
+                                }}
+                            >Edit</button>
+            
                             <DeleteRecipe recipeId={recipe.id}
                                 recipeIngredients={recipe.ingredientsInRecipes}
                                 recipeCategories={recipe.categoriesOfRecipes} />

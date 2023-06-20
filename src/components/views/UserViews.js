@@ -27,7 +27,6 @@ export const UserViews = () => {
                 <Route path="recipe/:recipeId/edit/:authorId" element={
                     <VerifiedToEdit>
                         <>
-                            <>This is the edit recipe page</>
                             <EditRecipe />
                         </>
                     </VerifiedToEdit>
