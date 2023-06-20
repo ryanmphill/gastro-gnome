@@ -48,12 +48,19 @@ export const RecipeCard = () => {
         },
         []
     )
+
+    // Get current user
+    const localGastroUser = localStorage.getItem("gastro_user")
+    const gastroUserObject = JSON.parse(localGastroUser)
     
 
     return <article className="recipeDetails">
         <section className="recipeDetails--topContainer">
             <h1 className="recipeDetails--title">{recipeCard.title}</h1>
-            <div className="recipeDetails_fav"><FavoriteButton recipe={recipeCard} /></div>
+            {
+                recipeCard.userId !== gastroUserObject.id
+                && <div className="recipeDetails_fav"><FavoriteButton recipe={recipeCard} /></div>
+            }
         </section>
 
         <section>
