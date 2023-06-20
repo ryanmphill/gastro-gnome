@@ -80,6 +80,14 @@
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
+#ingredientChoices {
+    width: 100%;
+}
+
+#categoryChoices {
+    width: 94%;
+}
+
 .recipe--textarea {
     height: 4rem;
 }
