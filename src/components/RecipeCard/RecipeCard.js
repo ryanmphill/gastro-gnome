@@ -22,7 +22,10 @@ export const RecipeCard = () => {
             .then((recipeObject) => {
                 setRecipeCard(recipeObject)
                 setAttachedIngredients(recipeObject.ingredientsInRecipes)
-                setAttachedCategories(recipeObject.categoriesInRecipes)
+                setAttachedCategories(recipeObject.categoriesOfRecipes)
+            })
+            .then(() => {
+                setRecipeLoading(false)
             })
     }
 
@@ -30,12 +33,20 @@ export const RecipeCard = () => {
     const [allIngredients, setAllIngredients] = useState([])
     const [allCategories, setAllCategories] = useState([])
 
+    // Set state variables for loading time
+    const [recipeLoading, setRecipeLoading] = useState(true)
+    const [ingredientsLoading, setIngredientsLoading] = useState(true)
+    const [categoriesLoading, setCategoriesLoading] = useState(true)
+
     // Define a function to fetch all ingredients, categories
-    const fetchList = (endpoint, setterFunc) => {
+    const fetchList = (endpoint, setterFunc, setLoading) => {
         fetch(`http://localhost:8088/${endpoint}`)
             .then(response => response.json())
             .then((data) => {
                 setterFunc(data)
+            })
+            .then(() => {
+                setLoading(false)
             })
     }
 
@@ -43,8 +54,8 @@ export const RecipeCard = () => {
     useEffect(
         () => {
             fetchSelectedRecipe()
-            fetchList("ingredients", setAllIngredients)
-            fetchList("categories", setAllCategories)
+            fetchList("ingredients", setAllIngredients, setIngredientsLoading)
+            fetchList("categories", setAllCategories, setCategoriesLoading)
         },
         []
     )
@@ -82,7 +93,10 @@ export const RecipeCard = () => {
         </section>
 
         <section>
-            <div>{recipeCard.description}</div>
+            <div>
+                <h4>Description</h4>
+                <div>{recipeCard.description}</div>
+            </div>
             <div>
                 <h4>Ingredients</h4>
                 <ul>
@@ -94,8 +108,6 @@ export const RecipeCard = () => {
                             ingredient => ingredient.id === attachedIngredient.ingredientId
                         ) 
                         if (matchedIngredient) { // Check if the matched ingredient value is truthy before rendering
-                            console.log("matched", matchedIngredient)
-                            console.log("ingredient relationship", attachedIngredient)
                             return <li key={`ingredientdetails--${matchedIngredient.id}`}>{attachedIngredient.quantity} {attachedIngredient.quantityUnit} {matchedIngredient.name}</li>
                         } else {
                             return null
@@ -104,6 +116,44 @@ export const RecipeCard = () => {
                     }
                 </ul>
             </div>
+        </section>
+
+        <section>
+            <h4>Preparation</h4>
+            <div>{recipeCard.prepInstructions}</div>
+        </section>
+
+        <section>
+            <h4>Cooking Instructions</h4>
+            <div>{recipeCard.cookInstructions}</div>
+        </section>
+
+        {
+            recipeCard.note
+            && <section>
+                <h4>Additional Notes and Tips</h4>
+                <div>{recipeCard.note}</div>
+            </section>
+        }
+
+        <section>
+            { /* Check if category arrays have been populated and then find matching category objects */
+                !recipeLoading && !categoriesLoading
+                    ? attachedCategories.length > 0 &&
+                        attachedCategories.map(attachedCategory => {
+                        const matchedCategory = allCategories.find(
+                            category => category.id === attachedCategory.categoryId
+                        )
+                        if (matchedCategory) { // Check if the matched ingredient value is truthy before rendering
+                            console.log("matchedCat", matchedCategory)
+                            console.log("category relationship", attachedCategory)
+                            return <div key={`categorydetails--${matchedCategory.id}`}># {matchedCategory.name}</div>
+                        } else {
+                            return null
+                        }
+                    })
+                    : <div>Loading...</div>
+            }
         </section>
 
 

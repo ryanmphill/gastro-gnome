@@ -56,7 +56,7 @@ export const EditCategories = ({categoriesToPost, allCategories, categoryToAdd, 
     
     return <>
         <div className="addedCategories">
-            {
+            { // Display Categories already on recipe card with interface for deleting
                 initialCategories.length > 0
                 && initialCategories.map(initialCategory => {
                     const matchedCategory = allCategories.find(
@@ -89,7 +89,7 @@ export const EditCategories = ({categoriesToPost, allCategories, categoryToAdd, 
                 })
             }
             
-            {
+            { // Display newly added categories
                 categoriesToPost.length > 0
                 && categoriesToPost.map(includedCategory => {
                     const matchedCategory = allCategories.find(
