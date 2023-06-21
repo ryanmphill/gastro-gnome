@@ -93,36 +93,21 @@ export const EditRecipe = () => {
         []
     )
 
-    // On initial render, fetch the genres, categories, and ingredients lists
-    useEffect(
-        () => {
-            fetch(`http://localhost:8088/categories`)
-                .then(response => response.json())
-                .then((categoriesArray) => {
-                    setAllCategories(categoriesArray)
-                })
-        },
-        []
-    )
+    // Define a function to fetch all ingredients, categories, and genres
+    const fetchList = (endpoint, setterFunc) => {
+        fetch(`http://localhost:8088/${endpoint}`)
+            .then(response => response.json())
+            .then((data) => {
+                setterFunc(data)
+            })
+    }
 
+    // On initial render, fetch the genres, categories, and ingredients
     useEffect(
         () => {
-            fetch(`http://localhost:8088/ingredients`)
-                .then(response => response.json())
-                .then((ingredientsArray) => {
-                    setAllIngredients(ingredientsArray)
-                })
-        },
-        []
-    )
-
-    useEffect(
-        () => {
-            fetch(`http://localhost:8088/genres`)
-                .then(response => response.json())
-                .then((genreArray) => {
-                    setGenres(genreArray)
-                })
+            fetchList("categories", setAllCategories)
+            fetchList("ingredients", setAllIngredients)
+            fetchList("genres", setGenres)
         },
         []
     )
@@ -324,7 +309,9 @@ export const EditRecipe = () => {
                     updateIngredientsToPost={updateIngredientsToPost}
                     initialIngredients={initialIngredients}
                     ingredientsToDelete={ingredientsToDelete}
-                    updateIngredientsToDelete={updateIngredientsToDelete} />
+                    updateIngredientsToDelete={updateIngredientsToDelete}
+                    fetchList={fetchList}
+                    setAllIngredients={setAllIngredients} />
             </fieldset>
 
             <fieldset>

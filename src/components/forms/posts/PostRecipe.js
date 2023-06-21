@@ -64,7 +64,7 @@ export const PostRecipe = () => {
       category objects */
     const [newRecipeResponseId, setNewRecipeResponseId] = useState(0)
 
-    // Define a function to fetch all ingredients, categories
+    // Define a function to fetch all ingredients, categories, and genres
     const fetchList = (endpoint, setterFunc) => {
         fetch(`http://localhost:8088/${endpoint}`)
             .then(response => response.json())
