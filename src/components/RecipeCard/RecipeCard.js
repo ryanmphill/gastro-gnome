@@ -112,7 +112,7 @@ export const RecipeCard = () => {
         <section>
             <div>
                 <h4>Description</h4>
-                <div>{recipeCard.description}</div>
+                <div className="recipeDetails--textblock" >{recipeCard.description}</div>
             </div>
             <div>
                 <h4>Ingredients</h4>
@@ -141,19 +141,19 @@ export const RecipeCard = () => {
 
         <section>
             <h4>Preparation</h4>
-            <div>{recipeCard.prepInstructions}</div>
+            <div className="recipeDetails--textblock" >{recipeCard.prepInstructions}</div>
         </section>
 
         <section>
             <h4>Cooking Instructions</h4>
-            <div>{recipeCard.cookInstructions}</div>
+            <div className="recipeDetails--textblock" >{recipeCard.cookInstructions}</div>
         </section>
 
         {
             recipeCard.note
             && <section>
                 <h4>Additional Notes and Tips</h4>
-                <div>{recipeCard.note}</div>
+                <div className="recipeDetails--textblock" >{recipeCard.note}</div>
             </section>
         }
 
