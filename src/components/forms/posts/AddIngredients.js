@@ -1,7 +1,11 @@
-import Select from 'react-select';
+import { CustomIngredient } from '../CustomIngredient';
+import { AddIngredientForm } from './AddIngredientForm';
+import { useState } from 'react';
 
 
-export const AddIngredients = ({includedIngredients, allIngredients, ingredientToAdd, updateIngredientToAdd, updateIncludedIngredients}) => {
+export const AddIngredients = ({includedIngredients, allIngredients, ingredientToAdd, updateIngredientToAdd, updateIncludedIngredients, fetchList, setAllIngredients}) => {
+    // Set state variable for tracking if the create custom ingredient view should be shown
+    const [showCustom, setShowCustom] = useState(false)
     
     const handleAddIngredient = (event) => {
         event.preventDefault()
@@ -25,85 +29,24 @@ export const AddIngredients = ({includedIngredients, allIngredients, ingredientT
     }
     
     return <>
-        <div className="addedIngredients">
-            {
-                includedIngredients.length > 0
-                && includedIngredients.map(includedIngredient => {
-                    const matchedIngredient = allIngredients.find(
-                        ingredient => ingredient.id === includedIngredient.ingredientId
-                    )
-                    return <div className="addedIngredientRow" key={`addedIngDetails--${includedIngredient.ingredientId}`}>
-                        <span className="flex-column1" key={`matchedIng--${includedIngredient.ingredientId}`}>{matchedIngredient.name}</span>
-                        <span className="flex-column2" key={`addedQuant--${includedIngredient.ingredientId}`}>{includedIngredient.quantity} {includedIngredient.quantityUnit}</span>
-                        <span className="flex-column3" key={`removeIngredient--${includedIngredient.ingredientId}`}>
-                            <button data-id={includedIngredient.ingredientId}
-                            onClick={(click) => handleRemoveIngredient(click, includedIngredient)}
-                            className="btn--removeItem">X</button>
-                        </span>
-                    </div>
-                })
-            }
-        </div>
+        {
+            !showCustom
+                ? <AddIngredientForm 
+                includedIngredients={includedIngredients}
+                handleRemoveIngredient={handleRemoveIngredient}
+                allIngredients={allIngredients}
+                ingredientToAdd={ingredientToAdd}
+                updateIngredientToAdd={updateIngredientToAdd}
+                handleAddIngredient={handleAddIngredient}
+                setShowCustom={setShowCustom}
+                />
 
-        <section className="ingredientInputContainer">
-            <div className="form-group ingredientInputs">
-                <label>Choose Ingredient:
-                    <Select
-                        className="ingredient--control--select"
-                        id="ingredientChoices"
-                        options={allIngredients}
-                        onChange={(selectedOption) => {
-                            const copy = { ...ingredientToAdd }
-                            copy.ingredientId = parseInt(selectedOption.id)
-                            updateIngredientToAdd(copy)
-                            console.log("copyToAdd", copy)
-                        }}
-                        getOptionLabel={(option) => option.name}
-                        getOptionValue={(option) => option.id}
-                        placeholder="Select an Ingredient"
-                    />
-                </label>
-            </div>
-            <div className="form-group ingredientInputs">
-                <label htmlFor="ingredientQuantity_input">Quantity:</label>
-                <input
-                    required 
-                    type="number"
-                    className="ingredient--control"
-                    placeholder="Enter a quantity"
-                    id="ingredientQuantity_input"
-                    value={ingredientToAdd.quantity !== 0 ? ingredientToAdd.quantity : ""} // If value is is zero, change to empty string to display placeholder text by default instead of zero
-                    step="0.01" // Set the step attribute to control decimal precision
-                    onChange={
-                        (changeEvent) => {
-                            const copy = { ...ingredientToAdd }
-                            copy.quantity = changeEvent.target.value !== "" ? Math.round(parseFloat(changeEvent.target.value) * 100) / 100 : 0
-                            updateIngredientToAdd(copy) // Updating ingredient quantity with value of copy
-                        }
-                    } />
-            </div>
-            <div className="form-group ingredientInputs">
-                <label htmlFor="quantityType_input">Unit:</label>
-                <input
-                    required 
-                    type="text"
-                    className="ingredient--control"
-                    placeholder="Enter a unit of measurement"
-                    id="quantityType_input"
-                    value={ingredientToAdd.quantityUnit}
-                    onChange={
-                        (changeEvent) => {
-                            const copy = { ...ingredientToAdd }
-                            copy.quantityUnit = changeEvent.target.value
-                            updateIngredientToAdd(copy) // Updating recipe with value of copy
-                        }
-                    } />
-            </div>
-        </section>
-        <button
-            onClick={
-                (event) => {handleAddIngredient(event)}
-            }
-        >Add Ingredient</button>
+                : <CustomIngredient
+                allIngredients={allIngredients}
+                fetchList={fetchList}
+                setAllIngredients={setAllIngredients}
+                setShowCustom={setShowCustom} />
+        }
+        
     </>
 }
