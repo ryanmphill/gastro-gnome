@@ -64,36 +64,21 @@ export const PostRecipe = () => {
       category objects */
     const [newRecipeResponseId, setNewRecipeResponseId] = useState(0)
 
+    // Define a function to fetch all ingredients, categories
+    const fetchList = (endpoint, setterFunc) => {
+        fetch(`http://localhost:8088/${endpoint}`)
+            .then(response => response.json())
+            .then((data) => {
+                setterFunc(data)
+            })
+    }
+
     // On initial render, fetch the genres, categories, and ingredients
     useEffect(
         () => {
-            fetch(`http://localhost:8088/categories`)
-                .then(response => response.json())
-                .then((categoriesArray) => {
-                    setAllCategories(categoriesArray)
-                })
-        },
-        []
-    )
-
-    useEffect(
-        () => {
-            fetch(`http://localhost:8088/ingredients`)
-                .then(response => response.json())
-                .then((ingredientsArray) => {
-                    setAllIngredients(ingredientsArray)
-                })
-        },
-        []
-    )
-
-    useEffect(
-        () => {
-            fetch(`http://localhost:8088/genres`)
-                .then(response => response.json())
-                .then((genreArray) => {
-                    setGenres(genreArray)
-                })
+            fetchList("categories", setAllCategories)
+            fetchList("ingredients", setAllIngredients)
+            fetchList("genres", setGenres)
         },
         []
     )
@@ -270,7 +255,9 @@ export const PostRecipe = () => {
                     allIngredients={allIngredients}
                     ingredientToAdd={ingredientToAdd}
                     updateIngredientToAdd={updateIngredientToAdd}
-                    updateIncludedIngredients={updateIncludedIngredients} />
+                    updateIncludedIngredients={updateIncludedIngredients}
+                    fetchList={fetchList}
+                    setAllIngredients={setAllIngredients} />
             </fieldset>
 
             <fieldset>
