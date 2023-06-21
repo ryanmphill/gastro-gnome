@@ -1,6 +1,8 @@
 /* Import the google web fonts you want to use */
 @import url("https://fonts.googleapis.com/css?family=Comfortaa|Patua+One");
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap');
+
 /*Typography
 --------------------------------------------------------------*/
 body,
@@ -19,7 +21,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Patua One", serif;
+  font-family: 'Roboto Slab', "Patua One", serif;
   letter-spacing: 2px;
 }
 
