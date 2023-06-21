@@ -1,4 +1,4 @@
-
+import Select from 'react-select';
 
 export const EditIngredients = ({ingredientsToPost, allIngredients, ingredientToAdd, updateIngredientToAdd, updateIngredientsToPost, initialIngredients, ingredientsToDelete, updateIngredientsToDelete}) => {
     
@@ -133,22 +133,22 @@ export const EditIngredients = ({ingredientsToPost, allIngredients, ingredientTo
         </div>
         <section className="ingredientInputContainer">
             <div className="form-group ingredientInputs">
-                <label htmlFor="ingredientChoices">Choose Ingredient:</label>
-                <select
-                    className="ingredient--control"
-                    id="ingredientChoices"
-                    value={ingredientToAdd.ingredientId}
-                    onChange={(changeEvent) => {
-                        const copy = { ...ingredientToAdd };
-                        copy.ingredientId = parseInt(changeEvent.target.value);
-                        updateIngredientToAdd(copy); // Updating recipe with value of copy
-                    }}
-                >   {/*Add options for choosing a genre*/}
-                    <option value="0">Select an Ingredient</option>
-                    {
-                        allIngredients.map(ingredient => <option value={ingredient.id} key={`editIngredient--${ingredient.id}`}>{ingredient?.name}</option>)
-                    }
-                </select>
+                <label>Choose Ingredient:
+                    <Select
+                        className="ingredient--control--select"
+                        id="ingredientChoices"
+                        options={allIngredients}
+                        onChange={(selectedOption) => {
+                            const copy = { ...ingredientToAdd }
+                            copy.ingredientId = parseInt(selectedOption.id)
+                            updateIngredientToAdd(copy)
+                            console.log("copyToAdd", copy)
+                        }}
+                        getOptionLabel={(option) => option.name}
+                        getOptionValue={(option) => option.id}
+                        placeholder="Select an Ingredient"
+                    />
+                </label>
             </div>
             <div className="form-group ingredientInputs">
                 <label htmlFor="ingredientQuantity_input">Quantity:</label>
