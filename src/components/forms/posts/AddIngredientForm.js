@@ -48,7 +48,6 @@ export const AddIngredientForm = ({includedIngredients, handleRemoveIngredient, 
                             const copy = { ...ingredientToAdd }
                             copy.ingredientId = parseInt(selectedOption.id)
                             updateIngredientToAdd(copy)
-                            console.log("copyToAdd", copy)
                         }}
                         getOptionLabel={(option) => option.name}
                         getOptionValue={(option) => option.id}

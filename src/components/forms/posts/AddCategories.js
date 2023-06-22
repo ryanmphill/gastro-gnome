@@ -52,7 +52,6 @@ export const AddCategories = ({includedCategories, allCategories, categoryToAdd,
                             const copy = { ...categoryToAdd }
                             copy.categoryId = parseInt(selectedOption.id)
                             updateCategoryToAdd(copy)
-                            console.log("copyToAdd", copy)
                         }}
                         getOptionLabel={(option) => option.name}
                         getOptionValue={(option) => option.id}
