@@ -1,6 +1,22 @@
 import Select from 'react-select';
 
 export const EditIngredientForm = ({ initialIngredients, allIngredients, markedForDeletion, handleUndoDelete, handleDeleteExistingIngredient, handleRemoveIngredient, ingredientsToPost, ingredientToAdd, updateIngredientToAdd, handleAddIngredient, setShowCustom }) => {
+
+    const validateQuantityInput = (changeEvent) => {
+        const inputValue = changeEvent.target.value
+        const isFractionOrDecimal = /^(?!.*\/.*\/)(?!.*\..*\.)(?!.* .* )[0-9\/. ]*$/
+        const containsDot = inputValue.includes('.')
+        const containsSlash = inputValue.includes('/')
+        const containsDotAndSlash = containsDot && containsSlash ? true : false
+    
+        if (isFractionOrDecimal.test(inputValue) && !containsDotAndSlash) {
+            return true
+        } else {
+            return false
+        }
+    
+    }
+    
     return <>
         <div className="addedIngredients">
             { /*Initial ingredients already attached to the recipe card*/
@@ -82,16 +98,17 @@ export const EditIngredientForm = ({ initialIngredients, allIngredients, markedF
                 <label htmlFor="ingredientQuantity_input">Quantity:</label>
                 <input
                     required
-                    type="number"
+                    type="text"
                     className="ingredient--control"
                     placeholder="Enter a quantity"
                     id="ingredientQuantity_input"
-                    value={ingredientToAdd.quantity !== 0 ? ingredientToAdd.quantity : ""} // If value is is zero, change to empty string to display placeholder text by default instead of zero
-                    step="0.01" // Set the step attribute to control decimal precision
+                    value={ingredientToAdd.quantity} 
                     onChange={
                         (changeEvent) => {
                             const copy = { ...ingredientToAdd }
-                            copy.quantity = changeEvent.target.value !== "" ? Math.round(parseFloat(changeEvent.target.value) * 100) / 100 : 0
+                            const inputValue = changeEvent.target.value
+                            // If the typed in value is a decimal OR a fraction, update ingredientToAdd, else, value remains unchanged
+                            copy.quantity = validateQuantityInput(changeEvent) ? inputValue : ingredientToAdd.quantity
                             updateIngredientToAdd(copy) // Updating ingredient quantity with value of copy
                         }
                     } />
