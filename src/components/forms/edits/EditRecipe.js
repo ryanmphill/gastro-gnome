@@ -364,7 +364,6 @@ export const EditRecipe = () => {
                         placeholder="Enter a time"
                         id="prepTime_input"
                         value={recipe.prepTime > 0 ? recipe.prepTime : ""} // If value is is zero, change to empty string to display placeholder text by default instead of zero
-                        step="0.01" // Set the step attribute to control decimal precision
                         onChange={
                             (changeEvent) => {
                                 const copy = { ...recipe }
@@ -382,7 +381,6 @@ export const EditRecipe = () => {
                         placeholder="Enter a time"
                         id="cookTime_input"
                         value={recipe.cookTime > 0 ? recipe.cookTime : ""} // If value is is zero, change to empty string to display placeholder text by default instead of zero
-                        step="0.01" // Set the step attribute to control decimal precision
                         onChange={
                             (changeEvent) => {
                                 const copy = { ...recipe }

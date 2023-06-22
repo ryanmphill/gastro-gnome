@@ -32,7 +32,7 @@ export const AddCategories = ({includedCategories, allCategories, categoryToAdd,
                         category => category.id === includedCategory.categoryId
                     )
                     return <div className="addedCategory" key={`addededCat--${includedCategory.categoryId}`}>
-                        {matchedCategory.name}
+                        {matchedCategory?.name}
                         <button 
                             onClick={(click) => handleRemoveCategory(click, includedCategory)}
                             className="btn--removeItem btn--removeCat"

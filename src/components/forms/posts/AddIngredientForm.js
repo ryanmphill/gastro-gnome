@@ -68,6 +68,7 @@ export const AddIngredientForm = ({includedIngredients, handleRemoveIngredient, 
                         (changeEvent) => {
                             const copy = { ...ingredientToAdd }
                             const inputValue = changeEvent.target.value
+                            // If the typed in value is a decimal OR a fraction, update ingredientToAdd, else, value remains unchanged 
                             copy.quantity = validateQuantityInput(changeEvent) ? inputValue : ingredientToAdd.quantity
                             updateIngredientToAdd(copy) // Updating ingredient quantity with value of copy
                         }
