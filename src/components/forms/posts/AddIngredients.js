@@ -16,7 +16,6 @@ export const AddIngredients = ({includedIngredients, allIngredients, ingredientT
         if (!alreadyAdded) {
             copy.push(ingredientToAdd)
             updateIncludedIngredients(copy)
-            console.log("included ingredients", includedIngredients)
         } else {
             window.alert("That ingredient has already been added")
         }

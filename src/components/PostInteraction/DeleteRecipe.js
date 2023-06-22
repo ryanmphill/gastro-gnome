@@ -8,9 +8,6 @@ export const DeleteRecipe = ({ recipeId, recipeIngredients, recipeCategories, up
 
     const handleInitialDeleteClick = (event) => {
         event.preventDefault()
-        console.log("recipeId", recipeId)
-        console.log("ingredients", recipeIngredients)
-        console.log("categories", recipeCategories)
         setShowPrompt(true)
     }
 

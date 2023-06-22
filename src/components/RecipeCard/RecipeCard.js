@@ -166,8 +166,6 @@ export const RecipeCard = () => {
                             category => category.id === attachedCategory.categoryId
                         )
                         if (matchedCategory) { // Check if the matched ingredient value is truthy before rendering
-                            console.log("matchedCat", matchedCategory)
-                            console.log("category relationship", attachedCategory)
                             return <div className="recipeDetails__category" key={`categorydetails--${matchedCategory.id}`}># {matchedCategory.name}</div>
                         } else {
                             return null

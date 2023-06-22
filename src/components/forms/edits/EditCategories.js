@@ -36,7 +36,6 @@ export const EditCategories = ({categoriesToPost, allCategories, categoryToAdd, 
         if (!alreadyStaged) {
             copy.push(objectToDelete)
             updateCategoriesToDelete(copy)
-            console.log("categories to delete", categoriesToDelete)
         } else {
             window.alert("Category tag already marked for deletion")
         }
@@ -116,7 +115,6 @@ export const EditCategories = ({categoriesToPost, allCategories, categoryToAdd, 
                             const copy = { ...categoryToAdd }
                             copy.categoryId = parseInt(selectedOption.id)
                             updateCategoryToAdd(copy)
-                            console.log("copyToAdd", copy)
                         }}
                         getOptionLabel={(option) => option.name}
                         getOptionValue={(option) => option.id}
