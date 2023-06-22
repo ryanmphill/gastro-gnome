@@ -40,7 +40,7 @@ export const PostRecipe = () => {
         {
             "ingredientId": 0,
             "recipeCardId": 0,
-            "quantity": 0,
+            "quantity": "",
             "quantityUnit": ""
         }
     )

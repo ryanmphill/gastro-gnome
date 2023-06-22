@@ -43,7 +43,7 @@ export const EditRecipe = () => {
         {
             "ingredientId": 0,
             "recipeCardId": parseInt(recipeId),
-            "quantity": 0,
+            "quantity": "",
             "quantityUnit": ""
         }
     )
