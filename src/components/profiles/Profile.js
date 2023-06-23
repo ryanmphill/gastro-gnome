@@ -28,7 +28,7 @@ export const Profile = () => {
         () => {
             fetchRecipes()
         },
-        [] // When this array is empty, you are observing initial component state
+        [selectedUserId] // When this array is empty, you are observing initial component state
     )
 
     // Observe the state for which recipes should be displayed
@@ -62,14 +62,14 @@ export const Profile = () => {
         () => {
             fetchUserWithFavs()
         },
-        [] // When this array is empty, you are observing initial component state
+        [selectedUserId] // When this array is empty, you are observing initial component state
     )
     
     // Assign a variable to useNavigate()
     const navigate = useNavigate()
     
-    return <>
-        <h1>{ownerOfProfile.name}</h1>
+    return <section className="pageBody">
+        <h2>{ownerOfProfile.name}</h2>
 
         <input
             type="radio"
@@ -107,6 +107,6 @@ export const Profile = () => {
         gastroUserObject={gastroUserObject} 
         updateProfileFavs={fetchUserWithFavs}
         updateProfileFeed={fetchRecipes} />
-    </>
+    </section>
 
 }

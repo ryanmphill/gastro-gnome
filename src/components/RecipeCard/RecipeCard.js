@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import { FavoriteButton } from "../PostInteraction/Favorite"
 import "./RecipeDetails.css"
+import { Nutrition } from "./Nutrition"
 
 
 export const RecipeCard = () => {
@@ -66,7 +67,7 @@ export const RecipeCard = () => {
     const localGastroUser = localStorage.getItem("gastro_user")
     const gastroUserObject = JSON.parse(localGastroUser)
     
-
+    
     return <article className="recipeDetails">
         <header>
             <h1 className="recipeDetails--title">{recipeCard.title}</h1>
@@ -114,6 +115,8 @@ export const RecipeCard = () => {
                 <h4>Description</h4>
                 <div className="recipeDetails--textblock" >{recipeCard.description}</div>
             </div>
+        </section>
+        <section className="IngrNutritionContainer">
             <div>
                 <h4>Ingredients</h4>
                 {
@@ -137,6 +140,14 @@ export const RecipeCard = () => {
                         : <div>Loading...</div>
                 }
             </div>
+
+            <Nutrition
+            recipeTitle={recipeCard.title}
+            allIngredients={allIngredients}
+            attachedIngredients={attachedIngredients}
+            recipeLoading={recipeLoading}
+            ingredientsLoading={ingredientsLoading}
+            servingSize={recipeCard.servingSize} />
         </section>
 
         <section>
@@ -174,7 +185,6 @@ export const RecipeCard = () => {
                     : <div>Loading...</div>
             }
         </section>
-
 
     </article>
 }
