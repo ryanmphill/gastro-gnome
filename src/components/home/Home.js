@@ -29,11 +29,11 @@ export const Home = () => {
     // Assign a variable to useNavigate()
     const navigate = useNavigate()
     
-    return <>
+    return <section className="pageBody">
         <h2>Recipe List</h2>
 
         
         <button onClick={ () => navigate("/postrecipe") }>Post a Recipe</button>
         <RecipeFeed recipes={recipes} gastroUserObject={gastroUserObject} updateMainFeed={fetchRecipes} />
-    </>
+    </section>
 }

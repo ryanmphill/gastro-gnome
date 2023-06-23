@@ -8,7 +8,7 @@ export const AdminNav = ( {currentUser} ) => {
     return (
         <ul className="navbar">
             <li className="navbar__item">
-                <Link to="/">Logo will go here</Link>
+                <h3>Gastro Gnome</h3>
             </li>
             <li className="navbar__item navbar__Title">
                 

@@ -13,7 +13,7 @@ export const UserViews = () => {
             <Route path="/" element={
                 <>
                     <header className="pageHeader">
-                        <h1>Gastro Gnome</h1>
+                        
                         <div>Your all-in-one recipe book</div>
                     </header>
 
