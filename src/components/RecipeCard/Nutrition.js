@@ -169,6 +169,9 @@ export const Nutrition = ({ recipeTitle, allIngredients, attachedIngredients, re
                         </tr>
                     </tbody>
                 </table>
+                <footer className="attributionContainer">
+                    <img src="https://developer.edamam.com/images/badge.svg" alt="Edamam Logo" className="nutriAttribution"></img>
+                </footer>
             </section>
         }
     </>
