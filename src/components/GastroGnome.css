@@ -92,3 +92,15 @@ p {
   cursor: pointer;
   transform: scale(1.2);
 }
+
+.filterBar__categories {
+  display: flex;
+  border: 1px solid lightslategray;
+  border-radius: 10px;
+  padding: 0.15rem 0.35rem;
+}
+
+.filterBar__categoryType {
+  border: none;
+}
+
