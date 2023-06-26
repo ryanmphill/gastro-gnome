@@ -65,3 +65,30 @@ p {
   margin-top: 0;
   padding: 1rem;
 }
+
+.searchBar {
+  display: flex;
+  column-gap: 0.25rem;
+}
+
+.searchIcon {
+  width: 100%;
+  margin: 0;
+}
+
+.btn--search {
+  border: 1px solid lightgreen;
+  width: 2rem;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: inherit;
+  transition: all .2s ease-in-out;
+}
+
+.btn--search:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+}
