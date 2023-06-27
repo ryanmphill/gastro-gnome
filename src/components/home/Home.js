@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { RecipeFeed } from "./RecipeFeed"
-import { SearchRecipes } from "./SearchRecipes"
+import { FilterBar } from "./FilterBar"
 
 
 export const Home = () => {
@@ -50,11 +50,10 @@ export const Home = () => {
     const navigate = useNavigate()
     
     return <section className="pageBody">
-        <SearchRecipes searchTerms={searchTerms} 
+        <FilterBar searchTerms={searchTerms} 
         updateSearchTerms={updateSearchTerms} 
         setFilteredRecipes={setFilteredRecipes}
         recipes={recipes}
-        filteredRecipes={filteredRecipes}
         onlyRecipesWithTags={onlyRecipesWithTags}
         updateOnlyRecipesWithTags={updateOnlyRecipesWithTags}
         onlySearchedRecipes={onlySearchedRecipes}
