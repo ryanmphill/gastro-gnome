@@ -79,7 +79,7 @@ export const SearchRecipes = ({ searchTerms, updateSearchTerms, setFilteredRecip
     useEffect(
         () => {
             if (chosenCategories.length > 0) {
-                const matchingRecipes = filteredRecipes.filter(recipe =>
+                const matchingRecipes = recipes.filter(recipe =>
                     recipe.categoriesOfRecipes.some(category =>
                       chosenCategories.some(chosenCategory =>
                         chosenCategory.id === category.categoryId
