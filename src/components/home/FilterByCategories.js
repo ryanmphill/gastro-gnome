@@ -40,9 +40,13 @@ export const FilterByCategories = ({ recipes, searchTerms, updateOnlyRecipesWith
     // Filter the categories based on chosen category type
     useEffect(
         () => {
-            if (chosenCategoryType !== "") {
+            if (chosenCategoryType !== "" && chosenCategoryType !== "View All") {
                 const newCatList = categories.filter(category => category.categoryType === chosenCategoryType)
                 setFilteredCategories(newCatList)
+            }
+
+            if (chosenCategoryType === "View All") {
+                setFilteredCategories(categories)
             }
         },
         [chosenCategoryType]
@@ -132,6 +136,7 @@ export const FilterByCategories = ({ recipes, searchTerms, updateOnlyRecipesWith
                 {
                     categoryTypes.map(catType => <option value={catType} key={`catType--${catType}`}>{catType}</option>)
                 }
+                <option value="View All">--Search all--</option>
             </select>
 
             <Select
