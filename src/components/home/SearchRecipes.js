@@ -2,14 +2,14 @@ import { useEffect, useState } from "react"
 import searchIcon from "../../assets/skillet-search-small.svg"
 import Select from 'react-select';
 
-export const SearchRecipes = ({ searchTerms, updateSearchTerms, setFilteredRecipes, recipes, filteredRecipes }) => {
+export const SearchRecipes = ({ searchTerms, updateSearchTerms, setFilteredRecipes, recipes, filteredRecipes, onlyRecipesWithTags, updateOnlyRecipesWithTags, onlySearchedRecipes, updateOnlySearchedRecipes }) => {
     // Define a state variable for categories
     const [categories, setCategories] = useState([])
     const [categoryTypes, setCategoryTypes] = useState([])
     const [chosenCategoryType, updateChosenCategoryType] = useState("")
     const [filteredCategories, setFilteredCategories] = useState([])
     const [chosenCategories, updateChosenCategories] = useState([])
-
+    
     // Fetch the list of categories
     const fetchCategories = () => {
         fetch(`http://localhost:8088/categories`)
@@ -44,13 +44,29 @@ export const SearchRecipes = ({ searchTerms, updateSearchTerms, setFilteredRecip
     // Handle the search click
     const handleSearchClick = (evt) => {
         evt.preventDefault()
-        if (searchTerms !== "") {
+        if (searchTerms !== "" && onlyRecipesWithTags.length === 0) {
             const searchedRecipes = recipes.filter(recipe => {
                 // Filter by recipe title OR the authors name
                 return recipe.title.toLowerCase().includes(searchTerms.toLowerCase()) || recipe.user.name.toLowerCase().includes(searchTerms.toLowerCase())
             })
+            updateOnlySearchedRecipes(searchedRecipes)
             setFilteredRecipes(searchedRecipes)
+        } else if (searchTerms !== "" && onlyRecipesWithTags.length > 0) {
+            const justSearchedRecipes = recipes.filter(recipe => {
+                // Filter by recipe title OR the authors name
+                return recipe.title.toLowerCase().includes(searchTerms.toLowerCase()) || recipe.user.name.toLowerCase().includes(searchTerms.toLowerCase())
+            })
+            const searchedAndFilteredRecipes = onlyRecipesWithTags.filter(recipe => {
+                // Filter by recipe title OR the authors name
+                return recipe.title.toLowerCase().includes(searchTerms.toLowerCase()) || recipe.user.name.toLowerCase().includes(searchTerms.toLowerCase())
+            })
+            updateOnlySearchedRecipes(justSearchedRecipes)
+            setFilteredRecipes(searchedAndFilteredRecipes)
+        } else if (searchTerms === "" && onlyRecipesWithTags.length > 0) {
+            updateOnlySearchedRecipes([])
+            setFilteredRecipes(onlyRecipesWithTags)
         } else {
+            updateOnlySearchedRecipes([])
             setFilteredRecipes(recipes)
         }
     }
@@ -78,20 +94,44 @@ export const SearchRecipes = ({ searchTerms, updateSearchTerms, setFilteredRecip
     // Update filtered recipes when a category tag is chosen
     useEffect(
         () => {
-            if (chosenCategories.length > 0) {
+            if (chosenCategories.length > 0 && searchTerms === "") {
                 const matchingRecipes = recipes.filter(recipe =>
                     recipe.categoriesOfRecipes.some(category =>
-                      chosenCategories.some(chosenCategory =>
-                        chosenCategory.id === category.categoryId
-                      )
+                        chosenCategories.some(chosenCategory =>
+                            chosenCategory.id === category.categoryId
+                        )
                     )
-                  )
+                )
 
                 console.log("filteredRecipes", filteredRecipes)
                 console.log("chosenCats", chosenCategories)
 
+                updateOnlyRecipesWithTags(matchingRecipes)
                 setFilteredRecipes(matchingRecipes)
+            } else if (chosenCategories.length > 0 && searchTerms !== "") {
+                const justFilteredRecipes = recipes.filter(recipe =>
+                    recipe.categoriesOfRecipes.some(category =>
+                        chosenCategories.some(chosenCategory =>
+                            chosenCategory.id === category.categoryId
+                        )
+                    )
+                )
+
+                const searchedAndFilteredRecipes = onlySearchedRecipes.filter(recipe =>
+                    recipe.categoriesOfRecipes.some(category =>
+                        chosenCategories.some(chosenCategory =>
+                            chosenCategory.id === category.categoryId
+                        )
+                    )
+                )
+                updateOnlyRecipesWithTags(justFilteredRecipes)
+                setFilteredRecipes(searchedAndFilteredRecipes)
+
+            } else if (chosenCategories.length === 0 && searchTerms !== "") {
+                updateOnlyRecipesWithTags([])
+                setFilteredRecipes(onlySearchedRecipes)
             } else {
+                updateOnlyRecipesWithTags([])
                 setFilteredRecipes(recipes)
             }
         },

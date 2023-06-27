@@ -9,6 +9,10 @@ export const Home = () => {
     const [filteredRecipes, setFilteredRecipes] = useState([])
     const [searchTerms, updateSearchTerms] = useState("")
 
+    // Define additional state variables to allow users to stack filtering options
+    const [onlyRecipesWithTags, updateOnlyRecipesWithTags] = useState([])
+    const [onlySearchedRecipes, updateOnlySearchedRecipes] = useState([])
+
     // Get the current user
     const localGastroUser = localStorage.getItem("gastro_user")
     const gastroUserObject = JSON.parse(localGastroUser)
@@ -31,8 +35,12 @@ export const Home = () => {
     // Set the filtered recipes to default upon initial render
     useEffect(
         () => {
-            if (searchTerms === "") {
+            if (searchTerms === "" && onlyRecipesWithTags.length === 0) {
                 setFilteredRecipes(recipes)
+            }
+            if (searchTerms === "" && onlyRecipesWithTags.length > 0) {
+                setFilteredRecipes(onlyRecipesWithTags)
+                updateOnlySearchedRecipes([])
             }
         },
         [recipes, searchTerms] 
@@ -46,7 +54,11 @@ export const Home = () => {
         updateSearchTerms={updateSearchTerms} 
         setFilteredRecipes={setFilteredRecipes}
         recipes={recipes}
-        filteredRecipes={filteredRecipes} />
+        filteredRecipes={filteredRecipes}
+        onlyRecipesWithTags={onlyRecipesWithTags}
+        updateOnlyRecipesWithTags={updateOnlyRecipesWithTags}
+        onlySearchedRecipes={onlySearchedRecipes}
+        updateOnlySearchedRecipes={updateOnlySearchedRecipes} />
 
         <h2>Recipe List</h2>
 
