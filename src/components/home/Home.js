@@ -1,11 +1,17 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { RecipeFeed } from "./RecipeFeed"
+import { FilterBar } from "./FilterBar"
 
 
 export const Home = () => {
     const [recipes, setRecipes] = useState([]) // Observing initial state []
-    // const [filteredRecipes, setFilteredRecipes] = useState([])
+    const [filteredRecipes, setFilteredRecipes] = useState([])
+    const [searchTerms, updateSearchTerms] = useState("")
+
+    // Define additional state variables to allow users to stack filtering options
+    const [onlyRecipesWithTags, updateOnlyRecipesWithTags] = useState([])
+    const [onlySearchedRecipes, updateOnlySearchedRecipes] = useState([])
 
     // Get the current user
     const localGastroUser = localStorage.getItem("gastro_user")
@@ -25,15 +31,38 @@ export const Home = () => {
         },
         [] // When this array is empty, you are observing initial component state
     )
+
+    // Set the filtered recipes to default upon initial render
+    useEffect(
+        () => {
+            if (searchTerms === "" && onlyRecipesWithTags.length === 0) {
+                setFilteredRecipes(recipes)
+            }
+            if (searchTerms === "" && onlyRecipesWithTags.length > 0) {
+                setFilteredRecipes(onlyRecipesWithTags)
+                updateOnlySearchedRecipes([])
+            }
+        },
+        [recipes, searchTerms] 
+    )
     
     // Assign a variable to useNavigate()
     const navigate = useNavigate()
     
     return <section className="pageBody">
+        <FilterBar searchTerms={searchTerms} 
+        updateSearchTerms={updateSearchTerms} 
+        setFilteredRecipes={setFilteredRecipes}
+        recipes={recipes}
+        onlyRecipesWithTags={onlyRecipesWithTags}
+        updateOnlyRecipesWithTags={updateOnlyRecipesWithTags}
+        onlySearchedRecipes={onlySearchedRecipes}
+        updateOnlySearchedRecipes={updateOnlySearchedRecipes} />
+
         <h2>Recipe List</h2>
 
         
         <button onClick={ () => navigate("/postrecipe") }>Post a Recipe</button>
-        <RecipeFeed recipes={recipes} gastroUserObject={gastroUserObject} updateMainFeed={fetchRecipes} />
+        <RecipeFeed recipes={filteredRecipes} gastroUserObject={gastroUserObject} updateMainFeed={fetchRecipes} />
     </section>
 }

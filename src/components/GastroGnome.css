@@ -65,3 +65,90 @@ p {
   margin-top: 0;
   padding: 1rem;
 }
+
+.filterBar {
+  display: flex;
+  column-gap: 0.25rem;
+}
+
+.searchIcon {
+  width: 100%;
+  margin: 0;
+}
+
+.btn--search {
+  border: 1px solid lightgreen;
+  width: 2rem;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: inherit;
+  transition: all .2s ease-in-out;
+}
+
+.btn--search:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+}
+
+.filterBar__categories {
+  display: flex;
+  border: 1px solid lightslategray;
+  border-radius: 10px;
+  padding: 0.15rem 0.35rem;
+}
+
+.filterBar__categoryType {
+  border: none;
+  width: 6rem;
+}
+
+.chosenCategories {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.chosenCategory {
+  background-color: lightgrey;
+  border-radius: 20px;
+  padding: .25rem .5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 46%;
+}
+
+.btn--removeFilterCat {
+  border: none;
+  background-color: inherit;
+  color: rgba(31, 31, 31, .25);
+  margin-left: .25rem;
+  font-size: smaller;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn--removeFilterCat:hover {
+  color: firebrick;
+  cursor: pointer;
+}
+
+.searchBarContainer {
+  display: flex;
+  column-gap: 0.25rem;
+  border: 1px solid lightslategray;
+  border-radius: 10px;
+  padding: 0 0.5rem 0 0;
+}
+
+#RecipeSearchBar {
+  border: none;
+  border-radius: 10px;
+  padding-left: 0.5rem;
+}
