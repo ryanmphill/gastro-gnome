@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import searchIcon from "../../assets/skillet-search-small.svg"
 import Select from 'react-select';
 
-export const SearchRecipes = ({ searchTerms, updateSearchTerms, setFilteredRecipes, recipes }) => {
+export const SearchRecipes = ({ searchTerms, updateSearchTerms, setFilteredRecipes, recipes, filteredRecipes }) => {
     // Define a state variable for categories
     const [categories, setCategories] = useState([])
     const [categoryTypes, setCategoryTypes] = useState([])
@@ -54,6 +54,50 @@ export const SearchRecipes = ({ searchTerms, updateSearchTerms, setFilteredRecip
             setFilteredRecipes(recipes)
         }
     }
+
+    // Handle the selected category
+    const handleSelectedCategory = (chosenCategory) => {
+        // Get a copy of the current array of categories that are being used to filter
+        const copy = [ ...chosenCategories ]
+        // Check if the category has already been added
+        const alreadyAdded = copy.some(category => category.id === chosenCategory.id)
+        if (!alreadyAdded) {
+            copy.push(chosenCategory)
+            updateChosenCategories(copy)
+        }
+    }
+
+    // Handle removing a category
+    const handleRemoveSelected = (evt, objectToRemove) => {
+        evt.preventDefault()
+
+        const updatedCategories = chosenCategories.filter(category => category.id !== objectToRemove.id)
+        updateChosenCategories(updatedCategories)
+    }
+
+    // Update filtered recipes when a category tag is chosen
+    useEffect(
+        () => {
+            if (chosenCategories.length > 0) {
+                const matchingRecipes = filteredRecipes.filter(recipe =>
+                    recipe.categoriesOfRecipes.some(category =>
+                      chosenCategories.some(chosenCategory =>
+                        chosenCategory.id === category.categoryId
+                      )
+                    )
+                  )
+
+                console.log("filteredRecipes", filteredRecipes)
+                console.log("chosenCats", chosenCategories)
+
+                setFilteredRecipes(matchingRecipes)
+            } else {
+                setFilteredRecipes(recipes)
+            }
+        },
+        [chosenCategories]
+    )
+
     return <>
         
         
@@ -76,32 +120,47 @@ export const SearchRecipes = ({ searchTerms, updateSearchTerms, setFilteredRecip
                         updateChosenCategoryType(changeEvent.target.value)
                     }}
                 >   {/*Add options for filtering*/}
-                    <option value="0">Filter by: </option>
+                    <option value="0">Filter by:</option>
                     {
                         categoryTypes.map(catType => <option value={catType} key={`catType--${catType}`}>{catType}</option>)
                     }
                 </select>
+
                 <Select
                     className="filterBar__categorySelect"
                     id="filterByCategories"
                     options={filteredCategories}
                     onChange={(selectedOption) => {
-                        const copy = [...chosenCategories]
-                        copy.push(selectedOption)
-                        updateChosenCategories(copy)
+                        handleSelectedCategory(selectedOption)
                     }}
-                    isMulti
                     getOptionLabel={(option) => option.name}
                     getOptionValue={(option) => option.id}
                     placeholder="Select a Category"
                     styles={{
                         control: (baseStyles, state) => ({
-                          ...baseStyles,
-                          border: 'none',
+                            ...baseStyles,
+                            border: 'none',
                         }),
-                      }}
+                    }}
                 />
             </div>
+
+            <div className="chosenCategories">
+                {
+                    chosenCategories.length > 0
+                    && chosenCategories.map(category => {
+                        return <div className="chosenCategory" key={`chosenCat--${category.id}`}>
+                            {category.name}
+                            <button
+                                onClick={(click) => handleRemoveSelected(click, category)}
+                                className="btn--removeItem btn--removeFilterCat"
+                            >X</button>
+                        </div>
+                    })
+                }
+            </div>
+
         </section>
+        
     </>
 }

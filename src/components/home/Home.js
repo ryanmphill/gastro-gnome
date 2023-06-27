@@ -45,7 +45,8 @@ export const Home = () => {
         <SearchRecipes searchTerms={searchTerms} 
         updateSearchTerms={updateSearchTerms} 
         setFilteredRecipes={setFilteredRecipes}
-        recipes={recipes} />
+        recipes={recipes}
+        filteredRecipes={filteredRecipes} />
 
         <h2>Recipe List</h2>
 
