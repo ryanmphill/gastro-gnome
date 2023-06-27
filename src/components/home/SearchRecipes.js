@@ -38,7 +38,7 @@ export const SearchRecipes = ({ recipes, searchTerms, onlyRecipesWithTags, updat
         }
     }
 
-    return <>
+    return <div className="searchBarContainer">
         <input id="RecipeSearchBar"
             onChange={
                 (changeEvent) => {
@@ -49,5 +49,5 @@ export const SearchRecipes = ({ recipes, searchTerms, onlyRecipesWithTags, updat
         <button className="btn--search"
             onClick={(evt) => handleSearchClick(evt)}
         ><img className="searchIcon" src={searchIcon} alt="search"></img></button>
-    </>
+    </div>
 }

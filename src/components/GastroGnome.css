@@ -66,7 +66,7 @@ p {
   padding: 1rem;
 }
 
-.searchBar {
+.filterBar {
   display: flex;
   column-gap: 0.25rem;
 }
@@ -137,4 +137,18 @@ p {
 .btn--removeFilterCat:hover {
   color: firebrick;
   cursor: pointer;
+}
+
+.searchBarContainer {
+  display: flex;
+  column-gap: 0.25rem;
+  border: 1px solid lightslategray;
+  border-radius: 10px;
+  padding: 0 0.5rem 0 0;
+}
+
+#RecipeSearchBar {
+  border: none;
+  border-radius: 10px;
+  padding-left: 0.5rem;
 }

@@ -4,7 +4,7 @@ import { FilterByCategories } from "./FilterByCategories";
 export const FilterBar = ({ searchTerms, updateSearchTerms, setFilteredRecipes, recipes, onlyRecipesWithTags, updateOnlyRecipesWithTags, onlySearchedRecipes, updateOnlySearchedRecipes }) => {
 
     return <> 
-        <section className="searchBar">
+        <section className="filterBar">
             <SearchRecipes 
             recipes={recipes}
             searchTerms={searchTerms}
