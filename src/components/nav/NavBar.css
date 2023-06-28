@@ -20,6 +20,11 @@
 
 .navbar__logo {
     height: 100%;
+    cursor: pointer;
+}
+
+#gastroTitle {
+    cursor: pointer;
 }
 
 #logoContainer {

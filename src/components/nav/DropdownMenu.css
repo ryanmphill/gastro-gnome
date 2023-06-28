@@ -23,6 +23,11 @@
     border: none;
     background-color: inherit;
     cursor: pointer;
+    transition: all .25s ease-in-out;
+  }
+
+  .dropdown-button:hover {
+    transform: scale(1.2) rotate(360deg);
   }
 
   #gastroHamburger {
