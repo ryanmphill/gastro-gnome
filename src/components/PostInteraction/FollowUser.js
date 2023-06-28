@@ -5,13 +5,12 @@ import followingImg from "../../assets/following.png"
 import "./PostInteraction.css"
 
 
-export const FollowButton = ({ gastroUserObject, userToFollowId, usersFollows, fetchUsersFollows }) => {
+export const FollowButton = ({ gastroUserObject, userToFollowId, usersFollows, fetchUsersFollows, updateProfileFollowList }) => {
     
-
     // Get the current location
     const location = useLocation()
 
-    // Check if the user is viewing their profile to dynamically update the profile's list of favorites
+    // Check if the user is viewing their profile to dynamically update the profile's list of follows
     const viewingProfile = location.pathname === `/userprofile/${gastroUserObject.id}`
 
     // Set a state varialbe for if the user is following
@@ -91,6 +90,9 @@ export const FollowButton = ({ gastroUserObject, userToFollowId, usersFollows, f
             .then(() => {
                 // Update the user's list of follows state
                 fetchUsersFollows()
+                if (viewingProfile && updateProfileFollowList) {
+                    updateProfileFollowList()
+                }
             })
             .catch((error) => {
                 console.error('An error occurred:', error)
