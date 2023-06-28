@@ -64,6 +64,30 @@ export const Profile = () => {
         },
         [selectedUserId] // When this array is empty, you are observing initial component state
     )
+
+    /*-----------------------------------------------------------------------------------------------------*/
+    // Maintain 'follows' state here so that all listed recipes and profile are updated when user is followed/unfollowed
+    // Set a state variable for the user's follows
+    const [usersFollows, updateUsersFollows] = useState([])
+
+    // Define a function to fetch the current user with their follows embedded
+    const fetchUsersFollows = () => {
+        fetch(`http://localhost:8088/users/${gastroUserObject.id}?_embed=follows`)
+                .then(response => response.json())
+                .then((userObject) => {
+                    const followArray = userObject.follows
+                    updateUsersFollows(followArray)
+                })
+    }
+
+    // Get the data for the current user with their follows embedded on initial render
+    useEffect(
+        () => {
+            fetchUsersFollows()
+        },
+        [] // 
+    )
+    /*-----------------------------------------------------------------------------------------------------*/
     
     // Assign a variable to useNavigate()
     const navigate = useNavigate()
@@ -106,7 +130,9 @@ export const Profile = () => {
         <ProfileFeed recipes={filteredRecipes} 
         gastroUserObject={gastroUserObject} 
         updateProfileFavs={fetchUserWithFavs}
-        updateProfileFeed={fetchRecipes} />
+        updateProfileFeed={fetchRecipes}
+        usersFollows={usersFollows}
+        fetchUsersFollows={fetchUsersFollows} />
     </section>
 
 }
