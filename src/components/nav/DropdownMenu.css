@@ -1,8 +1,9 @@
 .dropdown {
     position: relative;
     display: inline-block;
+    min-width: 160px;
   }
-  
+  /*
   .dropdown-button {
     background-color: #fff;
     border: none;
@@ -10,6 +11,23 @@
     padding: 8px 16px;
     font-size: 16px;
     cursor: pointer;
+  }
+  */
+  .dropdown-button {
+    margin-left: auto;
+    width: 2rem;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background-color: inherit;
+    cursor: pointer;
+  }
+
+  #gastroHamburger {
+    width: 100%;
+    margin: 0;
   }
   
   .dropdown-content {

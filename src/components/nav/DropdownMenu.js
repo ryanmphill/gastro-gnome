@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './DropdownMenu.css' // Import CSS styles for the dropdown menu
 import { Link, useNavigate } from 'react-router-dom';
+import gastroHamburger from "../../assets/hamburger_black.svg"
 
 export const DropdownMenu = ( {currentUser} ) => {
     const [isOpen, setIsOpen] = useState(false) // State to track if the dropdown is open or closed
@@ -43,7 +44,7 @@ export const DropdownMenu = ( {currentUser} ) => {
     return (
       <div className="dropdown">
         <button className="dropdown-button" onClick={toggleDropdown}>
-          Menu
+          <img src={gastroHamburger} alt="hamburger menu" id="gastroHamburger"></img>
         </button>
         {isOpen && <>
             <section className="dropdown-content">
