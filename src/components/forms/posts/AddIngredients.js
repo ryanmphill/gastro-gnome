@@ -9,21 +9,26 @@ export const AddIngredients = ({includedIngredients, allIngredients, ingredientT
     
     const handleAddIngredient = (event) => {
         event.preventDefault()
-        // Get a copy of the ingredientToAdd
-        const copyIngToAdd = { ...ingredientToAdd }
-        // Trim any whitespace on the quantity
-        copyIngToAdd.quantity = ingredientToAdd.quantity.trim()
-        updateIngredientToAdd(copyIngToAdd)
+        // Check if required fields are entered
+        if (ingredientToAdd.ingredientId > 0 && ingredientToAdd.quantity.length > 0) {
+            // Get a copy of the ingredientToAdd
+            const copyIngToAdd = { ...ingredientToAdd }
+            // Trim any whitespace on the quantity
+            copyIngToAdd.quantity = ingredientToAdd.quantity.trim()
+            updateIngredientToAdd(copyIngToAdd)
 
-        // Get a copy of the current array of ingredients that are staged to be added
-        const copy = [...includedIngredients]
-        // Check if the ingredient has already been added
-        const alreadyAdded = copy.some(ingredient => ingredient.ingredientId === copyIngToAdd.ingredientId)
-        if (!alreadyAdded) {
-            copy.push(copyIngToAdd)
-            updateIncludedIngredients(copy)
+            // Get a copy of the current array of ingredients that are staged to be added
+            const copy = [...includedIngredients]
+            // Check if the ingredient has already been added
+            const alreadyAdded = copy.some(ingredient => ingredient.ingredientId === copyIngToAdd.ingredientId)
+            if (!alreadyAdded) {
+                copy.push(copyIngToAdd)
+                updateIncludedIngredients(copy)
+            } else {
+                window.alert("That ingredient has already been added")
+            }
         } else {
-            window.alert("That ingredient has already been added")
+            window.alert("Please enter an ingredient and a quantity")
         }
     }
 

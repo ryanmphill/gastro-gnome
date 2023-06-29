@@ -4,15 +4,20 @@ export const AddCategories = ({includedCategories, allCategories, categoryToAdd,
     
     const handleAddCategory = (event) => {
         event.preventDefault()
-        // Get a copy of the current array of categories that are staged to be added
-        const copy = [...includedCategories]
-        // Check if the category has already been added
-        const alreadyAdded = copy.some(category => category.categoryId === categoryToAdd.categoryId)
-        if (!alreadyAdded) {
-            copy.push(categoryToAdd)
-            updateIncludedCategories(copy)
+        // Check if a category has been selected
+        if (categoryToAdd.categoryId > 0) {
+            // Get a copy of the current array of categories that are staged to be added
+            const copy = [...includedCategories]
+            // Check if the category has already been added
+            const alreadyAdded = copy.some(category => category.categoryId === categoryToAdd.categoryId)
+            if (!alreadyAdded) {
+                copy.push(categoryToAdd)
+                updateIncludedCategories(copy)
+            } else {
+                window.alert("That tag has already been added")
+            }
         } else {
-            window.alert("That tag has already been added")
+            window.alert("Please select a category tag")
         }
     }
     

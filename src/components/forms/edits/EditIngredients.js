@@ -8,26 +8,31 @@ export const EditIngredients = ({ingredientsToPost, allIngredients, ingredientTo
     
     const handleAddIngredient = (event) => {
         event.preventDefault()
-        // Get a copy of the ingredientToAdd
-        const copyIngToAdd = { ...ingredientToAdd }
-        // Trim any whitespace on the quantity
-        copyIngToAdd.quantity = ingredientToAdd.quantity.trim()
-        updateIngredientToAdd(copyIngToAdd)
+        // Check if required fields have been entered
+        if (ingredientToAdd.ingredientId > 0 && ingredientToAdd.quantity.length > 0) {
+            // Get a copy of the ingredientToAdd
+            const copyIngToAdd = { ...ingredientToAdd }
+            // Trim any whitespace on the quantity
+            copyIngToAdd.quantity = ingredientToAdd.quantity.trim()
+            updateIngredientToAdd(copyIngToAdd)
 
-        // Get a copy of the current array of ingredients that are staged to be added
-        const copy = [...ingredientsToPost]
-        // Check if the ingredient has already been added
-        const alreadyAdded = copy.some(ingredient => ingredient.ingredientId === copyIngToAdd.ingredientId)
-        const stagedFordeletion = ingredientsToDelete.some(ingredient => ingredient.ingredientId === copyIngToAdd.ingredientId)
-        const inInitialRecipe = initialIngredients.some(ingredient => ingredient.ingredientId === copyIngToAdd.ingredientId)
-        if (!alreadyAdded && !inInitialRecipe) { // If not already staged to post and not in initial recipe, add to array to post
-            copy.push(copyIngToAdd)
-            updateIngredientsToPost(copy)
-        } else if (inInitialRecipe && stagedFordeletion && !alreadyAdded) { // If in initial recipe but staged for deletion, allow user to add new ingredient to edit quantity/measure
-            copy.push(copyIngToAdd)
-            updateIngredientsToPost(copy)
+            // Get a copy of the current array of ingredients that are staged to be added
+            const copy = [...ingredientsToPost]
+            // Check if the ingredient has already been added
+            const alreadyAdded = copy.some(ingredient => ingredient.ingredientId === copyIngToAdd.ingredientId)
+            const stagedFordeletion = ingredientsToDelete.some(ingredient => ingredient.ingredientId === copyIngToAdd.ingredientId)
+            const inInitialRecipe = initialIngredients.some(ingredient => ingredient.ingredientId === copyIngToAdd.ingredientId)
+            if (!alreadyAdded && !inInitialRecipe) { // If not already staged to post and not in initial recipe, add to array to post
+                copy.push(copyIngToAdd)
+                updateIngredientsToPost(copy)
+            } else if (inInitialRecipe && stagedFordeletion && !alreadyAdded) { // If in initial recipe but staged for deletion, allow user to add new ingredient to edit quantity/measure
+                copy.push(copyIngToAdd)
+                updateIngredientsToPost(copy)
+            } else {
+                window.alert("That ingredient has already been added")
+            }
         } else {
-            window.alert("That ingredient has already been added")
+            window.alert("Please enter an ingredient and a quantity")
         }
     }
 
