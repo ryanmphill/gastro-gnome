@@ -137,35 +137,35 @@ export const Nutrition = ({ recipeTitle, allIngredients, attachedIngredients, re
                         </tr>
                         <tr className="lightTableBorder">
                             <th>Dietary Fiber {formatNum(nutrition?.totalNutrients?.FIBTG?.quantity)} {nutrition?.totalNutrients?.FIBTG?.unit ?? "-"}</th>
-                            <td>{formatNum(nutrition?.totalDaily.FIBTG?.quantity)}{nutrition?.totalDaily.FIBTG?.unit ?? "-"}</td>
+                            <td>{formatNum(nutrition?.totalDaily?.FIBTG?.quantity)}{nutrition?.totalDaily?.FIBTG?.unit ?? "-"}</td>
                         </tr>
                         <tr className="lightTableBorder">
                             <th>Total Sugars {formatNum(nutrition?.totalNutrients?.SUGAR?.quantity)} {nutrition?.totalNutrients?.SUGAR?.unit ?? "-"}</th>
-                            <td>{formatNum(nutrition?.totalDaily.SUGAR?.quantity)}{nutrition?.totalDaily.SUGAR?.unit ?? "-"}</td>
+                            <td>{formatNum(nutrition?.totalDaily?.SUGAR?.quantity)}{nutrition?.totalDaily?.SUGAR?.unit ?? "-"}</td>
                         </tr>
                         <tr>
                             <td>Including added sugars {formatNum(nutrition?.totalNutrients?.SUGAR?.added?.quantity)} {nutrition?.totalNutrients?.SUGAR?.added?.unit ?? "-"}</td>
-                            <td>{formatNum(nutrition?.totalDaily.SUGAR?.added?.quantity)}{nutrition?.totalDaily.SUGAR?.added?.unit ?? "-"}</td>
+                            <td>{formatNum(nutrition?.totalDaily?.SUGAR?.added?.quantity)}{nutrition?.totalDaily?.SUGAR?.added?.unit ?? "-"}</td>
                         </tr>
                         <tr className="heavyTableBorder">
                             <th>Protein {formatNum(nutrition?.totalNutrients?.PROCNT?.quantity)} {nutrition?.totalNutrients?.PROCNT?.unit ?? "-"}</th>
-                            <td>{formatNum(nutrition?.totalDaily.PROCNT?.quantity)}{nutrition?.totalDaily.PROCNT?.unit ?? "-"}</td>
+                            <td>{formatNum(nutrition?.totalDaily?.PROCNT?.quantity)}{nutrition?.totalDaily?.PROCNT?.unit ?? "-"}</td>
                         </tr>
                         <tr className="lightTableBorder">
                             <td>Vitamin D {formatNum(nutrition?.totalNutrients?.VITD?.quantity)} {nutrition?.totalNutrients?.VITD?.unit ?? "-"}</td>
-                            <td>{formatNum(nutrition?.totalDaily.VITD?.quantity)}{nutrition?.totalDaily.VITD?.unit ?? "-"}</td>
+                            <td>{formatNum(nutrition?.totalDaily?.VITD?.quantity)}{nutrition?.totalDaily?.VITD?.unit ?? "-"}</td>
                         </tr>
                         <tr className="lightTableBorder">
                             <td>Calcium {formatNum(nutrition?.totalNutrients?.CA?.quantity)} {nutrition?.totalNutrients?.CA?.unit ?? "-"}</td>
-                            <td>{formatNum(nutrition?.totalDaily.CA?.quantity)}{nutrition?.totalDaily.CA?.unit ?? "-"}</td>
+                            <td>{formatNum(nutrition?.totalDaily?.CA?.quantity)}{nutrition?.totalDaily?.CA?.unit ?? "-"}</td>
                         </tr>
                         <tr className="lightTableBorder">
                             <td>Iron {formatNum(nutrition?.totalNutrients?.FE?.quantity)} {nutrition?.totalNutrients?.FE?.unit ?? "-"}</td>
-                            <td>{formatNum(nutrition?.totalDaily.FE?.quantity)}{nutrition?.totalDaily.FE?.unit ?? "-"}</td>
+                            <td>{formatNum(nutrition?.totalDaily?.FE?.quantity)}{nutrition?.totalDaily?.FE?.unit ?? "-"}</td>
                         </tr>
                         <tr className="mediumTableBorder">
                             <td>Potassium {formatNum(nutrition?.totalNutrients?.K?.quantity)} {nutrition?.totalNutrients?.K?.unit ?? "-"}</td>
-                            <td>{formatNum(nutrition?.totalDaily.K?.quantity)}{nutrition?.totalDaily.K?.unit ?? "-"}</td>
+                            <td>{formatNum(nutrition?.totalDaily?.K?.quantity)}{nutrition?.totalDaily?.K?.unit ?? "-"}</td>
                         </tr>
                     </tbody>
                 </table>
