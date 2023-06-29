@@ -45,6 +45,7 @@ export const SearchRecipes = ({ recipes, searchTerms, onlyRecipesWithTags, updat
                     updateSearchTerms(changeEvent.target.value)
                 }
             }
+            onKeyDown={(evt) => evt.key === 'Enter' && evt.target === document.activeElement && handleSearchClick(evt)}
             type="text" placeholder="Find a Recipe" />
         <button className="btn--search"
             onClick={(evt) => handleSearchClick(evt)}

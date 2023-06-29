@@ -29,7 +29,10 @@ export const AddIngredientForm = ({includedIngredients, handleRemoveIngredient, 
                         <span className="flex-column2" key={`addedQuant--${includedIngredient.ingredientId}`}>{includedIngredient.quantity} {includedIngredient.quantityUnit}</span>
                         <span className="flex-column3" key={`removeIngredient--${includedIngredient.ingredientId}`}>
                             <button data-id={includedIngredient.ingredientId}
-                                onClick={(click) => handleRemoveIngredient(click, includedIngredient)}
+                                onClick={(click) => {
+                                    click.preventDefault()
+                                    click.target === document.activeElement && handleRemoveIngredient(click, includedIngredient)}
+                                }
                                 className="btn--removeItem">X</button>
                         </span>
                     </div>
@@ -63,7 +66,8 @@ export const AddIngredientForm = ({includedIngredients, handleRemoveIngredient, 
                     className="ingredient--control"
                     placeholder="Enter a quantity"
                     id="ingredientQuantity_input"
-                    value={ingredientToAdd.quantity} 
+                    value={ingredientToAdd.quantity}
+                    onKeyDown={(evt) => evt.key === 'Enter' && evt.target === document.activeElement && handleAddIngredient(evt)} 
                     onChange={
                         (changeEvent) => {
                             const copy = { ...ingredientToAdd }
@@ -83,6 +87,7 @@ export const AddIngredientForm = ({includedIngredients, handleRemoveIngredient, 
                     placeholder="Enter a unit of measurement"
                     id="quantityType_input"
                     value={ingredientToAdd.quantityUnit}
+                    onKeyDown={(evt) => evt.key === 'Enter' && evt.target === document.activeElement && handleAddIngredient(evt)}
                     onChange={
                         (changeEvent) => {
                             const copy = { ...ingredientToAdd }
@@ -94,7 +99,10 @@ export const AddIngredientForm = ({includedIngredients, handleRemoveIngredient, 
         </section>
         <button
             onClick={
-                (event) => { handleAddIngredient(event) }
+                (event) => { 
+                    event.preventDefault() 
+                    event.target === document.activeElement && handleAddIngredient(event) 
+                }
             }
         >Add Ingredient</button>
         <button
