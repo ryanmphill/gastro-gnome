@@ -1,5 +1,5 @@
 import { useState } from "react"
-import "./DeleteRecipe.css"
+import "./PostInteraction.css"
 import { useLocation } from "react-router-dom"
 
 export const DeleteRecipe = ({ recipeId, recipeIngredients, recipeCategories, updateMainFeed, updateProfileFeed }) => {

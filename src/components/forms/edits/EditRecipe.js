@@ -364,6 +364,7 @@ export const EditRecipe = () => {
                         placeholder="Enter a time"
                         id="prepTime_input"
                         value={recipe.prepTime > 0 ? recipe.prepTime : ""} // If value is is zero, change to empty string to display placeholder text by default instead of zero
+                        onWheel={(event) => event.currentTarget.blur()} // Remove focus from the input on wheel event
                         onChange={
                             (changeEvent) => {
                                 const copy = { ...recipe }
@@ -381,6 +382,7 @@ export const EditRecipe = () => {
                         placeholder="Enter a time"
                         id="cookTime_input"
                         value={recipe.cookTime > 0 ? recipe.cookTime : ""} // If value is is zero, change to empty string to display placeholder text by default instead of zero
+                        onWheel={(event) => event.currentTarget.blur()} // Remove focus from the input on wheel event
                         onChange={
                             (changeEvent) => {
                                 const copy = { ...recipe }
@@ -401,6 +403,7 @@ export const EditRecipe = () => {
                         placeholder="How many people will this meal feed?"
                         id="recipeServings_input"
                         value={recipe.servingSize > 0 ? recipe.servingSize : ""} // If value is is zero, change to empty string to display placeholder text by default instead of zero
+                        onWheel={(event) => event.currentTarget.blur()} // Remove focus from the input on wheel event
                         onChange={
                             (changeEvent) => {
                                 const copy = { ...recipe }

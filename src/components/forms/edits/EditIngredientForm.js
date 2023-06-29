@@ -34,7 +34,10 @@ export const EditIngredientForm = ({ initialIngredients, allIngredients, markedF
                                     <span className="flex-column2" key={`addedQuant--${initialIngredient.ingredientId}`}>{initialIngredient.quantity} {initialIngredient.quantityUnit}</span>
                                     <span className="flex-column3" key={`removeIngredient--${initialIngredient.ingredientId}`}>
                                         Marked for Deletion <button
-                                            onClick={(click) => handleUndoDelete(click, initialIngredient)}
+                                            onClick={(click) => {
+                                                click.preventDefault()
+                                                click.target === document.activeElement && handleUndoDelete(click, initialIngredient)
+                                            }}
                                             key={`btn--dltIng1${initialIngredient.ingredientId}`}
                                             className="btn--undoDelete">Undo</button>
                                     </span>
@@ -46,7 +49,10 @@ export const EditIngredientForm = ({ initialIngredients, allIngredients, markedF
                                     <span className="flex-column2" key={`addedQuant--${initialIngredient.ingredientId}`}>{initialIngredient.quantity} {initialIngredient.quantityUnit}</span>
                                     <span className="flex-column3" key={`removeIngredient--${initialIngredient.ingredientId}`}>
                                         <button data-id={initialIngredient.id}
-                                            onClick={(click) => handleDeleteExistingIngredient(click, initialIngredient)}
+                                            onClick={(click) => {
+                                                click.preventDefault()
+                                                click.target === document.activeElement && handleDeleteExistingIngredient(click, initialIngredient)
+                                            }}
                                             key={`btn--dltIng2${initialIngredient.ingredientId}`}
                                             className="btn--removeItem">X</button>
                                     </span>
@@ -68,7 +74,10 @@ export const EditIngredientForm = ({ initialIngredients, allIngredients, markedF
                         <span className="flex-column2" key={`addedQuant--${includedIngredient.ingredientId}`}>{includedIngredient.quantity} {includedIngredient.quantityUnit}</span>
                         <span className="flex-column3" key={`removeIngredient--${includedIngredient.ingredientId}`}>
                             <button data-id={includedIngredient.ingredientId}
-                                onClick={(click) => handleRemoveIngredient(click, includedIngredient)}
+                                onClick={(click) => {
+                                    click.preventDefault()
+                                    click.target === document.activeElement && handleRemoveIngredient(click, includedIngredient)
+                                }}
                                 key={`btnremIng--${includedIngredient.ingredientId}`}
                                 className="btn--removeItem">X</button>
                         </span>
@@ -102,7 +111,8 @@ export const EditIngredientForm = ({ initialIngredients, allIngredients, markedF
                     className="ingredient--control"
                     placeholder="Enter a quantity"
                     id="ingredientQuantity_input"
-                    value={ingredientToAdd.quantity} 
+                    value={ingredientToAdd.quantity}
+                    onKeyDown={(evt) => evt.key === 'Enter' && evt.target === document.activeElement && handleAddIngredient(evt)} 
                     onChange={
                         (changeEvent) => {
                             const copy = { ...ingredientToAdd }
@@ -122,6 +132,7 @@ export const EditIngredientForm = ({ initialIngredients, allIngredients, markedF
                     placeholder="Enter a unit of measurement"
                     id="quantityType_input"
                     value={ingredientToAdd.quantityUnit}
+                    onKeyDown={(evt) => evt.key === 'Enter' && evt.target === document.activeElement && handleAddIngredient(evt)}
                     onChange={
                         (changeEvent) => {
                             const copy = { ...ingredientToAdd }
@@ -133,7 +144,10 @@ export const EditIngredientForm = ({ initialIngredients, allIngredients, markedF
         </section>
         <button
             onClick={
-                (event) => { handleAddIngredient(event) }
+                (event) => { 
+                    event.preventDefault() 
+                    event.target === document.activeElement && handleAddIngredient(event) 
+                }
             }
         >Add Ingredient</button>
 

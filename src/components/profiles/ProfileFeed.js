@@ -1,9 +1,10 @@
 import { Link, useNavigate } from "react-router-dom"
 import { DeleteRecipe } from "../PostInteraction/DeleteRecipe"
 import { FavoriteButton } from "../PostInteraction/Favorite"
+import { FollowButton } from "../PostInteraction/FollowUser"
 
 
-export const ProfileFeed = ({recipes, gastroUserObject, updateProfileFavs, updateProfileFeed}) => {
+export const ProfileFeed = ({recipes, gastroUserObject, updateProfileFavs, updateProfileFeed, usersFollows, fetchUsersFollows}) => {
     const navigate = useNavigate()
     return <article className="recipeFeed">
     {
@@ -12,7 +13,17 @@ export const ProfileFeed = ({recipes, gastroUserObject, updateProfileFavs, updat
                 return <section className="recipe" key={`recipe--${recipe.id}`}>
                     <h3><Link className="recipe--header" to={`/recipe/${recipe.id}`}>{recipe.title}</Link></h3>
                     <div>{recipe.description}</div>
-                    <div>Posted by: <Link to={`/userprofile/${recipe?.user?.id}`}>{recipe?.user?.name}</Link></div>
+                    <div className="recipe__userContainer">
+                        <div>Posted by: <Link to={`/userprofile/${recipe?.user?.id}`}>{recipe?.user?.name}</Link></div>
+                        {
+                            gastroUserObject.id !== recipe.userId
+                            && <FollowButton 
+                            gastroUserObject={gastroUserObject}
+                            userToFollowId={recipe.userId}
+                            usersFollows={usersFollows}
+                            fetchUsersFollows={fetchUsersFollows} />
+                        }
+                    </div>
                     <footer>
                         {
                             gastroUserObject.id === recipe.userId
