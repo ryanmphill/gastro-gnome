@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import Select from 'react-select';
 
-export const FilterByCategories = ({ recipes, searchTerms, updateOnlyRecipesWithTags, setFilteredRecipes, onlySearchedRecipes}) => {
+export const FilterByCategories = ({ recipes, searchTerms, updateOnlyRecipesWithTags, setFilteredRecipes, onlySearchedRecipes, chosenCategories, updateChosenCategories}) => {
     // Define a state variable for fetched categories
     const [categories, setCategories] = useState([])
     // State variable for different types of categories 
@@ -10,8 +10,7 @@ export const FilterByCategories = ({ recipes, searchTerms, updateOnlyRecipesWith
     const [chosenCategoryType, updateChosenCategoryType] = useState("")
     // State variable for which category options to display based on chosenCategoryType
     const [filteredCategories, setFilteredCategories] = useState([])
-    // State to keep track of all selected categories the user wants to use to filter recipe feed
-    const [chosenCategories, updateChosenCategories] = useState([])
+    
 
     // Fetch the list of categories
     const fetchCategories = () => {
@@ -101,7 +100,7 @@ export const FilterByCategories = ({ recipes, searchTerms, updateOnlyRecipesWith
                 setFilteredRecipes(recipes)
             }
         },
-        [chosenCategories]
+        [chosenCategories, recipes, onlySearchedRecipes]
     )
 
     // Handle the selected category
