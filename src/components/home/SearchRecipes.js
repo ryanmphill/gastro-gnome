@@ -39,6 +39,13 @@ export const SearchRecipes = ({ recipes, searchTerms, onlyRecipesWithTags, updat
         }
     }
 
+    /* When the display is toggled between 'allPosts' and 'postsFollowed', the recipe list will be updated.
+       If search terms are entered when this happens, this useEffect will observe that the recipe list has 
+       been updated and trigger the new recipe list to be filtered by the entered search terms. Once 
+       onlySearchedRecipes has been updated with the new recipe list, the useEffect() for filtering categories
+       will take notice and either apply additional filtering ontop of the searched recipes array if catergory
+       tags are selected, or update the filteredRecipes state with just the searched recipes if no categories
+       are selected. */
     useEffect(
         () => {
             if (searchTerms !== "") {
