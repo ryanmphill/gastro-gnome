@@ -3,7 +3,13 @@
     flex-wrap: nowrap;
     justify-content: flex-start;
     padding: 0;
+    animation: navFade 0.75s;
 }
+
+@keyframes navFade {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
 
 .navbar__item {
     flex-basis: 20%;
@@ -25,6 +31,8 @@
 
 #gastroTitle {
     cursor: pointer;
+    color: #72875C;
+    text-shadow: -0.25px 0.25px 0.25px rgba(43, 46, 46, 0.50);
 }
 
 #logoContainer {

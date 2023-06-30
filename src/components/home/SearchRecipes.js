@@ -60,6 +60,16 @@ export const SearchRecipes = ({ recipes, searchTerms, onlyRecipesWithTags, updat
         },
         [recipes]
     )
+    
+    // When search terms are cleared, set onlySearchedRecipes to default
+    useEffect(
+        () => {
+            if (searchTerms === "") {
+                updateOnlySearchedRecipes([])
+            } 
+        },
+        [searchTerms]
+    )
 
     return <div className="searchBarContainer">
         <input id="RecipeSearchBar"

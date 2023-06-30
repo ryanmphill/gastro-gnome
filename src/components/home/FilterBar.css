@@ -1,0 +1,122 @@
+.filterBar {
+    width: 100%;
+    display: block;
+    column-gap: 0.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.searchIcon {
+    width: 100%;
+    margin: 0;
+}
+
+.btn--search {
+    border: 1px solid lightgreen;
+    width: 2rem;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background-color: inherit;
+    transition: all .2s ease-in-out;
+}
+
+.btn--search:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+}
+
+.filterBar__categories {
+    display: flex;
+    /* border: 1px solid lightslategray; */
+    box-shadow: -1px 1px 5px rgba(43, 46, 46, 0.20);
+    border-radius: 10px;
+    padding: 0.15rem 0.35rem;
+    flex-basis: 50%;
+    font-size: x-small;
+    background-color: field;
+    /*justify-content: space-between;*/
+}
+
+.filterBar__categoryType {
+    border: none;
+    width: 35%;
+    padding: none;
+}
+
+.chosenCategories {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    white-space: nowrap;
+    justify-content: center;
+}
+
+.chosenCategory {
+    background-color: #b0c19d;
+    border-radius: 20px;
+    padding: .25rem .5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 46%;
+}
+
+.btn--removeFilterCat {
+    border: none;
+    background-color: inherit;
+    color: rgba(31, 31, 31, .55);
+    margin-left: .25rem;
+    font-size: smaller;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn--removeFilterCat:hover {
+    color: firebrick;
+    cursor: pointer;
+}
+
+.searchBarContainer {
+    display: flex;
+    column-gap: 0.25rem;
+    /* border: 1px solid lightslategray; */
+    box-shadow: -1px 1px 5px rgba(43, 46, 46, 0.20);
+    border-radius: 10px;
+    padding: 0 0.5rem 0 0;
+    flex-basis: 50%;
+    justify-content: space-between;
+    background-color: field;
+    margin-bottom: 0.25rem;
+}
+
+#RecipeSearchBar {
+    border: none;
+    border-radius: 10px;
+    padding-left: 0.5rem;
+    flex-basis: 100%;
+}
+
+/*Desktop View ---------------------------------------------------------------*/
+@media (min-width: 820px) {
+    .filterBar {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .filterBar__categories {
+        justify-content: space-between;
+        font-size: inherit;
+    }
+
+    .filterBar__categoryType {
+        flex-basis: 27%;
+    }
+
+    .searchBarContainer {
+        margin-bottom: 0;
+    }
+}

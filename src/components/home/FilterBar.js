@@ -1,9 +1,10 @@
 import { SearchRecipes } from "./SearchRecipes";
 import { FilterByCategories } from "./FilterByCategories";
+import { SelectedCategories } from "./SelectedCategories";
 
 export const FilterBar = ({ searchTerms, updateSearchTerms, setFilteredRecipes, recipes, onlyRecipesWithTags, updateOnlyRecipesWithTags, onlySearchedRecipes, updateOnlySearchedRecipes, chosenCategories, updateChosenCategories }) => {
 
-    return <> 
+    return <section className="filterContainer"> 
         <section className="filterBar">
             <SearchRecipes 
             recipes={recipes}
@@ -23,5 +24,8 @@ export const FilterBar = ({ searchTerms, updateSearchTerms, setFilteredRecipes, 
             chosenCategories={chosenCategories}
             updateChosenCategories={updateChosenCategories} />
         </section>
-    </>
+        <SelectedCategories
+        chosenCategories={chosenCategories}
+        updateChosenCategories={updateChosenCategories} />
+    </section>
 }

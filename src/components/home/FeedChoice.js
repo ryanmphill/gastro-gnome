@@ -20,26 +20,18 @@ export const FeedChoice = ({ recipes, display, setDisplay, updateRecipesToDispla
 
 
     return <>
-        <input
-            type="radio"
-            name="feedChoiceInterface"
-            value="allPosts"
-            checked={display === "allPosts"}
-            onChange={() => {
+        <div className="recipeDisplayTab">
+            <button className={`recipeDisplayTabLink recipeDisplayTab--hoverEffect underline-effect ${display === "allPosts" ? 'active' : ''}`}
+            onClick={(e) => {
+                e.preventDefault()
                 setDisplay("allPosts")
-            }}
-        />
-        <span>Discover</span>
+            }}>Discover</button>
 
-        <input
-            type="radio"
-            name="feedChoiceInterface"
-            value="postsFollowed"
-            checked={display === "postsFollowed"}
-            onChange={() => {
+            <button className={`recipeDisplayTabLink recipeDisplayTab--hoverEffect underline-effect ${display === "postsFollowed" ? 'active' : ''}`}
+            onClick={(e) => {
+                e.preventDefault()
                 setDisplay("postsFollowed")
-            }}
-        />
-        <span>My Feed</span>
+            }}>My Feed</button>
+        </div>
     </>
 }

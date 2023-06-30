@@ -40,7 +40,7 @@ export const Following = ({ followArray, updateFollowArray, gastroUserObject, cu
     {
         usersFollowed.length > 0
             ? usersFollowed.map((followObj) => {
-                return <div key={`beingFollowed--${followObj.id}`}>
+                return <div key={`beingFollowed--${followObj.id}`} className="followingListItem">
                           <div><Link to={`/userprofile/${followObj?.id}`}>{followObj?.name}</Link></div>
                           {
                             gastroUserObject.id !== followObj?.id
