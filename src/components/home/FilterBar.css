@@ -50,10 +50,11 @@
     flex-wrap: nowrap;
     overflow-x: auto;
     white-space: nowrap;
+    justify-content: center;
 }
 
 .chosenCategory {
-    background-color: lightgrey;
+    background-color: #b0c19d;
     border-radius: 20px;
     padding: .25rem .5rem;
     display: flex;
@@ -65,7 +66,7 @@
 .btn--removeFilterCat {
     border: none;
     background-color: inherit;
-    color: rgba(31, 31, 31, .25);
+    color: rgba(31, 31, 31, .55);
     margin-left: .25rem;
     font-size: smaller;
     height: 100%;

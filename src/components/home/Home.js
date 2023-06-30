@@ -125,8 +125,8 @@ export const Home = () => {
         
         {
             display === "allPosts"
-                ? <h2 className="discoverFade">Discover New Recipes</h2>
-                : <h2 className="myFeedFade">Recipes From People You're Following</h2>
+                ? <h2 className="discoverFade feedHeader">Discover New Recipes</h2>
+                : <h2 className="myFeedFade feedHeader">Recipes From People You're Following</h2>
         }
         
 

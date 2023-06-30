@@ -69,7 +69,10 @@ p {
   padding: 1rem;
 }
 
-
+.feedHeader {
+  color: #72875C;
+  text-shadow: -0.25px 0.25px 0.25px rgba(43, 46, 46, 0.50);
+}
 
 .recipe__userContainer, .followingListItem, .followedByListItem {
   display: flex;
@@ -127,7 +130,7 @@ p {
 }
 
 
-/* CSS for underline animation */
+/* CSS for underline animation --------------------------------------------*/
 
 .underline-effect {
   position: relative;
@@ -139,10 +142,13 @@ p {
   position: absolute;
   display: block;
   width: 100%;
-  height: 1.5px;
+  height: 2px;
   bottom: 0;
   left: 0;
-  background-color: rgba(47, 77, 77, 0.35);
+  /* background-color: rgba(47, 77, 77, 0.35); */
+  background-color: #b0c19d;
+  box-shadow: 0px 2.5px 0.25px rgba(61, 74, 74, 0.15);
+  border-radius: 25px;
   transform: scaleX(0);
   transition: transform 0.3s ease;
 }
