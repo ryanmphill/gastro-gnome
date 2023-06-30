@@ -1,12 +1,13 @@
+import { useEffect } from "react"
 import searchIcon from "../../assets/skillet-search-small.svg"
 
-export const SearchRecipes = ({ recipes, searchTerms, onlyRecipesWithTags, updateOnlySearchedRecipes, setFilteredRecipes, updateSearchTerms }) => {
+export const SearchRecipes = ({ recipes, searchTerms, onlyRecipesWithTags, updateOnlySearchedRecipes, setFilteredRecipes, updateSearchTerms, chosenCategories }) => {
 
     // Handle the search click
     const handleSearchClick = (evt) => {
         evt.preventDefault()
         // If there are no selected categories to filter by, filter through the original recipe list
-        if (searchTerms !== "" && onlyRecipesWithTags.length === 0) {
+        if (searchTerms !== "" && chosenCategories.length === 0) {
             const searchedRecipes = recipes.filter(recipe => {
                 // Filter by recipe title OR the authors name
                 return recipe.title.toLowerCase().includes(searchTerms.toLowerCase()) || recipe.user.name.toLowerCase().includes(searchTerms.toLowerCase())
@@ -15,7 +16,7 @@ export const SearchRecipes = ({ recipes, searchTerms, onlyRecipesWithTags, updat
             updateOnlySearchedRecipes(searchedRecipes)
             // update recipe state with search results
             setFilteredRecipes(searchedRecipes)
-        } else if (searchTerms !== "" && onlyRecipesWithTags.length > 0) { // If there are selected categories, filter through recipes already filtered by categories
+        } else if (searchTerms !== "" && chosenCategories.length > 0) { // If there are selected categories, filter through recipes already filtered by categories
             const searchedAndFilteredRecipes = onlyRecipesWithTags.filter(recipe => {
                 // Filter by recipe title OR the authors name
                 return recipe.title.toLowerCase().includes(searchTerms.toLowerCase()) || recipe.user.name.toLowerCase().includes(searchTerms.toLowerCase())
@@ -29,7 +30,7 @@ export const SearchRecipes = ({ recipes, searchTerms, onlyRecipesWithTags, updat
             updateOnlySearchedRecipes(justSearchedRecipes)
             // Set filtered recipes with current filtered results
             setFilteredRecipes(searchedAndFilteredRecipes)
-        } else if (searchTerms === "" && onlyRecipesWithTags.length > 0) { // If no search terms but categories are selected, preserve recipes filtered by categories
+        } else if (searchTerms === "" && chosenCategories.length > 0) { // If no search terms but categories are selected, preserve recipes filtered by categories
             updateOnlySearchedRecipes([])
             setFilteredRecipes(onlyRecipesWithTags)
         } else { // else, set recipe list to default
@@ -37,6 +38,28 @@ export const SearchRecipes = ({ recipes, searchTerms, onlyRecipesWithTags, updat
             setFilteredRecipes(recipes)
         }
     }
+
+    /* When the display is toggled between 'allPosts' and 'postsFollowed', the recipe list will be updated.
+       If search terms are entered when this happens, this useEffect will observe that the recipe list has 
+       been updated and trigger the new recipe list to be filtered by the entered search terms. Once 
+       onlySearchedRecipes has been updated with the new recipe list, the useEffect() for filtering categories
+       will take notice and either apply additional filtering ontop of the searched recipes array if catergory
+       tags are selected, or update the filteredRecipes state with just the searched recipes if no categories
+       are selected. */
+    useEffect(
+        () => {
+            if (searchTerms !== "") {
+                const searchedRecipes = recipes.filter(recipe => {
+                    // Filter by recipe title OR the authors name
+                    return recipe.title.toLowerCase().includes(searchTerms.toLowerCase()) || recipe.user.name.toLowerCase().includes(searchTerms.toLowerCase())
+                })
+                // update onlySearchedRecipes state so that additional filtering can be applied ontop of searched results
+                updateOnlySearchedRecipes(searchedRecipes)
+            }
+            
+        },
+        [recipes]
+    )
 
     return <div className="searchBarContainer">
         <input id="RecipeSearchBar"

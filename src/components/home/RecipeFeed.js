@@ -2,34 +2,10 @@ import { Link, useNavigate } from "react-router-dom"
 import { DeleteRecipe } from "../PostInteraction/DeleteRecipe"
 import { FavoriteButton } from "../PostInteraction/Favorite"
 import { FollowButton } from "../PostInteraction/FollowUser"
-import { useEffect, useState } from "react"
 
-export const RecipeFeed = ({recipes, gastroUserObject, updateMainFeed}) => {
+
+export const RecipeFeed = ({recipes, gastroUserObject, updateMainFeed, usersFollows, fetchUsersFollows }) => {
     const navigate = useNavigate()
-
-    /*-----------------------------------------------------------------------------------------------------*/
-    // Maintain 'follows' state here so that all listed recipes are updated when user is followed/unfollowed
-    // Set a state variable for the user's follows
-    const [usersFollows, updateUsersFollows] = useState([])
-
-    // Define a function to fetch the current user with their follows embedded
-    const fetchUsersFollows = () => {
-        fetch(`http://localhost:8088/users/${gastroUserObject.id}?_embed=follows`)
-                .then(response => response.json())
-                .then((userObject) => {
-                    const followArray = userObject.follows
-                    updateUsersFollows(followArray)
-                })
-    }
-
-    // Get the data for the current user with their follows embedded on initial render
-    useEffect(
-        () => {
-            fetchUsersFollows()
-        },
-        [] // When this array is empty, you are observing initial component state
-    )
-    /*-----------------------------------------------------------------------------------------------------*/
 
     return <article className="recipeFeed">
     {
