@@ -27,7 +27,7 @@ export const FollowedBy = ({ selectedUserId, gastroUserObject, currentUsersFollo
         {
             profileOwnersFollowers.length > 0
                 ? profileOwnersFollowers.map((followObj) => {
-                    return <div key={`follower--${followObj.id}`}>
+                    return <div key={`follower--${followObj.id}`} className="followedByListItem">
                               <div><Link to={`/userprofile/${followObj?.user?.id}`}>{followObj?.user?.name}</Link></div>
                               {
                                 gastroUserObject.id !== followObj?.user?.id

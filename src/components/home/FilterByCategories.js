@@ -115,14 +115,6 @@ export const FilterByCategories = ({ recipes, searchTerms, updateOnlyRecipesWith
         }
     }
 
-    // Handle removing a category
-    const handleRemoveSelected = (evt, objectToRemove) => {
-        evt.preventDefault()
-
-        const updatedCategories = chosenCategories.filter(category => category.id !== objectToRemove.id)
-        updateChosenCategories(updatedCategories)
-    }
-
     return <>
         <div className="filterBar__categories">
             <select
@@ -135,7 +127,7 @@ export const FilterByCategories = ({ recipes, searchTerms, updateOnlyRecipesWith
                 {
                     categoryTypes.map(catType => <option value={catType} key={`catType--${catType}`}>{catType}</option>)
                 }
-                <option value="View All">--Search all--</option>
+                <option value="View All">-Search all-</option>
             </select>
 
             <Select
@@ -149,27 +141,39 @@ export const FilterByCategories = ({ recipes, searchTerms, updateOnlyRecipesWith
                 getOptionValue={(option) => option.id}
                 placeholder="Select a Category"
                 styles={{
+                    container: base => ({
+                        ...base,
+                        flex: 1,
+                        height: '100%',
+                        minHeight: '100%',
+                    }),
                     control: (baseStyles, state) => ({
                         ...baseStyles,
-                        border: 'none',
+                        border: 0,
+                        flexBasis: '100%',
+                        padding: 0,
+                        minHeight: '100%',
                     }),
+                    valueContainer: base => ({
+                        ...base,
+                        height: '100%',
+                        minHeight: '100%',
+                    }),
+                    dropdownIndicator: base => ({
+                        ...base,
+                        padding: 4
+                    }),
+                    clearIndicator: base => ({
+                        ...base,
+                        padding: 4
+                    }),
+                    input: base => ({
+                        ...base,
+                        margin: 0,
+                        padding: 0
+                    })
                 }}
             />
-        </div>
-
-        <div className="chosenCategories">
-            {
-                chosenCategories.length > 0
-                && chosenCategories.map(category => {
-                    return <div className="chosenCategory" key={`chosenCat--${category.id}`}>
-                        {category.name}
-                        <button
-                            onClick={(click) => handleRemoveSelected(click, category)}
-                            className="btn--removeItem btn--removeFilterCat"
-                        >X</button>
-                    </div>
-                })
-            }
         </div>
     </>
 

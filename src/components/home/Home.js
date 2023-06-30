@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { RecipeFeed } from "./RecipeFeed"
 import { FilterBar } from "./FilterBar"
 import { FeedChoice } from "./FeedChoice"
+import "./FilterBar.css"
 
 
 export const Home = () => {
@@ -68,7 +69,6 @@ export const Home = () => {
             }
             if (searchTerms === "" && chosenCategories.length > 0) {
                 setFilteredRecipes(onlyRecipesWithTags)
-                updateOnlySearchedRecipes([])
             }
         },
         [recipesToDisplay, searchTerms, onlyRecipesWithTags] 
@@ -122,7 +122,13 @@ export const Home = () => {
         chosenCategories={chosenCategories}
         updateChosenCategories={updateChosenCategories} />
 
-        <h2>Recipe List</h2>
+        
+        {
+            display === "allPosts"
+                ? <h2 className="discoverFade">Discover New Recipes</h2>
+                : <h2 className="myFeedFade">Recipes From People You're Following</h2>
+        }
+        
 
         
         <button onClick={ () => navigate("/postrecipe") }>Post a Recipe</button>

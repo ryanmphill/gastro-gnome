@@ -3,7 +3,13 @@
     flex-wrap: nowrap;
     justify-content: flex-start;
     padding: 0;
+    animation: navFade 0.75s;
 }
+
+@keyframes navFade {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
 
 .navbar__item {
     flex-basis: 20%;

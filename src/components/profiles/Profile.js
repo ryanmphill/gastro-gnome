@@ -99,71 +99,41 @@ export const Profile = () => {
     
     return <section className="pageBody">
         <h2>{ownerOfProfile.name}</h2>
-
-        <input
-            type="radio"
-            name="profilePostInterface"
-            value="selectedUsersPosts"
-            checked={postsToDisplay === "selectedUsersPosts" && display === "posts"}
-            onChange={() => {
+        
+        <div className="profileDisplayTab">
+            <button className={`profileDisplayTabLink profileDisplayTab--hoverEffect underline-effect ${postsToDisplay === "selectedUsersPosts" && display === "posts" ? 'active' : ''}`}
+            onClick={(e) => {
+                e.preventDefault()
                 setPostsToDisplay("selectedUsersPosts")
                 setDisplay("posts")
-            }}
-        />
-        <span>
-            {
-                parseInt(selectedUserId) === gastroUserObject.id
-                    ? <>My Posts</>
-                    : <>{ownerOfProfile.name}'s Posts</>
-            }
-        </span>
+            }}>
+                {
+                    parseInt(selectedUserId) === gastroUserObject.id
+                        ? <>My Posts</>
+                        : <>{ownerOfProfile.name}'s Posts</>
+                }
+            </button>
 
-        <input
-            type="radio"
-            name="profilePostInterface"
-            value="thisUsersFavorites"
-            checked={postsToDisplay === "thisUsersFavorites" && display === "posts"}
-            onChange={() => {
+            <button className={`profileDisplayTabLink profileDisplayTab--hoverEffect underline-effect ${postsToDisplay === "thisUsersFavorites" && display === "posts" ? 'active' : ''}`}
+            onClick={(e) => {
+                e.preventDefault()
                 setPostsToDisplay("thisUsersFavorites")
                 setDisplay("posts")
-            }}
-        />
-        <span>
-            {
-                parseInt(selectedUserId) === gastroUserObject.id
-                    ? <>My Favorites</>
-                    : <>{ownerOfProfile.name}'s Favorites</>
-            }
-        </span>
+            }}>Favorites</button>
 
-        <input
-            type="radio"
-            name="profilePostInterface"
-            value="followers"
-            checked={display === "followers"}
-            onChange={() => {
+            <button className={`profileDisplayTabLink profileDisplayTab--hoverEffect underline-effect ${display === "followers" ? 'active' : ''}`}
+            onClick={(e) => {
+                e.preventDefault()
                 setDisplay("followers")
-            }}
-        />
-        <span>
-            {
-                parseInt(selectedUserId) === gastroUserObject.id
-                    ? <>My Followers</>
-                    : <>{ownerOfProfile.name}'s Followers</>
-            }
-        </span>
+            }}>Followers</button>
 
-        <input
-            type="radio"
-            name="profilePostInterface"
-            value="following"
-            checked={display === "following"}
-            onChange={() => {
+            <button className={`profileDisplayTabLink profileDisplayTab--hoverEffect underline-effect ${display === "following" ? 'active' : ''}`}
+            onClick={(e) => {
+                e.preventDefault()
                 setDisplay("following")
-            }}
-        />
-        <span>Following</span>
-
+            }}>Following</button>
+        </div>
+        
         {
             display === "posts"
             && <>

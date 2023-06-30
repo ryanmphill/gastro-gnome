@@ -167,3 +167,12 @@
 .addedCategory--editForm {
     background-color: rgb(218, 237, 218);
 }
+
+.fadeIn {
+    animation: formFadeEffect 0.75s;
+  }
+  
+  @keyframes formFadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }

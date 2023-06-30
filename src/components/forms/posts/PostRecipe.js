@@ -187,7 +187,7 @@ export const PostRecipe = () => {
     }
 
     return <>
-        <form className="postRecipeForm">
+        <form className="postRecipeForm fadeIn">
             <h2 className="postRecipeForm__title">Add Your Recipe</h2>
             <fieldset>
                 <div className="form-group">
