@@ -8,6 +8,7 @@
 .searchIcon {
     width: 100%;
     margin: 0;
+    transition: all .2s ease-in-out;
 }
 
 .btn--search {
@@ -22,7 +23,7 @@
     transition: all .2s ease-in-out;
 }
 
-.btn--search:hover {
+.searchIcon:hover {
     cursor: pointer;
     transform: scale(1.2);
 }
@@ -50,7 +51,7 @@
     flex-wrap: nowrap;
     overflow-x: auto;
     white-space: nowrap;
-    justify-content: center;
+    justify-content: flex-end;
 }
 
 .chosenCategory {

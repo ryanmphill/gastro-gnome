@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import "./NavBar.css"
 import { DropdownMenu } from "./DropdownMenu"
-import gastroLogo from "../../assets/Chef_green.svg"
+import gastroLogo from "../../assets/Chef_black.svg"
 
 export const AdminNav = ( {currentUser} ) => {
     const navigate = useNavigate()
