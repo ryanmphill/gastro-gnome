@@ -11,7 +11,7 @@ input,
 select,
 textarea {
   color: #404040;
-  font-family: "Comfortaa", Arial, sans-serif;
+  font-family: 'Roboto Slab', "Comfortaa", Arial, sans-serif;
   font-size: 14px;
   line-height: 1.5;
 }
@@ -38,21 +38,43 @@ p {
 .recipe {
   border: 1px dashed rgba(143, 159, 174, 0.5);
   margin: 1rem 0;
-  padding: 0.75rem;
-  box-shadow: -1px 1px 4px rgba(71, 107, 107, 0.3);
-  border-radius: 5px;
+  /* box-shadow: -1px 1px 4px rgba(71, 107, 107, 0.3); */
+  box-shadow: 8px 6px 4px rgba(54, 68, 68, 0.25);
+  border-radius: 25px;
   background-color: #b0c19d;
+  display: flex;
+  justify-content: flex-start;
+  column-gap: 1rem;
+  width: 100%;
+}
+
+.recipe--content {
+  padding: 0.75rem;
+  width: 60%;
+}
+
+.recipe--imgContainer {
+  background-color: #edf4e4;
+  background-image: var(--bg-image);
+  width: 15rem;
+  height: 15rem;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-blend-mode: multiply;
+  border-radius: 25px;
+  box-shadow: 8px 6px 4px rgba(54, 68, 68, 0.25);
 }
 
 .recipe--header {
   text-decoration: none;
   color: inherit;
 }
-
+/*
 .pageHeader {
-  border-bottom: 1px solid rgba(143, 159, 174, 0.5);
+   border-bottom: 1px solid rgba(143, 159, 174, 0.5); 
 }
-
+*/
 .pageFooter {
   height: 10vh;
   border-top: 1px solid rgba(143, 159, 174, 0.5);
@@ -101,13 +123,16 @@ p {
 }
 
 /* Styles for display tabs -----------------------------------------------------*/
-.recipeDisplayTab {
-  padding: 0.5rem 0;
+
+.recipeDisplayTab, .profileDisplayTab {
   display: flex;
-  justify-content: flex-end;
   column-gap: 3rem;
+  justify-content: flex-end;
   border-bottom: 1px solid rgba(143, 159, 174, 0.5);
+  border-top: 1px solid rgba(143, 159, 174, 0.5);
+  padding: 0.5rem 0;
   margin-bottom: 1rem;
+  margin-top: 1rem;
 }
 
 .recipeDisplayTabLink, .profileDisplayTabLink {
@@ -163,5 +188,11 @@ p {
 @media (min-width: 820px) {
   body {
     padding: 0 3rem;
+  }
+
+  .pageBody {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
   }
 }

@@ -105,37 +105,43 @@ export const Home = () => {
     const navigate = useNavigate()
     
     return <section className="pageBody">
+
         <FeedChoice recipes={recipes}
-        display={display}
-        setDisplay={setDisplay}
-        updateRecipesToDisplay={updateRecipesToDisplay}
-        usersFollows={usersFollows} />
-
-        <FilterBar searchTerms={searchTerms} 
-        updateSearchTerms={updateSearchTerms} 
-        setFilteredRecipes={setFilteredRecipes}
-        recipes={recipesToDisplay}
-        onlyRecipesWithTags={onlyRecipesWithTags}
-        updateOnlyRecipesWithTags={updateOnlyRecipesWithTags}
-        onlySearchedRecipes={onlySearchedRecipes}
-        updateOnlySearchedRecipes={updateOnlySearchedRecipes}
-        chosenCategories={chosenCategories}
-        updateChosenCategories={updateChosenCategories} />
-
-        
-        {
-            display === "allPosts"
-                ? <h2 className="discoverFade feedHeader">Discover New Recipes</h2>
-                : <h2 className="myFeedFade feedHeader">Recipes From People You're Following</h2>
-        }
+                display={display}
+                setDisplay={setDisplay}
+                updateRecipesToDisplay={updateRecipesToDisplay}
+                usersFollows={usersFollows} />
         
 
-        
-        <button onClick={ () => navigate("/postrecipe") }>Post a Recipe</button>
-        <RecipeFeed recipes={filteredRecipes} 
-        gastroUserObject={gastroUserObject} 
-        updateMainFeed={fetchRecipes}
-        usersFollows={usersFollows}
-        fetchUsersFollows={fetchUsersFollows} />
+        <div className="feedControl">
+
+            <FilterBar searchTerms={searchTerms}
+                updateSearchTerms={updateSearchTerms}
+                setFilteredRecipes={setFilteredRecipes}
+                recipes={recipesToDisplay}
+                onlyRecipesWithTags={onlyRecipesWithTags}
+                updateOnlyRecipesWithTags={updateOnlyRecipesWithTags}
+                onlySearchedRecipes={onlySearchedRecipes}
+                updateOnlySearchedRecipes={updateOnlySearchedRecipes}
+                chosenCategories={chosenCategories}
+                updateChosenCategories={updateChosenCategories} />
+
+
+            {
+                display === "allPosts"
+                    ? <h2 className="discoverFade feedHeader">Discover New Recipes</h2>
+                    : <h2 className="myFeedFade feedHeader">Recipes From People You're Following</h2>
+            }
+
+
+
+            <button onClick={() => navigate("/postrecipe")}>Post a Recipe</button>
+            <RecipeFeed recipes={filteredRecipes}
+                gastroUserObject={gastroUserObject}
+                updateMainFeed={fetchRecipes}
+                usersFollows={usersFollows}
+                fetchUsersFollows={fetchUsersFollows} />
+
+        </div>
     </section>
 }

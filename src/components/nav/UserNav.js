@@ -1,6 +1,6 @@
 import "./NavBar.css"
 import { DropdownMenu } from "./DropdownMenu"
-import gastroLogo from "../../assets/Chef_black.svg"
+import gastroLogo from "../../assets/Chef_green.svg"
 import { useNavigate } from "react-router-dom"
 
 export const UserNav = ( {currentUser} ) => {
