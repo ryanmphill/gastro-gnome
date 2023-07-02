@@ -11,14 +11,12 @@ export const RecipeFeed = ({recipes, gastroUserObject, updateMainFeed, usersFoll
     {
         recipes.map(
             (recipe) => {
-                const bgImageStyle = {
+                const bgImageStyle = { /*Dynamically set recipe image as background for div element*/
                     '--bg-image': `url(${recipe.image})`,
                 }
 
                 return <section className="recipe" key={`recipe--${recipe.id}`}>
-                    <div className="recipe--imgContainer" style={bgImageStyle}>
-                        
-                        </div>
+                    <div className="recipe--imgContainer" style={bgImageStyle}></div>
                     <div className="recipe--content">
                         <h3><Link className="recipe--header" to={`/recipe/${recipe.id}`}>{recipe.title}</Link></h3>
                         <div>{recipe.description}</div>

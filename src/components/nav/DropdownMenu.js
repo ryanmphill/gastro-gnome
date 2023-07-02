@@ -47,7 +47,7 @@ export const DropdownMenu = ( {currentUser} ) => {
           <img src={gastroHamburger} alt="hamburger menu" id="gastroHamburger"></img>
         </button>
         {isOpen && <>
-            <section className="dropdown-content">
+            <section className="dropdown-content" onClick={toggleDropdown}>
             <Link className="dropdown--link" to="/">Home</Link>
               <Link className="dropdown--link" to={`/userprofile/${currentUser.id}`}>Profile</Link>
               { // Logout button

@@ -110,7 +110,7 @@ export const Profile = () => {
                 {
                     parseInt(selectedUserId) === gastroUserObject.id
                         ? <>My Posts</>
-                        : <>{ownerOfProfile.name}'s Posts</>
+                        : <>Posts</>
                 }
             </button>
 
