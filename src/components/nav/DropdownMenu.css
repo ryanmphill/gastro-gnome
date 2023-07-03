@@ -26,13 +26,14 @@
     transition: all .25s ease-in-out;
   }
 
-  .dropdown-button:hover {
-    transform: scale(1.2) rotate(360deg);
-  }
-
   #gastroHamburger {
     width: 100%;
     margin: 0;
+    transition: all .25s ease-in-out;
+  }
+
+  #gastroHamburger:hover {
+    transform: scale(1.2);
   }
   
   .dropdown-content {

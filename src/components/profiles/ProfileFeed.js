@@ -10,39 +10,47 @@ export const ProfileFeed = ({recipes, gastroUserObject, updateProfileFavs, updat
     {
         recipes.map(
             (recipe) => {
+
+                const bgImageStyle = { /*Dynamically set recipe image as background for div element*/
+                    '--bg-image': `url(${recipe.image})`,
+                }
+
                 return <section className="recipe" key={`recipe--${recipe.id}`}>
-                    <h3><Link className="recipe--header" to={`/recipe/${recipe.id}`}>{recipe.title}</Link></h3>
-                    <div>{recipe.description}</div>
-                    <div className="recipe__userContainer">
-                        <div>Posted by: <Link to={`/userprofile/${recipe?.user?.id}`}>{recipe?.user?.name}</Link></div>
-                        {
-                            gastroUserObject.id !== recipe.userId
-                            && <FollowButton 
-                            gastroUserObject={gastroUserObject}
-                            userToFollowId={recipe.userId}
-                            usersFollows={usersFollows}
-                            fetchUsersFollows={fetchUsersFollows} />
-                        }
+                    <div className="recipe--imgContainer" style={bgImageStyle}></div>
+                    <div className="recipe--content">
+                        <h3><Link className="recipe--header" to={`/recipe/${recipe.id}`}>{recipe.title}</Link></h3>
+                        <div>{recipe.description}</div>
+                        <div className="recipe__userContainer">
+                            <div>Posted by: <Link to={`/userprofile/${recipe?.user?.id}`}>{recipe?.user?.name}</Link></div>
+                            {
+                                gastroUserObject.id !== recipe.userId
+                                && <FollowButton
+                                    gastroUserObject={gastroUserObject}
+                                    userToFollowId={recipe.userId}
+                                    usersFollows={usersFollows}
+                                    fetchUsersFollows={fetchUsersFollows} />
+                            }
+                        </div>
+                        <footer className="recipe--footer">
+                            {
+                                gastroUserObject.id === recipe.userId
+                                    ? <div className="recipe__button-group">
+                                        <button className="btn-secondary btn-group-left"
+                                            onClick={(evt) => {
+                                                evt.preventDefault()
+                                                navigate(`/recipe/${recipe.id}/edit/${recipe.userId}`)
+                                            }}
+                                        >Edit</button>
+
+                                        <DeleteRecipe recipeId={recipe.id}
+                                            recipeIngredients={recipe.ingredientsInRecipes}
+                                            recipeCategories={recipe.categoriesOfRecipes}
+                                            updateProfileFeed={updateProfileFeed} />
+                                    </div>
+                                    : <FavoriteButton recipe={recipe} updateProfileFavs={updateProfileFavs} />
+                            }
+                        </footer>
                     </div>
-                    <footer>
-                        {
-                            gastroUserObject.id === recipe.userId
-                            ? <>
-                            <button
-                                onClick={(evt) => {
-                                    evt.preventDefault()
-                                    navigate(`/recipe/${recipe.id}/edit/${recipe.userId}`)
-                                }}
-                            >Edit</button>
-                            
-                            <DeleteRecipe recipeId={recipe.id}
-                                recipeIngredients={recipe.ingredientsInRecipes}
-                                recipeCategories={recipe.categoriesOfRecipes}
-                                updateProfileFeed={updateProfileFeed} />
-                            </>
-                            : <FavoriteButton recipe={recipe} updateProfileFavs={updateProfileFavs} />
-                        }
-                    </footer>
                 </section>
             }
         )

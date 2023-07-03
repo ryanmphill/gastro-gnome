@@ -98,7 +98,7 @@ export const Profile = () => {
     const navigate = useNavigate()
     
     return <section className="pageBody">
-        <h2>{ownerOfProfile.name}</h2>
+        <h2 className="myFeedFade feedHeader">{ownerOfProfile.name}</h2>
         
         <div className="profileDisplayTab">
             <button className={`profileDisplayTabLink profileDisplayTab--hoverEffect underline-effect ${postsToDisplay === "selectedUsersPosts" && display === "posts" ? 'active' : ''}`}
@@ -110,7 +110,7 @@ export const Profile = () => {
                 {
                     parseInt(selectedUserId) === gastroUserObject.id
                         ? <>My Posts</>
-                        : <>{ownerOfProfile.name}'s Posts</>
+                        : <>Posts</>
                 }
             </button>
 
@@ -137,7 +137,22 @@ export const Profile = () => {
         {
             display === "posts"
             && <>
-                <h2>Recipe List</h2>
+                {
+                    postsToDisplay === "selectedUsersPosts" && parseInt(selectedUserId) === gastroUserObject.id
+                        && <h2 className="myFeedFade feedHeader">Recipes I've Posted</h2>
+                }
+                {
+                    postsToDisplay === "selectedUsersPosts" && parseInt(selectedUserId) !== gastroUserObject.id
+                        && <h2 className="myFeedFade feedHeader">Recipes {ownerOfProfile.name} Has Posted</h2>
+                }
+                {
+                    postsToDisplay === "thisUsersFavorites" && parseInt(selectedUserId) === gastroUserObject.id
+                        && <h2 className="myFeedFade feedHeader">My Favorite Recipes</h2>
+                }
+                {
+                    postsToDisplay === "thisUsersFavorites" && parseInt(selectedUserId) !== gastroUserObject.id
+                        && <h2 className="myFeedFade feedHeader">Recipes {ownerOfProfile.name} Has Favorited</h2>
+                }
 
                 <ProfileFeed recipes={filteredRecipes}
                     gastroUserObject={gastroUserObject}
@@ -151,7 +166,7 @@ export const Profile = () => {
         {
             display === "followers"
             && <>
-            <h2>Followers</h2>
+            <h2 className="myFeedFade feedHeader">Followers</h2>
             <FollowedBy
             selectedUserId={selectedUserId}
             gastroUserObject={gastroUserObject}
@@ -163,7 +178,7 @@ export const Profile = () => {
         {
             display === "following"
             && <>
-            <h2>Following</h2>
+            <h2 className="myFeedFade feedHeader">Following</h2>
             <Following
             followArray={ownerIsFollowing}
             updateFollowArray={fetchUserWithFavs}

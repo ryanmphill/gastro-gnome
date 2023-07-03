@@ -111,12 +111,12 @@ export const DeleteRecipe = ({ recipeId, recipeIngredients, recipeCategories, up
             ? 
                 <div className="confirmation-prompt">
                     <p>Are you sure you want to delete?</p>
-                    <button onClick={(click) => handleDeleteRecipe(click)}>Delete</button>
-                    <button onClick={(click) => handleCancelDelete(click)}>Cancel</button>
+                    <button className="btn-secondary btn-group-left" onClick={(click) => handleDeleteRecipe(click)}>Delete</button>
+                    <button className="btn-secondary btn-group-right" id="btn-cancel-dlt" onClick={(click) => handleCancelDelete(click)}>Cancel</button>
                 </div>
             
             : 
-                <button
+                <button className="btn-secondary btn-group-right"
                     onClick={(click) => handleInitialDeleteClick(click)}
                 >Delete</button>
             
