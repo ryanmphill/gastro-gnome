@@ -31,11 +31,11 @@ export const RecipeFeed = ({recipes, gastroUserObject, updateMainFeed, usersFoll
                                     fetchUsersFollows={fetchUsersFollows} />
                             }
                         </div>
-                        <footer>
+                        <footer className="recipe--footer">
                             {
                                 gastroUserObject.id === recipe.userId
-                                    ? <>
-                                        <button
+                                    ? <div className="recipe__button-group">
+                                        <button className="btn-secondary btn-group-left"
                                             onClick={(evt) => {
                                                 evt.preventDefault()
                                                 navigate(`/recipe/${recipe.id}/edit/${recipe.userId}`)
@@ -46,7 +46,7 @@ export const RecipeFeed = ({recipes, gastroUserObject, updateMainFeed, usersFoll
                                             recipeIngredients={recipe.ingredientsInRecipes}
                                             recipeCategories={recipe.categoriesOfRecipes}
                                             updateMainFeed={updateMainFeed} />
-                                    </>
+                                    </div>
                                     : <FavoriteButton recipe={recipe} />
                             }
                         </footer>

@@ -135,7 +135,7 @@ export const Home = () => {
 
 
 
-            <button onClick={() => navigate("/postrecipe")}>Post a Recipe</button>
+            <button className="btn-primary" onClick={() => navigate("/postrecipe")}>Post a Recipe</button>
             <RecipeFeed recipes={filteredRecipes}
                 gastroUserObject={gastroUserObject}
                 updateMainFeed={fetchRecipes}
