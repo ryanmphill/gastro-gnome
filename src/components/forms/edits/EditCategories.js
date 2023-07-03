@@ -128,7 +128,7 @@ export const EditCategories = ({categoriesToPost, allCategories, categoryToAdd, 
                 </label>
             </div>
         </section>
-        <button
+        <button className="btn-secondary"
             onClick={
                 (event) => {handleAddCategory(event)}
             }

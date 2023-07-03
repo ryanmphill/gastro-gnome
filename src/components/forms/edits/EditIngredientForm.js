@@ -32,7 +32,7 @@ export const EditIngredientForm = ({ initialIngredients, allIngredients, markedF
                                 <div className="addedIngredientRow ingredientToDelete" key={`initialIngDetails1--${initialIngredient.ingredientId}`}>
                                     <span className="flex-column1" key={`matchedIng--${initialIngredient.ingredientId}`}>{matchedIngredient?.name}</span>
                                     <span className="flex-column2" key={`addedQuant--${initialIngredient.ingredientId}`}>{initialIngredient.quantity} {initialIngredient.quantityUnit}</span>
-                                    <span className="flex-column3" key={`removeIngredient--${initialIngredient.ingredientId}`}>
+                                    <span className="flex-column3 deleteStamp" key={`removeIngredient--${initialIngredient.ingredientId}`}>
                                         Marked for Deletion <button
                                             onClick={(click) => {
                                                 click.preventDefault()
@@ -142,7 +142,7 @@ export const EditIngredientForm = ({ initialIngredients, allIngredients, markedF
                     } />
             </div>
         </section>
-        <button
+        <button className="btn-secondary" id="btn--addIngredient"
             onClick={
                 (event) => { 
                     event.preventDefault() 
@@ -151,7 +151,7 @@ export const EditIngredientForm = ({ initialIngredients, allIngredients, markedF
             }
         >Add Ingredient</button>
 
-        <button
+        <button id="btn--showCustom"
             onClick={
                 (e) => {
                     e.preventDefault()

@@ -50,7 +50,7 @@ export const CustomIngredient = ({ allIngredients, fetchList, setAllIngredients,
     }
 
     return <>
-        <div className="form-group ingredientInputs">
+        <div className="form-group ingredientInputs fadeIn">
             <label htmlFor="CustomIngredient_input">Create New Custome Ingredient:</label>
             <input
                 type="text"
@@ -66,11 +66,11 @@ export const CustomIngredient = ({ allIngredients, fetchList, setAllIngredients,
                     }
                 } />
         </div>
-        <button
+        <button className="btn-secondary btn-group-left"
         onClick={(click) => handleCreateCustom(click)}
         >Create Custom Ingredient</button>
 
-        <button
+        <button className="btn-secondary btn-group-right"
         onClick={(e) => {
             e.preventDefault()
             setShowCustom(false)

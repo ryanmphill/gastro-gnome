@@ -17,7 +17,7 @@ const validateQuantityInput = (changeEvent) => {
 
 export const AddIngredientForm = ({includedIngredients, handleRemoveIngredient, allIngredients, ingredientToAdd, updateIngredientToAdd, handleAddIngredient, setShowCustom }) => {
     return <>
-        <div className="addedIngredients">
+        <div className="addedIngredients fadeIn">
             {
                 includedIngredients.length > 0
                 && includedIngredients.map(includedIngredient => {
@@ -41,10 +41,11 @@ export const AddIngredientForm = ({includedIngredients, handleRemoveIngredient, 
         </div>
 
         <section className="ingredientInputContainer">
-            <div className="form-group ingredientInputs">
+            <div className="form-group ingredientSelectContainer ingredientInputs">
                 <label>Choose Ingredient:
                     <Select
                         className="ingredient--control--select"
+                        classNamePrefix="ingredient-select"
                         id="ingredientChoices"
                         options={allIngredients}
                         onChange={(selectedOption) => {
@@ -97,7 +98,7 @@ export const AddIngredientForm = ({includedIngredients, handleRemoveIngredient, 
                     } />
             </div>
         </section>
-        <button
+        <button className="btn-secondary" id="btn--addIngredient"
             onClick={
                 (event) => { 
                     event.preventDefault() 
@@ -105,7 +106,7 @@ export const AddIngredientForm = ({includedIngredients, handleRemoveIngredient, 
                 }
             }
         >Add Ingredient</button>
-        <button
+        <button id="btn--showCustom"
             onClick={
                 (e) => {
                     e.preventDefault()
