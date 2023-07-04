@@ -69,7 +69,7 @@ export const RecipeCard = () => {
     
     
     return <article className="recipeDetails">
-        <header>
+        <header className="recipeDetails--header">
             <h1 className="recipeDetails--title">{recipeCard.title}</h1>
         </header>
 
@@ -78,7 +78,7 @@ export const RecipeCard = () => {
                 recipeCard.userId !== gastroUserObject.id
                 ? <div className="recipeDetails_fav"><FavoriteButton recipe={recipeCard} /></div>
                     : <div className="recipeDetails_fav">
-                        <button
+                        <button className="btn-secondary"
                             onClick={(evt) => {
                                 evt.preventDefault()
                                 navigate(`/recipe/${recipeCard.id}/edit/${recipeCard.userId}`)
@@ -88,36 +88,41 @@ export const RecipeCard = () => {
             }
         </section>
 
-        <section>
-            <div>{recipeCard?.genre?.name}</div>
+        <section className="recipeDetails__userInfo">
+            <div><b>{recipeCard?.genre?.name}</b></div>
             <div>Posted by: <Link to={`/userprofile/${recipeCard?.user?.id}`}>{recipeCard?.user?.name}</Link></div>
         </section>
+        <div className="recipeDetails__imageAndTimesContainer">
+            <section className="recipeDetails__imgContainer">
+                <div className="recipeDetails__imgWrapper">
+                    {
+                        recipeCard?.image?.length > 0
+                        && <img className="recipeDetails--img" src={recipeCard.image} alt="recipe" />
+                    }
+                </div>
+            </section>
+            <div className="recipeDetails__timesServingsDescription">
+                <section className="recipeDetails_times">
+                    <div className="recipeDetails_time"><div><b>Prep Time:</b></div>  <div>{recipeCard.prepTime} minutes</div></div>
+                    <div className="recipeDetails_time"><div><b>Cooking Time:</b></div>  <div>{recipeCard.cookTime} minutes</div></div>
+                    <div className="recipeDetails_time"><div><b>Total Time:</b></div>  <div>{recipeCard.prepTime + recipeCard.cookTime} minutes</div></div>
+                </section>
 
-        <section>
-            {
-                recipeCard?.image?.length > 0 
-                && <img src={recipeCard.image} alt="recipe" />
-            }
-        </section>
+                <section className="recipeDetails__servings">
+                    <div><b>Servings:</b> {recipeCard.servingSize}</div>
+                </section>
 
-        <section className="recipeDetails_times">
-            <div>Prep Time:{recipeCard.prepTime} minutes</div>
-            <div>Cooking Time: {recipeCard.cookTime} minutes</div>
-            <div>Total Time: {recipeCard.prepTime + recipeCard.cookTime} minutes</div>
-        </section>
-
-        <section>
-            <div>Serves {recipeCard.servingSize}</div>
-        </section>
-
-        <section>
-            <div>
-                <h4>Description</h4>
-                <div className="recipeDetails--textblock" >{recipeCard.description}</div>
+                <section>
+                    <div>
+                        <h4>Description</h4>
+                        <div className="recipeDetails--textblock" id="recipeDetails--desc" >{recipeCard.description}</div>
+                    </div>
+                </section>
             </div>
-        </section>
+        </div>
+        
         <section className="IngrNutritionContainer">
-            <div>
+            <div className="recipeDetails__ingredientContainer">
                 <h4>Ingredients</h4>
                 {
                     !ingredientsLoading && !recipeLoading

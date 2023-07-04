@@ -16,9 +16,9 @@ export const RecipeFeed = ({recipes, gastroUserObject, updateMainFeed, usersFoll
                 }
 
                 return <section className="recipe" key={`recipe--${recipe.id}`}>
-                    <div className="recipe--imgContainer" style={bgImageStyle}></div>
+                    <div className="recipe--imgContainer" style={bgImageStyle} onClick={() => navigate(`/recipe/${recipe.id}`)}></div>
                     <div className="recipe--content">
-                        <h3><Link className="recipe--header" to={`/recipe/${recipe.id}`}>{recipe.title}</Link></h3>
+                        <div className="recipe--headerContainer"><h3><Link className="recipe--header" to={`/recipe/${recipe.id}`}>{recipe.title}</Link></h3></div>
                         <div>{recipe.description}</div>
                         <div className="recipe__userContainer">
                             <div>Posted by: <Link to={`/userprofile/${recipe?.user?.id}`}>{recipe?.user?.name}</Link></div>

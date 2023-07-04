@@ -60,13 +60,14 @@ export const Nutrition = ({ recipeTitle, allIngredients, attachedIngredients, re
             if (nutritionIngr.length > 0 && titleToSend.length > 0 && !nutritionLoaded) {
                 console.log("nutritionIngr", nutritionIngr)
                 console.log("recipeTitle", titleToSend)
-                
+                /*
                 fetchNutrition(titleToSend, nutritionIngr).then((data) => {
                     console.log(data)
                     setNutrition(data)
                 })
                 .then(() => setNutritionLoaded(true))
-                
+                */
+               setNutritionLoaded(true)
             }
         },
         [nutritionIngr]
@@ -82,10 +83,10 @@ export const Nutrition = ({ recipeTitle, allIngredients, attachedIngredients, re
             return "-"
           }
     }
-    return <>
+    return <section className="nutriFactsContainer">
         {
             nutritionLoaded &&
-            <section className="nutriFactsContainer">
+            <section className="nutriFactsWrapper">
 
                 <table className="nutriFacts">
                     <thead>
@@ -174,7 +175,7 @@ export const Nutrition = ({ recipeTitle, allIngredients, attachedIngredients, re
                 </footer>
             </section>
         }
-    </>
+    </section>
     
     
     
