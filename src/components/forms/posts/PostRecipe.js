@@ -250,7 +250,7 @@ export const PostRecipe = () => {
                 </div>
             </fieldset>
 
-            <fieldset className="addIngredients">
+            <fieldset id="addIngredients">
                 <AddIngredients includedIngredients={includedIngredients}
                     allIngredients={allIngredients}
                     ingredientToAdd={ingredientToAdd}

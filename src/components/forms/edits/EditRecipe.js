@@ -301,7 +301,7 @@ export const EditRecipe = () => {
                 </div>
             </fieldset>
 
-            <fieldset className="addIngredients">
+            <fieldset id="addIngredients">
                 <EditIngredients ingredientsToPost={ingredientsToPost}
                     allIngredients={allIngredients}
                     ingredientToAdd={ingredientToAdd}

@@ -258,6 +258,12 @@ p {
   border: 2px solid #eccda5;
 }
 
+.btn-primary-wrapper {
+  position: relative;
+  z-index: 0;
+  display: inline-block;
+}
+
 @media (min-width: 768px) {
   .btn-primary {
     padding: 0 40px;
