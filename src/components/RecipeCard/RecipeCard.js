@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom"
 import { FavoriteButton } from "../PostInteraction/Favorite"
 import "./RecipeDetails.css"
 import { Nutrition } from "./Nutrition"
+import placeholderImg from "../../assets/food-placeholder-medium.svg"
 
 
 export const RecipeCard = () => {
@@ -97,7 +98,8 @@ export const RecipeCard = () => {
                 <div className="recipeDetails__imgWrapper">
                     {
                         recipeCard?.image?.length > 0
-                        && <img className="recipeDetails--img" src={recipeCard.image} alt="recipe" />
+                        ? <img className="recipeDetails--img" src={recipeCard.image} alt="recipe" />
+                        : <img className="recipeDetails--img" src={placeholderImg} alt="recipe" />
                     }
                 </div>
             </section>

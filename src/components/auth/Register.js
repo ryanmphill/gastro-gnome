@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import "./Login.css"
 
 export const Register = (props) => {
@@ -54,34 +54,41 @@ export const Register = (props) => {
     }
 
     return (
-        <main style={{ textAlign: "center" }}>
-            <form className="form--login" onSubmit={handleRegister}>
-                <h1 className="h3 mb-3 font-weight-normal">Please Register for Gastro Gnome</h1>
-                <fieldset>
-                    <label htmlFor="fullName"> Full Name </label>
-                    <input onChange={updateGuest}
-                           type="text" id="fullName" className="form-control"
-                           placeholder="Enter your name" required autoFocus />
-                </fieldset>
-                <fieldset>
-                    <label htmlFor="email"> Email address </label>
-                    <input onChange={updateGuest}
-                        type="email" id="email" className="form-control"
-                        placeholder="Email address" required />
-                </fieldset>
-                <fieldset>
-                    <input onChange={(evt) => {
-                        const copy = {...guest}
-                        copy.isStaff = evt.target.checked
-                        setGuest(copy)
-                    }}
-                        type="checkbox" id="isStaff" />
-                    <label htmlFor="email"> I am an employee </label>
-                </fieldset>
-                <fieldset>
-                    <button type="submit"> Register </button>
-                </fieldset>
-            </form>
+        <main style={{ textAlign: "center" }} className="container--login">
+            <section className="form--login">
+                <form onSubmit={handleRegister}>
+                    <h1 className="h3 mb-3 font-weight-normal login--header">Please Register for Gastro Gnome</h1>
+                    <fieldset>
+                        <label htmlFor="name"> Full Name </label>
+                        <input onChange={updateGuest}
+                            type="text" id="name" className="form-control"
+                            placeholder="Enter your name" required autoFocus />
+                    </fieldset>
+                    <fieldset>
+                        <label htmlFor="email"> Email address </label>
+                        <input onChange={updateGuest}
+                            type="email" id="email" className="form-control"
+                            placeholder="Email address" required />
+                    </fieldset>
+                    <fieldset>
+                        <input onChange={(evt) => {
+                            const copy = { ...guest }
+                            copy.isStaff = evt.target.checked
+                            setGuest(copy)
+                        }}
+                            type="checkbox" id="isStaff" />
+                        <label htmlFor="email"> I am an employee </label>
+                    </fieldset>
+                    <fieldset>
+                        <div className="btn-primary-wrapper">
+                            <button type="submit" className="btn-primary btn--login"> Register </button>
+                        </div>
+                    </fieldset>
+                </form>
+                <section className="link--register">
+                    <Link to="/login">Return to Login</Link>
+                </section>
+            </section>
         </main>
     )
 }

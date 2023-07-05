@@ -30,10 +30,10 @@ export const Login = () => {
 
     return (
         <main className="container--login">
-            <section>
-                <form className="form--login" onSubmit={handleLogin}>
-                    <h1>Gastro Gnome</h1>
-                    <h2>Please sign in</h2>
+            <section className="form--login">
+                <form onSubmit={handleLogin}>
+                    <h1 className="login--header">Gastro Gnome</h1>
+                    <h2 className="login--header">Please sign in</h2>
                     <fieldset>
                         <label htmlFor="inputEmail"> Email address </label>
                         <input type="email"
@@ -45,15 +45,18 @@ export const Login = () => {
                             required autoFocus />
                     </fieldset>
                     <fieldset>
-                        <button type="submit">
-                            Sign in
-                        </button>
+                        <div className="btn-primary-wrapper">
+                            <button type="submit" className="btn-primary btn--login">
+                                Sign in
+                            </button>
+                        </div>
                     </fieldset>
                 </form>
-            </section>
-            <section className="link--register">
+                <section className="link--register">
                 <Link to="/register">Not a member yet?</Link>
+                </section>
             </section>
+            
         </main>
     )
 }

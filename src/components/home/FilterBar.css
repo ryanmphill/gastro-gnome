@@ -14,7 +14,7 @@
 .btn--search {
     border: 1px solid lightgreen;
     width: 2rem;
-    padding: 0.5;
+    padding: 4px 0.35rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -42,6 +42,7 @@
     border: none;
     width: 35%;
     padding: none;
+    color: #495057;
 }
 
 .chosenCategories {
@@ -90,6 +91,7 @@
     justify-content: space-between;
     background-color: field;
     margin-bottom: 0.25rem;
+    min-height: 32.79px;
 }
 
 #RecipeSearchBar {
