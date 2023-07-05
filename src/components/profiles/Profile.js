@@ -24,7 +24,8 @@ export const Profile = () => {
     const fetchRecipes = () => {
         fetch(`http://localhost:8088/recipeCards?_expand=user&_embed=ingredientsInRecipes&_embed=categoriesOfRecipes`)
             .then(response => response.json())
-            .then((recipeArray) => {
+            .then((fetchedArray) => {
+                const recipeArray = fetchedArray.reverse()
                 setRecipes(recipeArray)
             })
     }

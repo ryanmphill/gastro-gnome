@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { DeleteRecipe } from "../PostInteraction/DeleteRecipe"
 import { FavoriteButton } from "../PostInteraction/Favorite"
 import { FollowButton } from "../PostInteraction/FollowUser"
+import placeholderImg from "../../assets/food-placeholder-medium.svg"
 
 
 export const ProfileFeed = ({recipes, gastroUserObject, updateProfileFavs, updateProfileFeed, usersFollows, fetchUsersFollows}) => {
@@ -10,9 +11,9 @@ export const ProfileFeed = ({recipes, gastroUserObject, updateProfileFavs, updat
     {
         recipes.map(
             (recipe) => {
-
+                const recipeCardImg = recipe.image.length > 0 ? recipe.image : placeholderImg
                 const bgImageStyle = { /*Dynamically set recipe image as background for div element*/
-                    '--bg-image': `url(${recipe.image})`,
+                    '--bg-image': `url(${recipeCardImg})`,
                 }
 
                 return <section className="recipe" key={`recipe--${recipe.id}`}>
