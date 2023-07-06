@@ -29,7 +29,8 @@ export const ProfileFeed = ({recipes, gastroUserObject, updateProfileFavs, updat
                                     gastroUserObject={gastroUserObject}
                                     userToFollowId={recipe.userId}
                                     usersFollows={usersFollows}
-                                    fetchUsersFollows={fetchUsersFollows} />
+                                    fetchUsersFollows={fetchUsersFollows}
+                                    updateProfileFollowList={updateProfileFavs} />
                             }
                         </div>
                         <footer className="recipe--footer">
