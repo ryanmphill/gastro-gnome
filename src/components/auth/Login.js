@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom"
 import "./Login.css"
+import gastroLogo from "../../assets/Chef_green.svg"
 
 export const Login = () => {
     const [email, set] = useState("fbaggins@shire.net")
@@ -32,8 +33,15 @@ export const Login = () => {
         <main className="container--login">
             <section className="form--login">
                 <form onSubmit={handleLogin}>
-                    <h1 className="login--header">Gastro Gnome</h1>
-                    <h2 className="login--header">Please sign in</h2>
+                    <section className="login--headerContainer">
+                        <div className="login--logoContainer">
+                            <img className="login--logo" src={gastroLogo} alt="Logo"></img>
+                        </div>
+                        <div className="login--headerFlex">
+                            <h1 className="login--header">Gastro Gnome</h1>
+                            <h2 className="login--header" id="pleaseSignIn">Please sign in</h2>
+                        </div>
+                    </section>
                     <fieldset>
                         <label htmlFor="inputEmail"> Email address </label>
                         <input type="email"
