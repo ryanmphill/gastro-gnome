@@ -172,7 +172,8 @@ export const Profile = () => {
             selectedUserId={selectedUserId}
             gastroUserObject={gastroUserObject}
             currentUsersFollows={currentUsersFollows}
-            fetchUsersFollows={fetchUsersFollows} />
+            fetchUsersFollows={fetchUsersFollows}
+            updateFollowArray={fetchUserWithFavs} />
             </>
         }
 

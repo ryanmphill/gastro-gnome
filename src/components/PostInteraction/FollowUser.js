@@ -59,6 +59,9 @@ export const FollowButton = ({ gastroUserObject, userToFollowId, usersFollows, f
             .then(() => {
                 // Update the user's list of follows state
                 fetchUsersFollows()
+                if (viewingProfile && updateProfileFollowList) {
+                    updateProfileFollowList()
+                }
             })
             .catch(error => {
                 console.error("An error occurred:", error);

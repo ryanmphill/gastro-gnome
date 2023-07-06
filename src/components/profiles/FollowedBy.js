@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { FollowButton } from "../PostInteraction/FollowUser"
 
 
-export const FollowedBy = ({ selectedUserId, gastroUserObject, currentUsersFollows, fetchUsersFollows }) => {
+export const FollowedBy = ({ selectedUserId, gastroUserObject, currentUsersFollows, fetchUsersFollows, updateFollowArray }) => {
     // Set a state variable for the user's follows
     const [profileOwnersFollowers, updateProfileOwnersFollowers] = useState([])
 
@@ -35,7 +35,8 @@ export const FollowedBy = ({ selectedUserId, gastroUserObject, currentUsersFollo
                                 gastroUserObject={gastroUserObject}
                                 userToFollowId={followObj?.user?.id}
                                 usersFollows={currentUsersFollows}
-                                fetchUsersFollows={fetchUsersFollows} />
+                                fetchUsersFollows={fetchUsersFollows}
+                                updateProfileFollowList={updateFollowArray} />
                               }  
                            </div>
                 })
