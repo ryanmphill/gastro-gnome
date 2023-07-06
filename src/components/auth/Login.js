@@ -61,7 +61,7 @@ export const Login = () => {
                     </fieldset>
                 </form>
                 <section className="link--register">
-                <Link to="/register">Not a member yet?</Link>
+                <Link to="/register">Create an Account</Link>
                 </section>
             </section>
             
