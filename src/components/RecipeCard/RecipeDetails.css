@@ -4,7 +4,13 @@
     padding: 1rem;
     margin-top: 0.5rem;
     background-image: linear-gradient(45deg, #c8d3bc 0%, #edf4e4  51%, #c7d3b9  100%);
+    animation: detailsFade 0.75s;
 }
+
+@keyframes detailsFade {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
 
 .recipeDetails--topContainer {
     display: flex;
