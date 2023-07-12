@@ -94,7 +94,7 @@ export const FilterByCategories = ({ recipes, searchTerms, updateOnlyRecipesWith
                 updateOnlyRecipesWithTags([])
                 setFilteredRecipes(onlySearchedRecipes)
 
-            // else, set recipe feed to default
+            // else, if no categories selected and no search entered, set recipe feed to default
             } else {
                 updateOnlyRecipesWithTags([])
                 setFilteredRecipes(recipes)

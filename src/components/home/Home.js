@@ -15,10 +15,10 @@ export const Home = () => {
     const [recipes, setRecipes] = useState([]) // Observing initial state []
 
     /* State for which posts to display at the broadest level. User can choose
-       'discover', which shows all posts, or 'my feed' which shows posts from 
-       only users the current user is 'following' */
+       'discover', which shows 'allPosts', or 'my feed' which shows 'postsFollowed' - 
+       posts from only users the current user is 'following' */
     const [display, setDisplay] = useState("allPosts") 
-    // State for recipes that will be displayed based on users selection of display
+    // State for recipes that will be displayed based on users selection of 'display'
     const [recipesToDisplay, updateRecipesToDisplay] = useState([])
     // State for recipes filtered by either searching or filtering by category
 
@@ -55,28 +55,7 @@ export const Home = () => {
         },
         [] // When this array is empty, you are observing initial component state
     )
-    /*---------------------------------------------------------------------------------------------------------*/
-    
-    /* Set the filtered recipes to default upon initial render AND every time the search input is cancellled out.
-       Filtering by search is mostly handled by click, but it is necessary to observe when the entire search query
-       is cleared. If the search is removed but category filters are still in place, set the filteredRecipes to only 
-       those filtered by category. Since the category tags being selected and unselected are already being observed in
-       a separate useEffect() in the FilterByCategories component, that useEffect() will handle updating the 
-       filteredRecipes when chosen category state changes.    */
-    useEffect(
-        () => {
-            if (searchTerms === "" && chosenCategories.length === 0) {
-                setFilteredRecipes(recipesToDisplay)
-            }
-            if (searchTerms === "" && chosenCategories.length > 0) {
-                setFilteredRecipes(onlyRecipesWithTags)
-            }
-        },
-        [recipesToDisplay, searchTerms, onlyRecipesWithTags] 
-        /*Observe recipesToDisplay for initial render and for when display changes, observe search terms
-          to update when input is cleared, and observe onlyRecipesWithTags to update with the most current
-          recipes filtered based on category tag selection */
-    )
+    /*-----------------------------------------------------------------------------------------------------*/
 
     /*-----------------------------------------------------------------------------------------------------*/
     // Maintain 'follows' state here so that all listed recipes are updated when user is followed/unfollowed

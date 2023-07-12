@@ -2,7 +2,8 @@ import { useEffect } from "react"
 
 
 export const FeedChoice = ({ recipes, display, setDisplay, updateRecipesToDisplay, usersFollows }) => {
-
+    
+    // Show only posts from users being followed when 'my feed' tab is toggled
     useEffect(
         () => {
             if (display === "allPosts") {
