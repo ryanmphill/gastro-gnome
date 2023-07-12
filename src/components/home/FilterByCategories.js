@@ -51,14 +51,16 @@ export const FilterByCategories = ({ recipes, searchTerms, updateOnlyRecipesWith
         [chosenCategoryType]
     )
 
-    // Update filtered recipes when a category tag is chosen
+    /* Update filtered recipes when a category tag is chosen so that only recipes that match
+       ALL chosen categories are displayed. On initial render and if no categories or search entered,
+       set recipe list to default. */
     useEffect(
         () => {
             // If categories selected but no search entered, filter through original recipe list
             if (chosenCategories.length > 0 && searchTerms === "") {
                 const matchingRecipes = recipes.filter(recipe =>
-                    recipe.categoriesOfRecipes.some(category =>
-                        chosenCategories.some(chosenCategory =>
+                    chosenCategories.every(chosenCategory =>
+                        recipe.categoriesOfRecipes.some(category =>
                             chosenCategory.id === category.categoryId
                         )
                     )
@@ -69,8 +71,8 @@ export const FilterByCategories = ({ recipes, searchTerms, updateOnlyRecipesWith
             } else if (chosenCategories.length > 0 && searchTerms !== "") {
                 // Filter through searched recipes
                 const searchedAndFilteredRecipes = onlySearchedRecipes.filter(recipe =>
-                    recipe.categoriesOfRecipes.some(category =>
-                        chosenCategories.some(chosenCategory =>
+                    chosenCategories.every(chosenCategory =>
+                        recipe.categoriesOfRecipes.some(category =>
                             chosenCategory.id === category.categoryId
                         )
                     )
@@ -78,8 +80,8 @@ export const FilterByCategories = ({ recipes, searchTerms, updateOnlyRecipesWith
                 /* Also filter through original recipe list to preserve a filtered by categories state 
                    so that the search terms can be changed and stacked ontop of the selected categories to filter by*/
                 const justFilteredRecipes = recipes.filter(recipe =>
-                    recipe.categoriesOfRecipes.some(category =>
-                        chosenCategories.some(chosenCategory =>
+                    chosenCategories.every(chosenCategory =>
+                        recipe.categoriesOfRecipes.some(category =>
                             chosenCategory.id === category.categoryId
                         )
                     )
