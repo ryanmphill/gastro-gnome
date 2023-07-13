@@ -135,6 +135,7 @@ export const FilterByCategories = ({ recipes, searchTerms, updateOnlyRecipesWith
             <Select
                 className="filterBar__categorySelect"
                 id="filterByCategories"
+                classNamePrefix="categorySelect"
                 options={filteredCategories}
                 onChange={(selectedOption) => {
                     handleSelectedCategory(selectedOption)
@@ -142,39 +143,6 @@ export const FilterByCategories = ({ recipes, searchTerms, updateOnlyRecipesWith
                 getOptionLabel={(option) => option.name}
                 getOptionValue={(option) => option.id}
                 placeholder="Select a Category"
-                styles={{
-                    container: base => ({
-                        ...base,
-                        flex: 1,
-                        height: '100%',
-                        minHeight: '100%',
-                    }),
-                    control: (baseStyles, state) => ({
-                        ...baseStyles,
-                        border: 0,
-                        flexBasis: '100%',
-                        padding: 0,
-                        minHeight: '100%',
-                    }),
-                    valueContainer: base => ({
-                        ...base,
-                        height: '100%',
-                        minHeight: '100%',
-                    }),
-                    dropdownIndicator: base => ({
-                        ...base,
-                        padding: 4
-                    }),
-                    clearIndicator: base => ({
-                        ...base,
-                        padding: 4
-                    }),
-                    input: base => ({
-                        ...base,
-                        margin: 0,
-                        padding: 0
-                    })
-                }}
             />
         </div>
     </>
