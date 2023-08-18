@@ -40,10 +40,6 @@ export const DeleteRecipe = ({ recipeId, recipeIngredients, recipeCategories, up
         });
     
         return Promise.all(promises)
-          .then((results) => {
-            console.log(results);
-            return results;
-          })
           .catch((error) => {
             console.error(error);
             throw error;
@@ -77,9 +73,7 @@ export const DeleteRecipe = ({ recipeId, recipeIngredients, recipeCategories, up
             },
           })
             .then((response) => {
-              if (response.ok) {
-                return response.json();
-              } else {
+              if (!response.ok) {
                 throw new Error('Unable to delete recipe');
               }
             })
