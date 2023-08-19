@@ -113,7 +113,7 @@ export const EditRecipe = () => {
     )
 
     ////////////////////////////////////////////////////////////////////////////////////
-    // Handle the post recipe click ////////////////////////////////////////////////////
+    // Handle the edit recipe click ////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////
     const handleEditRecipeClick = (event) => {
         event.preventDefault()
@@ -133,7 +133,6 @@ export const EditRecipe = () => {
           
             return Promise.all(promises)
               .then((results) => {
-                console.log(results)
                 return results
               })
               .catch((error) => {
@@ -151,14 +150,9 @@ export const EditRecipe = () => {
                   'Content-Type': 'application/json',
                 }
               })
-              .then((response) => response.json())
             });
           
             return Promise.all(promises)
-              .then((results) => {
-                console.log(results)
-                return results
-              })
               .catch((error) => {
                 console.error(error)
                 throw error
@@ -179,51 +173,33 @@ export const EditRecipe = () => {
                 body: JSON.stringify(recipe)
             })
                 .then(response => {
-                    if (response.ok) {
-                        return response.json(); // Await the response.json() Promise
-                    } else {
-                        throw new Error("Unable to edit recipe")
+                    if (!response.ok) {
+                        throw new Error("Unable to edit recipe");
                     }
                 })
-                .then(editedRecipeObject => {
-                    console.log("Recipe successfully edited", editedRecipeObject)
+                .then(() => {
                     // Delete Ingredients
                     if (ingredientsToDelete.length > 0) {
                         return deleteRelationships(ingredientsToDelete, "ingredientsInRecipes")
-                    } else {
-                        return null
-                    }
+                    } 
                 })
-                .then(deletedIng => {
-                    deletedIng && console.log("Ingredients deleted", deletedIng)
+                .then(() => {
                     // Delete Categories
                     if (categoriesToDelete.length > 0) {
                         return deleteRelationships(categoriesToDelete, "categoriesOfRecipes")
-                    } else {
-                        return null
-                    }
+                    } 
                 })
-                .then(deletedCat => {
-                    deletedCat && console.log("Categories deleted", deletedCat)
+                .then(() => {
                     // Post ingredient relationships
                     if (ingredientsToPost.length > 0) {
                         return postRelationships(ingredientsToPost, "ingredientsInRecipes")
-                    } else {
-                        return null
-                    }
+                    } 
                 })
-                .then(ingredientArr => {
-                    ingredientArr && console.log("Ingredients added", ingredientArr)
+                .then(() => {
                     // Post categories
                     if (categoriesToPost.length > 0) {
                         return postRelationships(categoriesToPost, "categoriesOfRecipes")
-                    } else {
-                        return null
-                    }
-                })
-                .then(categoryArr => {
-                    categoryArr && console.log("Categories added", categoryArr)
-                    console.log("All fetch calls completed")
+                    } 
                 })
                 .then(() => {
                     // Navigate user to previous page

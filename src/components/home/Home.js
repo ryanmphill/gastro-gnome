@@ -14,32 +14,19 @@ export const Home = () => {
     // State for all recipes
     const [recipes, setRecipes] = useState([]) // Observing initial state []
 
-    /* State for which posts to display at the broadest level. User can choose
-       'discover', which shows all posts, or 'my feed' which shows posts from 
-       only users the current user is 'following' */
-    const [display, setDisplay] = useState("allPosts") 
-    // State for recipes that will be displayed based on users selection of display
-    const [recipesToDisplay, updateRecipesToDisplay] = useState([])
-    // State for recipes filtered by either searching or filtering by category
 
-    /*--FILTER-OPTIONS--------------------------------------------------------------------------*/ 
+    /*--FILTER-OPTIONS--------------------------------------------------------------------------*/
+    /* State for which posts to display at the broadest level. User can choose
+       'discover', which shows 'allPosts', or 'my feed' which shows 'postsFollowed' - 
+       posts from only users the current user is 'following' */
+    const [display, setDisplay] = useState("allPosts") 
+    // State for recipes that will be displayed based on users selection of 'display'
+    const [recipesToDisplay, updateRecipesToDisplay] = useState([])
     // State to allow recipes to be filtered by search query or by selected category tag
     const [filteredRecipes, setFilteredRecipes] = useState([])
-    // State to track user input in search bar
-    const [searchTerms, updateSearchTerms] = useState("")
-    // State to keep track of all selected categories the user wants to use to filter recipe feed
-    const [chosenCategories, updateChosenCategories] = useState([])
-
-    /*  Define additional state variables to allow users to stack and unstack filtering options.
-        Once the 'recipesToDisplay' is set, separate state will be preserved for filtering by search
-        query and filtering by category tag. This will allow the user remove their search and still
-        view filtered recipes based on category, or remove the selected category filters and still
-        view results based on their search. */
-    const [onlyRecipesWithTags, updateOnlyRecipesWithTags] = useState([])
-    const [onlySearchedRecipes, updateOnlySearchedRecipes] = useState([])
     /*-------------------------------------------------------------------------------------------*/
 
-    /*---------------------------------------------------------------------------------------------------------*/
+    /*-GET RECIPES FETCH CALL-------------------------------------------------------------------------------*/
     // Fetch the list of recipes with user info expanded and ingredients and categories embedded
     const fetchRecipes = () => {
         fetch(`http://localhost:8088/recipeCards?_expand=user&_embed=ingredientsInRecipes&_embed=categoriesOfRecipes`)
@@ -55,30 +42,9 @@ export const Home = () => {
         },
         [] // When this array is empty, you are observing initial component state
     )
-    /*---------------------------------------------------------------------------------------------------------*/
-    
-    /* Set the filtered recipes to default upon initial render AND every time the search input is cancellled out.
-       Filtering by search is mostly handled by click, but it is necessary to observe when the entire search query
-       is cleared. If the search is removed but category filters are still in place, set the filteredRecipes to only 
-       those filtered by category. Since the category tags being selected and unselected are already being observed in
-       a separate useEffect() in the FilterByCategories component, that useEffect() will handle updating the 
-       filteredRecipes when chosen category state changes.    */
-    useEffect(
-        () => {
-            if (searchTerms === "" && chosenCategories.length === 0) {
-                setFilteredRecipes(recipesToDisplay)
-            }
-            if (searchTerms === "" && chosenCategories.length > 0) {
-                setFilteredRecipes(onlyRecipesWithTags)
-            }
-        },
-        [recipesToDisplay, searchTerms, onlyRecipesWithTags] 
-        /*Observe recipesToDisplay for initial render and for when display changes, observe search terms
-          to update when input is cleared, and observe onlyRecipesWithTags to update with the most current
-          recipes filtered based on category tag selection */
-    )
-
     /*-----------------------------------------------------------------------------------------------------*/
+
+    /*-GET CURRENT USER'S FOLLOW DATA-----------------------------------------------------------------------*/
     // Maintain 'follows' state here so that all listed recipes are updated when user is followed/unfollowed
     // Set a state variable for the user's follows
     const [usersFollows, updateUsersFollows] = useState([])
@@ -105,6 +71,8 @@ export const Home = () => {
     // Assign a variable to useNavigate()
     const navigate = useNavigate()
     
+    /* Render discover/my-feed tab, filter bar for searching/filtering by category, post recipe button,
+       and recipe feed */
     return <section className="pageBody">
 
         <FeedChoice recipes={recipes}
@@ -116,16 +84,8 @@ export const Home = () => {
 
         <div className="feedControl">
 
-            <FilterBar searchTerms={searchTerms}
-                updateSearchTerms={updateSearchTerms}
-                setFilteredRecipes={setFilteredRecipes}
-                recipes={recipesToDisplay}
-                onlyRecipesWithTags={onlyRecipesWithTags}
-                updateOnlyRecipesWithTags={updateOnlyRecipesWithTags}
-                onlySearchedRecipes={onlySearchedRecipes}
-                updateOnlySearchedRecipes={updateOnlySearchedRecipes}
-                chosenCategories={chosenCategories}
-                updateChosenCategories={updateChosenCategories} />
+            <FilterBar setFilteredRecipes={setFilteredRecipes}
+                recipes={recipesToDisplay} />
 
 
             {

@@ -160,14 +160,6 @@
     box-shadow: -1px 1px 5px rgba(43, 46, 46, 0.20);
     border-radius: 10px;
 }
-
-.ingredient-select__container {
-    flex: 1;
-}
-
-.ingredient-select__control {
-    flex-basis: 100%;
-}
 /*----------------------------------------------------------------------*/
 #categoryChoices {
     width: 100%;

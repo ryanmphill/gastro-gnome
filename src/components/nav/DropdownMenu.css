@@ -3,16 +3,7 @@
     display: inline-block;
     min-width: 160px;
   }
-  /*
-  .dropdown-button {
-    background-color: #fff;
-    border: none;
-    color: #000;
-    padding: 8px 16px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  */
+  
   .dropdown-button {
     margin-left: auto;
     width: 2rem;
@@ -63,3 +54,9 @@
     background-color: #f1f1f1;
   }
   
+  /*Desktop View------------------------------------------------------------------*/
+@media (min-width: 420px) {
+  .dropdown-button {
+    width: 2.1rem;
+  }
+}

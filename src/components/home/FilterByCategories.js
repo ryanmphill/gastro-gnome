@@ -51,14 +51,16 @@ export const FilterByCategories = ({ recipes, searchTerms, updateOnlyRecipesWith
         [chosenCategoryType]
     )
 
-    // Update filtered recipes when a category tag is chosen
+    /* Update filtered recipes when a category tag is chosen so that only recipes that match
+       ALL chosen categories are displayed. On initial render and if no categories or search entered,
+       set recipe list to default. */
     useEffect(
         () => {
             // If categories selected but no search entered, filter through original recipe list
             if (chosenCategories.length > 0 && searchTerms === "") {
                 const matchingRecipes = recipes.filter(recipe =>
-                    recipe.categoriesOfRecipes.some(category =>
-                        chosenCategories.some(chosenCategory =>
+                    chosenCategories.every(chosenCategory =>
+                        recipe.categoriesOfRecipes.some(category =>
                             chosenCategory.id === category.categoryId
                         )
                     )
@@ -69,8 +71,8 @@ export const FilterByCategories = ({ recipes, searchTerms, updateOnlyRecipesWith
             } else if (chosenCategories.length > 0 && searchTerms !== "") {
                 // Filter through searched recipes
                 const searchedAndFilteredRecipes = onlySearchedRecipes.filter(recipe =>
-                    recipe.categoriesOfRecipes.some(category =>
-                        chosenCategories.some(chosenCategory =>
+                    chosenCategories.every(chosenCategory =>
+                        recipe.categoriesOfRecipes.some(category =>
                             chosenCategory.id === category.categoryId
                         )
                     )
@@ -78,8 +80,8 @@ export const FilterByCategories = ({ recipes, searchTerms, updateOnlyRecipesWith
                 /* Also filter through original recipe list to preserve a filtered by categories state 
                    so that the search terms can be changed and stacked ontop of the selected categories to filter by*/
                 const justFilteredRecipes = recipes.filter(recipe =>
-                    recipe.categoriesOfRecipes.some(category =>
-                        chosenCategories.some(chosenCategory =>
+                    chosenCategories.every(chosenCategory =>
+                        recipe.categoriesOfRecipes.some(category =>
                             chosenCategory.id === category.categoryId
                         )
                     )
@@ -94,7 +96,7 @@ export const FilterByCategories = ({ recipes, searchTerms, updateOnlyRecipesWith
                 updateOnlyRecipesWithTags([])
                 setFilteredRecipes(onlySearchedRecipes)
 
-            // else, set recipe feed to default
+            // else, if no categories selected and no search entered, set recipe feed to default
             } else {
                 updateOnlyRecipesWithTags([])
                 setFilteredRecipes(recipes)
@@ -133,6 +135,7 @@ export const FilterByCategories = ({ recipes, searchTerms, updateOnlyRecipesWith
             <Select
                 className="filterBar__categorySelect"
                 id="filterByCategories"
+                classNamePrefix="categorySelect"
                 options={filteredCategories}
                 onChange={(selectedOption) => {
                     handleSelectedCategory(selectedOption)
@@ -140,39 +143,6 @@ export const FilterByCategories = ({ recipes, searchTerms, updateOnlyRecipesWith
                 getOptionLabel={(option) => option.name}
                 getOptionValue={(option) => option.id}
                 placeholder="Select a Category"
-                styles={{
-                    container: base => ({
-                        ...base,
-                        flex: 1,
-                        height: '100%',
-                        minHeight: '100%',
-                    }),
-                    control: (baseStyles, state) => ({
-                        ...baseStyles,
-                        border: 0,
-                        flexBasis: '100%',
-                        padding: 0,
-                        minHeight: '100%',
-                    }),
-                    valueContainer: base => ({
-                        ...base,
-                        height: '100%',
-                        minHeight: '100%',
-                    }),
-                    dropdownIndicator: base => ({
-                        ...base,
-                        padding: 4
-                    }),
-                    clearIndicator: base => ({
-                        ...base,
-                        padding: 4
-                    }),
-                    input: base => ({
-                        ...base,
-                        margin: 0,
-                        padding: 0
-                    })
-                }}
             />
         </div>
     </>

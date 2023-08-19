@@ -1,70 +1,91 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Gastro Gnome
 
-## Available Scripts
+Gastro Gnome is an application intended for the true _gastronomes_ where users can discover, collect, and share their favorite recipes using an intuitive and user friendly platform. The application is built with full CRUD functionality, makes use of React hooks to manage application state, and interfaces with a third party API to display a nutrition profile for each recipe.
 
-In the project directory, you can run:
+![Home page view](public/screenCaptures/gastro-scrnsht-home.png)
 
-### `npm start`
+![Home page view](public/screenCaptures/gastro-scrnsht-m.png)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Primary Features
+Users can:
+ - Add recipes to their "favorites"
+ - Follow users they want to keep track of
+ - Toggle between viewing all recipes or viewing only recipes from    people they follow
+ - Search for recipes and authors by name
+ - Filter recipes by over 100 options to choose from
+ - View their own posts, their favorite posts, users they follow, and  users following them on their profile
+ - Automatically view the nutritional content of any recipe posted on the application via a 3rd party API.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+ ## Installations and Getting Started
 
-### `npm test`
+1.  Install dependencies for React in the gastro-gnome directory:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    ```bash
+    npm install
+    ```
 
-### `npm run build`
+2.  Next, pull down the repository for the server
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    ```bash
+    git clone git@github.com:ryanmphill/gastro-gnome-api.git
+    ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3.  This project uses **json-server** as a mock REST API for the client to interact with. Prior to using json-server, you will need to verify that Node.js and npm are installed and up to date on your system. Then, in the gastro-gnome-api directory run this command:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    ```bash
+    npm install json-server
+    ```
 
-### `npm run eject`
+    The client will be making requests to port 8088. Verify that the mock server starts up by running this command:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+    ```bash
+    npx json-server database.json -p 8088
+    ```
+    _If json-server is already installed globally on your system, simply run:_
+    ```bash
+    json-server database.json -p 8088
+    ```
+4.  Now you can start up the Gastro Gnome Client by running this command in the gastro-gnome project directory:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    ```bash
+    npm start
+    ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+5.  To sign into the application, simply type in one of the following fake user email addresses:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+    - fbaggins@shire.net
+    - swisegamgee@shire.net
+    - gimli@thorinscompany.com
+    - gdalf0@middleearthstate.edu
 
-## Learn More
+6.  Now you're ready to browse around Gastro Gnome!
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### Having trouble getting started?
+Please reach out to me or open an issue, and I will try to resolve it ASAP.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Main Recipe Feed
 
-### Code Splitting
+![Home page view](public/screenCaptures/gastro-scrnsht-recipelist.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+![Home page view](public/screenCaptures/gastro-scrnsht-recipelist-m.png)
 
-### Analyzing the Bundle Size
+## Recipe
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+![Home page view](public/screenCaptures/gastro-scrnsht-recipe1.png)
 
-### Making a Progressive Web App
+![Home page view](public/screenCaptures/gastro-scrnsht-recipe1-m.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+![Home page view](public/screenCaptures/gastro-scrnsht-recipe2.png)
 
-### Advanced Configuration
+![Home page view](public/screenCaptures/gastro-scrnsht-recipe2-m.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+![Home page view](public/screenCaptures/gastro-scrnsht-recipe3.png)
 
-### Deployment
+![Home page view](public/screenCaptures/gastro-scrnsht-recipe3-m.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## User Profile
 
-### `npm run build` fails to minify
+![Home page view](public/screenCaptures/gastro-scrnsht-profile.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![Home page view](public/screenCaptures/gastro-scrnsht-profile-m.png)

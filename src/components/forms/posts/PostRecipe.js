@@ -167,7 +167,6 @@ export const PostRecipe = () => {
                     }
                 })
                 .then(postedRecipeObject => {
-                    console.log("New recipe successfully created", postedRecipeObject);
                     // update state with new recipe Id
                     const newId = postedRecipeObject.id
                     setNewRecipeResponseId(newId)

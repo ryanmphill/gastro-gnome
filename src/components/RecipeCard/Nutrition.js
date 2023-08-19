@@ -84,7 +84,7 @@ export const Nutrition = ({ recipeTitle, allIngredients, attachedIngredients, re
     }
     return <section className="nutriFactsContainer">
         {
-            nutritionIngr.length > 0 && titleToSend.length &&
+            nutritionIngr.length > 0 && titleToSend.length > 0 &&
             <section className="nutriFactsWrapper">
 
                 <table className="nutriFacts">
