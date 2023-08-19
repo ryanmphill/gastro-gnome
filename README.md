@@ -5,6 +5,8 @@ Gastro Gnome is an application intended for the true _gastronomes_ where users c
 
 ![Home page view](public/screenCaptures/gastro-scrnsht-home.png)
 
+![Home page view](public/screenCaptures/gastro-scrnsht-m.png)
+
 ## Primary Features
 Users can:
  - Add recipes to their "favorites"
@@ -62,8 +64,6 @@ Users can:
 #### Having trouble getting started?
 Please reach out to me or open an issue, and I will try to resolve it ASAP.
 
-![Home page view](public/screenCaptures/gastro-scrnsht-home.png)
-![Home page view](public/screenCaptures/gastro-scrnsht-m.png)
 ## Main Recipe Feed
 
 ![Home page view](public/screenCaptures/gastro-scrnsht-recipelist.png)
